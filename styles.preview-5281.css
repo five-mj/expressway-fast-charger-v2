@@ -1,0 +1,3930 @@
+@font-face {
+  font-family: "Mulmaru";
+  src: url("./assets/fonts/Mulmaru.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Mona10x12";
+  src: url("./assets/fonts/Mona10x12.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Mona10x12";
+  src: url("./assets/fonts/Mona10x12-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Mona12";
+  src: url("./assets/fonts/Mona12-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "NanumSquareNeo";
+  src: url("./assets/fonts/NanumSquareNeoOTF-Eb.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "NanumSquareNeo";
+  src: url("./assets/fonts/NanumSquareNeoOTF-Hv.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: #7fc1fa;
+}
+
+body {
+  min-height: 100vh;
+  display: grid;
+  place-items: start center;
+  overflow-x: hidden;
+  font-family: "Mulmaru", "Malgun Gothic", "Apple SD Gothic Neo", system-ui, sans-serif;
+}
+
+button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+
+
+.is-hidden {
+  display: none !important;
+}
+
+.hero-screen {
+  position: relative;
+  width: min(100vw, 375px);
+  height: 812px;
+  overflow: hidden;
+  background: #7fc1fa;
+  isolation: isolate;
+}
+
+.hero-screen::after {
+  content: "";
+  position: absolute;
+  left: 129px;
+  top: 724px;
+  z-index: 1;
+  width: 118px;
+  height: 67px;
+  background: url("./assets/new/hero/car.png") center / contain no-repeat;
+  pointer-events: none;
+}
+
+.hero-bg {
+  left: 0;
+  top: 0;
+  width: 376px;
+  height: 812px;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hero-sign {
+  position: absolute;
+  left: 0;
+  top: 63px;
+  z-index: 2;
+  width: 375px;
+  height: 179px;
+  background: url("./assets/new/hero/hero-sign-shine-v7.gif") center / 375px 179px no-repeat;
+}
+
+.hero-sign-small {
+  display: none;
+}
+
+.hero-sign strong {
+  display: none;
+}
+
+.hero-sign strong::first-line {
+  color: #fff;
+}
+
+.hero-form {
+  position: absolute;
+  left: 14px;
+  top: 286px;
+  z-index: 50;
+  width: 346px;
+}
+
+.hero-field {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 64px;
+  margin: 0;
+  border: 0;
+  background: url("./assets/new/hero/hero-dropbox-blank.png") center / 347px 64px no-repeat;
+  box-shadow: none;
+}
+
+.hero-field.is-open {
+  z-index: 120;
+}
+
+.hero-field.is-required-shake,
+.hero-field.is-required-shake .hero-select-trigger {
+  animation: heroRequiredShake 420ms steps(2, end);
+}
+
+@keyframes heroRequiredShake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-5px); }
+  30% { transform: translateX(5px); }
+  45% { transform: translateX(-4px); }
+  60% { transform: translateX(4px); }
+  75% { transform: translateX(-2px); }
+}
+
+.hero-field + .hero-arrow + .hero-field {
+  margin-top: 0;
+}
+
+.hero-field > span {
+  position: absolute;
+  left: 67px;
+  top: 9px;
+  color: #1568ea;
+  font-family: "NanumSquareNeo", "Malgun Gothic", sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: -0.6px;
+}
+
+.hero-field::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 10px;
+  width: 44px;
+  height: 44px;
+  background: url("./assets/new/hero/hero-dropbox-start-ic.png") center / contain no-repeat;
+  pointer-events: none;
+}
+
+.hero-field:nth-of-type(2) > span {
+  color: #de285e;
+}
+
+.hero-field:nth-of-type(2)::before {
+  background-image: url("./assets/new/hero/hero-dropbox-end-ic.png");
+}
+
+.hero-field::after {
+  content: "";
+  position: absolute;
+  right: 15px;
+  top: 29px;
+  width: 15px;
+  height: 10px;
+  background: url("./assets/new/hero/hero-dropbox-ic-arrow.png") center / contain no-repeat;
+  pointer-events: none;
+}
+
+.hero-field select {
+  display: none;
+}
+
+.hero-select-trigger {
+  position: absolute;
+  left: 67px;
+  top: 25px;
+  z-index: 2;
+  width: 236px;
+  height: 30px;
+  overflow: hidden;
+  color: #222;
+  font-family: "NanumSquareNeo", "Malgun Gothic", sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: -0.6px;
+  text-align: left;
+  outline: none;
+}
+
+.hero-select-trigger.is-placeholder {
+  width: 230px;
+}
+
+.hero-select-value {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.hero-select-menu {
+  position: absolute;
+  left: 10px;
+  top: 62px;
+  z-index: 140;
+  width: 204px;
+  max-height: 390px;
+  overflow-y: auto;
+  padding: 8px 5px;
+  border: 3px solid #000;
+  background: #fff;
+  box-shadow: none;
+}
+
+.hero-select-menu[hidden] {
+  display: none;
+}
+
+.hero-select-option {
+  display: block;
+  width: 100%;
+  min-height: 42px;
+  padding: 2px 9px;
+  color: #222;
+  background: #fff;
+  font-family: "NanumSquareNeo", "Malgun Gothic", sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.4;
+  letter-spacing: -0.6px;
+  text-align: left;
+}
+
+.hero-select-option:hover,
+.hero-select-option.is-selected {
+  background: #cfe8f8;
+}
+
+.hero-select-menu::-webkit-scrollbar {
+  width: 18px;
+}
+
+.hero-select-menu::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+.hero-select-menu::-webkit-scrollbar-thumb {
+  min-height: 52px;
+  border: 4px solid #fff;
+  border-radius: 9px;
+  background: #8f8f8f;
+}
+
+.hero-select-menu::-webkit-scrollbar-button:single-button {
+  display: block;
+  height: 18px;
+  background: #fff;
+}
+
+.hero-select-menu::-webkit-scrollbar-button:single-button:vertical:decrement {
+  background:
+    linear-gradient(135deg, transparent 50%, #8f8f8f 50%) 3px 7px / 7px 7px no-repeat,
+    linear-gradient(225deg, transparent 50%, #8f8f8f 50%) 8px 7px / 7px 7px no-repeat;
+}
+
+.hero-select-menu::-webkit-scrollbar-button:single-button:vertical:increment {
+  background:
+    linear-gradient(45deg, transparent 50%, #8f8f8f 50%) 3px 4px / 7px 7px no-repeat,
+    linear-gradient(315deg, transparent 50%, #8f8f8f 50%) 8px 4px / 7px 7px no-repeat;
+}
+
+@keyframes heroSignIntro {
+  0% {
+    transform: translateY(-18px);
+    opacity: 0;
+  }
+  65% {
+    transform: translateY(3px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes heroPanelIntro {
+  0% {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes heroButtonPulse {
+  0%, 100% {
+    filter: brightness(1) saturate(1);
+  }
+  45% {
+    filter: brightness(1.16) saturate(1.08);
+  }
+}
+
+@keyframes heroCoinPop {
+  0% {
+    transform: translateY(0) scale(0.72);
+    opacity: 0;
+    background-image: url("./assets/new/motion-coin/coin-5.png");
+  }
+  16% {
+    opacity: 1;
+    background-image: url("./assets/new/motion-coin/coin-1.png");
+  }
+  36% {
+    transform: translateY(-28px) scale(1);
+    background-image: url("./assets/new/motion-coin/coin-2.png");
+  }
+  58% {
+    transform: translateY(-36px) scale(1.04);
+    background-image: url("./assets/new/motion-coin/coin-3.png");
+  }
+  76% {
+    transform: translateY(-24px) scale(0.96);
+    opacity: 1;
+    background-image: url("./assets/new/motion-coin/coin-4.png");
+  }
+  100% {
+    transform: translateY(-14px) scale(0.7);
+    opacity: 0;
+    background-image: url("./assets/new/motion-coin/coin-5.png");
+  }
+}
+
+.hero-screen:not(.is-hidden) .hero-sign {
+  animation: heroSignIntro 520ms steps(6, end) both;
+}
+
+.hero-screen:not(.is-hidden) .hero-field,
+.hero-screen:not(.is-hidden) .hero-search-button,
+.hero-screen:not(.is-hidden) .hero-caption {
+  opacity: 0;
+  animation: heroPanelIntro 420ms steps(5, end) both;
+}
+
+.hero-screen:not(.is-hidden) .hero-field:nth-of-type(1) {
+  animation-delay: 140ms;
+}
+
+.hero-screen:not(.is-hidden) .hero-field:nth-of-type(2) {
+  animation-delay: 230ms;
+}
+
+.hero-screen:not(.is-hidden) .hero-search-button {
+  animation:
+    heroPanelIntro 420ms steps(5, end) 340ms both,
+    heroButtonPulse 1800ms ease-in-out 900ms infinite;
+}
+
+.hero-screen:not(.is-hidden) .hero-caption {
+  animation-delay: 460ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-screen:not(.is-hidden) .hero-sign,
+  .hero-screen:not(.is-hidden) .hero-field,
+  .hero-screen:not(.is-hidden) .hero-search-button,
+  .hero-screen:not(.is-hidden) .hero-search-button::before,
+  .hero-screen:not(.is-hidden) .hero-search-button::after,
+  .hero-screen:not(.is-hidden) .hero-caption {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .hero-screen:not(.is-hidden) .hero-search-button::before,
+  .hero-screen:not(.is-hidden) .hero-search-button::after {
+    display: none !important;
+  }
+}
+
+.hero-arrow {
+  height: 12px;
+  color: transparent;
+  font-size: 0;
+  line-height: 0;
+}
+
+.hero-search-button {
+  position: absolute;
+  left: 4px;
+  top: 171px;
+  width: 338px;
+  height: 67px;
+  margin-top: 0;
+  border: 0;
+  background: url("./assets/new/hero/hero-cta.png") center / 338px 67px no-repeat;
+  color: transparent;
+  font-size: 0;
+  line-height: 1;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.hero-coin-pop {
+  position: absolute;
+  z-index: 2;
+  width: 28px;
+  height: 28px;
+  background: url("./assets/new/motion-coin/coin-5.png") center / contain no-repeat;
+  opacity: 0;
+  pointer-events: none;
+  animation: heroCoinPop 430ms ease-out both;
+}
+
+.hero-coin-pop.is-small {
+  width: 22px;
+  height: 22px;
+}
+
+.hero-caption {
+  display: none;
+}
+
+.back-button {
+  position: absolute;
+  left: 20px;
+  top: 18px;
+  z-index: 45;
+  width: 47px;
+  height: 49px;
+}
+
+.back-button img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.figma-screen {
+  position: relative;
+  width: min(100vw, 375px);
+  height: 812px;
+  overflow: hidden;
+  background: #7fc1fa;
+  isolation: isolate;
+}
+
+.asset,
+.route-select > img,
+.price-card > img,
+.image-button > img {
+  position: absolute;
+  display: block;
+  max-width: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  image-rendering: auto;
+}
+
+.bg {
+  left: 0;
+  top: 0;
+  width: 375px;
+  height: 810.668px;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.map {
+  left: 21.544px;
+  top: 302px;
+  width: 400.402px;
+  height: 469.556px;
+  object-fit: cover;
+  z-index: 1;
+}
+
+h1,
+.map-title {
+  position: absolute;
+  left: 0;
+  top: 73.82px;
+  z-index: 5;
+  width: 375px;
+  height: 45px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #fff;
+  -webkit-text-stroke: 0 transparent;
+  paint-order: normal;
+  font-family: "Mulmaru", "Malgun Gothic", "Apple SD Gothic Neo", system-ui, sans-serif;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -1px;
+  white-space: nowrap;
+  text-align: center;
+  text-shadow:
+    -3px 0 0 #000,
+    3px 0 0 #000,
+    0 -3px 0 #000,
+    0 3px 0 #000,
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    2px 2px 0 #000,
+    -3px -1px 0 #000,
+    3px -1px 0 #000,
+    -3px 1px 0 #000,
+    3px 1px 0 #000,
+    -1px -3px 0 #000,
+    1px -3px 0 #000,
+    -1px 3px 0 #000,
+    1px 3px 0 #000;
+  isolation: isolate;
+}
+
+.map-title::before {
+  content: none;
+  display: none;
+}
+
+.route-select {
+  position: absolute;
+  left: 22px;
+  top: 133px;
+  z-index: 10;
+  width: 334px;
+  height: 55px;
+}
+
+.route-select > img {
+  inset: 0;
+  width: 334px;
+  height: 55px;
+}
+
+.select-hotspot {
+  position: absolute;
+  top: 21px;
+  width: 134px;
+  height: 34px;
+  z-index: 2;
+}
+
+.select-hotspot.origin {
+  left: 0;
+}
+
+.select-hotspot.destination {
+  left: 200px;
+}
+
+.flag {
+  z-index: 6;
+  width: 16px;
+  height: 25px;
+  object-fit: fill;
+}
+
+.flag-start {
+  left: 123px;
+  top: 296px;
+}
+
+.flag-end {
+  left: 269px;
+  top: 579px;
+}
+
+.price-card {
+  position: absolute;
+  left: 18px;
+  top: 198px;
+  z-index: 20;
+  width: 340px;
+  height: 81px;
+}
+
+.price-card-bg {
+  inset: 0;
+  width: 340px;
+  height: 81px;
+}
+
+.price-card::after {
+  content: "";
+  position: absolute;
+  left: 169px;
+  top: 13px;
+  z-index: 2;
+  width: 0;
+  height: 50px;
+  border-left: 3px dashed #a8bdd8;
+}
+
+.price-info {
+  position: absolute;
+  left: 22px;
+  top: 16px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+}
+
+.price-card-charger {
+  position: relative;
+  display: block;
+  flex: 0 0 auto;
+  width: 34px;
+  height: 44px;
+  overflow: hidden;
+}
+
+.price-card-charger img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  max-width: none;
+}
+
+.price-stack {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2px;
+  width: 87px;
+  height: 44px;
+  line-height: 0;
+}
+
+.price-card-label {
+  position: relative;
+  z-index: 2;
+  width: 38px;
+  height: 18px;
+}
+
+.price-card-label[hidden] {
+  display: none;
+}
+
+.detail-station,
+.detail-direction {
+  z-index: 2;
+  display: block;
+  font-family: "NanumSquareNeo", "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif;
+  font-weight: 900;
+  line-height: 1.4;
+  letter-spacing: -0.6px;
+  white-space: nowrap;
+  text-shadow: none;
+  -webkit-text-stroke: 0 transparent;
+}
+
+.detail-price {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  position: relative;
+  left: auto;
+  top: auto;
+  z-index: 2;
+  width: 87px;
+  font-family: "NanumSquareNeo", "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.6px;
+  white-space: nowrap;
+  text-shadow: none;
+  -webkit-text-stroke: 0 transparent;
+}
+
+.price-card.is-recommended .detail-price {
+  color: #ec3f78;
+}
+
+.price-card.is-default .detail-price {
+  color: #2477db;
+}
+
+.detail-price-number {
+  display: block;
+  font-size: 32px;
+  line-height: 1;
+}
+
+.detail-price-unit {
+  display: block;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.service-info {
+  position: absolute;
+  left: 171px;
+  top: 13px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 50px;
+}
+
+.service-info-text {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  max-width: 130px;
+  line-height: 0;
+  white-space: nowrap;
+}
+
+.detail-station {
+  max-width: 130px;
+  overflow: hidden;
+  color: #111;
+  font-size: 20px;
+  text-overflow: ellipsis;
+}
+
+.detail-direction {
+  color: #09f;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.price-text,
+.station-text,
+.distance-text {
+  position: absolute;
+  z-index: 2;
+  font-family: "Malgun Gothic", "Apple SD Gothic Neo", system-ui, sans-serif;
+  font-weight: 900;
+}
+
+.price-text {
+  left: 63px;
+  top: 15px;
+  width: 78px;
+  color: #ef2f70;
+}
+
+.price-text span {
+  display: block;
+  width: 36px;
+  height: 16px;
+  margin-left: 1px;
+  border-radius: 3px;
+  background: #ef2f70;
+  color: #fff;
+  font-size: 9px;
+  line-height: 16px;
+  text-align: center;
+}
+
+.price-text strong {
+  display: block;
+  margin-top: 2px;
+  font-family: Arial, "Malgun Gothic", sans-serif;
+  font-size: 31px;
+  line-height: 1;
+  letter-spacing: -1px;
+  white-space: nowrap;
+}
+
+.price-text em {
+  font-style: normal;
+  font-size: 14px;
+  letter-spacing: 0;
+}
+
+.station-text {
+  left: 150px;
+  top: 22px;
+  width: 112px;
+}
+
+.station-text strong {
+  display: block;
+  color: #000;
+  font-size: 14px;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.station-text span {
+  display: block;
+  margin-top: 7px;
+  color: #0052cc;
+  font-size: 8px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.distance-text {
+  left: 270px;
+  top: 24px;
+  width: 64px;
+  color: #000;
+  text-align: center;
+}
+
+.distance-text span {
+  display: block;
+  font-size: 8px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.distance-text strong {
+  display: block;
+  margin-top: 8px;
+  font-family: Arial, "Malgun Gothic", sans-serif;
+  font-size: 18px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.image-button {
+  position: absolute;
+  z-index: 30;
+  height: 44.148px;
+}
+
+.image-button img {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.btn-prev {
+  left: 20px;
+  top: 684px;
+  width: 151.97px;
+}
+
+.btn-next {
+  left: 211px;
+  top: 684px;
+  width: 148.278px;
+}
+
+@media (max-width: 374px) {
+  .figma-screen {
+    width: 375px;
+    transform: scale(calc(100vw / 375));
+    transform-origin: top center;
+  }
+}
+
+@media (max-width: 480px) {
+  html,
+  body {
+    width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0;
+    place-items: initial;
+  }
+
+  .hero-screen,
+  .figma-screen {
+    position: relative;
+    left: auto;
+    width: 375px !important;
+    max-width: none !important;
+    margin: 0 auto !important;
+    transform: scale(calc(100vw / 375));
+    transform-origin: top center;
+  }
+}
+
+@media (min-width: 768px) {
+  body {
+    padding: 24px;
+  }
+
+  .figma-screen {
+    box-shadow: 0 18px 42px rgba(0, 68, 130, 0.24);
+  }
+}
+
+/* Interactive route layer */
+.select-value {
+  position: absolute;
+  z-index: 3;
+  top: 26px;
+  height: 24px;
+  color: #222;
+  font-family: "Mulmaru", "Malgun Gothic", "Apple SD Gothic Neo", system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.25;
+  letter-spacing: -0.6px;
+  pointer-events: none;
+  text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff;
+}
+
+.origin-value {
+  left: 8px;
+  width: 88px;
+}
+
+.destination-value {
+  left: 208px;
+  width: 88px;
+}
+
+.select-menu {
+  position: absolute;
+  z-index: 60;
+  top: 57px;
+  width: 134px;
+  max-height: 188px;
+  overflow-y: auto;
+  padding: 4px;
+  border: 2px solid #000;
+  background: #fff;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.22);
+}
+
+.select-menu[hidden] {
+  display: none;
+}
+
+.origin-menu {
+  left: 0;
+}
+
+.destination-menu {
+  left: 200px;
+}
+
+.select-option {
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  padding: 4px 6px;
+  border: 0;
+  background: #fff;
+  color: #222;
+  font-family: "Mulmaru", "Malgun Gothic", "Apple SD Gothic Neo", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.select-option:hover,
+.select-option.is-selected {
+  background: #d8efff;
+}
+
+.route-layer,
+.station-layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 375px;
+  height: 812px;
+  pointer-events: none;
+}
+
+.route-layer {
+  z-index: 7;
+}
+
+.station-layer {
+  z-index: 10;
+}
+
+.route-main {
+  fill: none;
+  stroke: #17a653;
+  stroke-width: 6;
+  stroke-linecap: square;
+  stroke-linejoin: round;
+  filter: drop-shadow(2px 2px 0 #07143b);
+}
+
+.route-dash {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.7;
+  stroke-dasharray: 7 7;
+  stroke-linecap: square;
+}
+
+.station-pin {
+  position: absolute;
+  width: 15px;
+  height: 23px;
+  transform: translate(-50%, -88%);
+  pointer-events: auto;
+  z-index: 2;
+}
+
+.station-pin .pin-image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.station-pin .pin-effect {
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  display: block;
+  width: 39px;
+  height: 32px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.station-pin .coin-motion {
+  position: absolute;
+  left: 50%;
+  bottom: 25px;
+  display: block;
+  width: 42px;
+  height: 41px;
+  max-width: none;
+  object-fit: contain;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 4;
+}
+
+
+.station-pin.is-focused {
+  width: 30px;
+  height: 45px;
+  z-index: 5;
+}
+
+.station-pin.is-recommended {
+  z-index: 6;
+}
+
+.station-pin.is-focused.is-recommended {
+  width: 30px;
+  height: 45px;
+  z-index: 7;
+}
+
+.brand-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 12;
+  width: 76px;
+  height: 47px;
+  pointer-events: none;
+}
+
+.brand-label-bg {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 76px;
+  height: 47px;
+  max-width: none;
+}
+
+.brand-label-copy {
+  position: absolute;
+  left: 8px;
+  top: 6px;
+  display: flex;
+  width: 60px;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  color: #222;
+  font-family: "Mona12", "Malgun Gothic", "Apple SD Gothic Neo", system-ui, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: -0.6px;
+  word-break: break-word;
+  text-align: center;
+}
+
+.brand-label-title {
+  width: 100%;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.brand-label-name {
+  width: 100%;
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.brand-label.is-recommended .brand-label-name {
+  color: #f93465;
+}
+
+.brand-label.is-default .brand-label-name {
+  color: #2477db;
+}
+
+.route-badge {
+  display: none !important;
+}
+
+.no-route-message {
+  position: absolute;
+  left: 48px;
+  top: 390px;
+  z-index: 40;
+  width: 280px;
+  padding: 12px;
+  border: 3px solid #07143b;
+  background: #fff;
+  color: #07143b;
+  font-family: "Malgun Gothic", "Apple SD Gothic Neo", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 900;
+  text-align: center;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.select-value::before {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: -1px;
+  z-index: -1;
+  width: 58px;
+  height: 24px;
+  background: #fff;
+}
+
+.select-value {
+  isolation: isolate;
+}
+
+.route-select.is-open {
+  z-index: 120;
+}
+
+.route-select.is-open > img,
+.route-select.is-open .select-value,
+.route-select.is-open .select-hotspot {
+  z-index: 121;
+}
+
+.route-select.is-open .select-menu {
+  z-index: 130;
+}
+
+.select-menu {
+  max-height: 280px;
+  overscroll-behavior: contain;
+}
+
+.select-option:active {
+  background: #bfe5ff;
+}
+
+.route-city-label {
+  position: absolute;
+  z-index: 9;
+  min-width: 48px;
+  color: #8d1831;
+  font-family: "Mulmaru", "Malgun Gothic", "Apple SD Gothic Neo", system-ui, sans-serif;
+  font-size: 20px;
+  line-height: 1;
+  white-space: nowrap;
+  text-shadow:
+    1px 0 0 #fff,
+    -1px 0 0 #fff,
+    0 1px 0 #fff,
+    0 -1px 0 #fff,
+    2px 2px 0 rgba(0, 0, 0, 0.18);
+  pointer-events: none;
+}
+
+.flag-start,
+.flag-end {
+  z-index: 9;
+  width: 24px;
+  height: 37px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+
+
+.public-key-panel {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  z-index: 1000;
+  width: min(340px, calc(100vw - 24px));
+  transform: translateX(-50%);
+  padding: 12px 44px 12px 12px;
+  border: 3px solid #071833;
+  border-radius: 8px;
+  background: #fffef7;
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.28);
+  font-family: "NanumSquareNeo", "Malgun Gothic", sans-serif;
+}
+
+.public-key-panel[hidden] {
+  display: none !important;
+}
+
+.public-key-panel strong {
+  display: block;
+  margin-bottom: 7px;
+  color: #071833;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.public-key-panel input {
+  width: 100%;
+  height: 36px;
+  padding: 0 10px;
+  border: 2px solid #071833;
+  border-radius: 4px;
+  font-family: "Malgun Gothic", sans-serif;
+  font-size: 12px;
+}
+
+.public-key-panel button {
+  height: 32px;
+  margin-top: 8px;
+  padding: 0 12px;
+  border: 2px solid #071833;
+  border-radius: 4px;
+  background: #ffd629;
+  color: #071833;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.public-key-panel #publicKeyClose {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  width: 26px;
+  height: 26px;
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.public-key-panel p {
+  margin: 7px 0 0;
+  color: #2477db;
+  font-size: 11px;
+  line-height: 1.35;
+}
+.hero-field>span{left:67px!important;top:8px!important}.hero-select-trigger{left:0!important;top:0!important;width:100%!important;height:64px!important;padding:26px 44px 0 67px!important;box-sizing:border-box!important;overflow:hidden!important;text-align:left!important}.hero-select-trigger.is-placeholder{width:100%!important}.hero-select-menu{left:10px!important;top:62px!important;width:calc(100% - 20px)!important;box-sizing:border-box!important;z-index:160!important}.route-select{left:21px!important;top:146px!important;width:334px!important;height:58px!important;overflow:visible!important;z-index:50!important}.route-select>img{display:block!important;left:0!important;top:0!important;width:334px!important;height:55px!important;object-fit:fill!important;z-index:52!important;clip-path:inset(22px 0 0 0)!important}.route-select::before,.route-select::after,.route-input-bg{display:none!important}.route-label{position:absolute!important;top:0!important;z-index:90!important;display:flex!important;align-items:flex-start!important;gap:4px!important;height:20px!important;min-width:0!important;padding:0!important;background:transparent!important;box-shadow:none!important;color:#222!important;font-family:"Mona10x12","Mulmaru","Malgun Gothic",system-ui,sans-serif!important;font-size:16px!important;font-weight:400!important;line-height:1.4!important;letter-spacing:0!important;white-space:nowrap!important;pointer-events:none!important}.route-label.origin-label{left:0!important}.route-label.destination-label{left:200px!important;gap:5px!important}.route-label img{flex:0 0 auto!important;width:20px!important;height:20px!important;object-fit:contain!important}.route-label span{display:block!important;background:transparent!important}.select-hotspot{top:22px!important;width:134px!important;height:34px!important;z-index:80!important}.select-hotspot.origin{left:0!important}.select-hotspot.destination{left:200px!important}.select-value{top:22px!important;z-index:70!important;height:34px!important;display:flex!important;align-items:center!important;color:#222!important;font-size:18px!important;line-height:1!important;text-shadow:none!important;overflow:hidden!important;background:transparent!important}.origin-value{left:8px!important;width:88px!important}.destination-value{left:208px!important;width:88px!important}.select-menu{top:56px!important;width:134px!important;box-sizing:border-box!important;max-height:280px!important;z-index:200!important;padding:4px!important;border:2px solid #000!important;background:#fff!important}.origin-menu{left:0!important}.destination-menu{left:200px!important}.select-option{box-sizing:border-box!important}.route-select.is-open{z-index:190!important}.price-card{left:18px!important;top:212px!important;width:340px!important;height:113px!important;overflow:visible!important}.price-card-bg{inset:0!important;width:340px!important;height:113px!important;object-fit:fill!important}.price-card::after{left:169px!important;top:13px!important;height:50px!important;z-index:5!important}.price-info{left:8px!important;top:6px!important;width:160px!important;height:66px!important;gap:8px!important;justify-content:center!important;z-index:6!important}.service-info{left:171px!important;top:6px!important;width:160px!important;height:66px!important;z-index:6!important}.service-info-text{max-width:130px!important}.detail-station{max-width:130px!important;font-size:20px!important}.detail-direction{font-size:14px!important}.detail-meta-row{position:absolute!important;left:3px!important;top:78px!important;z-index:8!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:22px!important;width:332px!important;height:29px!important;padding:0 10px!important;box-sizing:border-box!important;color:#fff!important;font-family:"NanumSquareNeo","NanumSquare_Neo_OTF","Malgun Gothic",system-ui,sans-serif!important;font-size:12px!important;font-weight:800!important;line-height:1.2!important;letter-spacing:-.6px!important;pointer-events:none!important}.detail-meta-item{display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:0 0 auto!important;gap:4px!important;white-space:nowrap!important;overflow:visible!important;font-weight:800!important}.detail-meta-speed img{width:13px!important;height:16px!important}.detail-meta-operator img{width:17px!important;height:16px!important}.detail-meta-count img{width:11px!important;height:16px!important}.detail-meta-item img{flex:0 0 auto!important;object-fit:contain!important}.detail-meta-text{display:block!important;overflow:visible!important;white-space:nowrap!important;font-weight:800!important}.pin-total-badge{position:absolute!important;left:16px!important;top:631px!important;z-index:35!important;display:inline-flex!important;align-items:center!important;gap:5px!important;box-sizing:border-box!important;min-width:52px!important;width:max-content!important;height:33px!important;padding:0 8px 0 9px!important;color:#000!important;font-family:"Mulmaru","Malgun Gothic",system-ui,sans-serif!important;font-size:13px!important;font-weight:400!important;line-height:1.4!important;letter-spacing:-.05px!important;white-space:nowrap!important;background:#fff!important;background-clip:padding-box!important;border:6px solid transparent!important;border-image-source:url("./assets/new/box-pin-total-blank.svg")!important;border-image-slice:8!important;border-image-width:8px!important;border-image-repeat:stretch!important;pointer-events:none!important;overflow:visible!important}.pin-total-badge[hidden]{display:none!important}.pin-total-badge::before,.pin-total-badge::after{display:none!important;content:none!important}.pin-total-icon{display:block!important;flex:0 0 10px!important;width:10px!important;height:15px!important;object-fit:contain!important;position:relative!important;z-index:1!important}.pin-total-text{display:block!important;flex:0 0 auto!important;white-space:nowrap!important;position:relative!important;z-index:1!important}.station-pin.is-focused{z-index:999!important;}
+/* Codex: keep public API key panel from covering route controls in preview */
+
+
+
+/* Codex: show public-data key panel without covering bottom route controls */
+.public-key-panel {
+  top: 8px !important;
+  bottom: auto !important;
+  z-index: 1200 !important;
+  width: min(320px, calc(100vw - 24px)) !important;
+  max-height: 178px !important;
+  padding: 9px 38px 9px 10px !important;
+  border-radius: 6px !important;
+  pointer-events: auto !important;
+}
+.public-key-panel[hidden] {
+  display: none !important;
+}
+.public-key-panel strong {
+  margin-bottom: 5px !important;
+  font-size: 12px !important;
+}
+.public-key-panel input {
+  height: 30px !important;
+  font-size: 12px !important;
+}
+.public-key-panel button {
+  height: 28px !important;
+  margin-top: 6px !important;
+  font-size: 12px !important;
+}
+.public-key-panel #publicKeyClose {
+  right: 7px !important;
+  top: 7px !important;
+  width: 24px !important;
+  height: 24px !important;
+}
+.public-key-panel p {
+  margin-top: 5px !important;
+  font-size: 11px !important;
+}
+
+.public-key-panel{position:fixed!important;left:50%!important;top:8px!important;bottom:auto!important;transform:translateX(-50%)!important;width:min(320px,calc(100vw - 48px))!important;z-index:1200!important;}
+.public-key-panel[hidden]{display:none!important;}
+.public-key-panel .public-key-row{display:flex!important;gap:6px!important;align-items:center!important;}
+
+.price-card[data-card-type="default"] .detail-price { color: #2477db !important; }
+.price-card[data-card-type="lowPrice"] .detail-price { color: #18ad45 !important; }
+.price-card[data-card-type="recommended"] .detail-price { color: #ec3f78 !important; }
+.price-card-labels { display:flex; align-items:center; gap:3px; height:18px; min-height:18px; }
+.price-card-labels[hidden] { display:none !important; }
+.price-card-labels img { display:block; flex:0 0 auto; height:18px; width:auto; max-width:none; object-fit:contain; image-rendering:auto; }
+.price-card[data-card-type="default"] .price-stack { justify-content:center !important; }
+.price-card[data-card-type="default"] .price-card-labels { display:none !important; }
+
+/* Figma 1904:771 detail card icon sizing */
+.price-info { left: 8px !important; top: 6px !important; width: 160px !important; height: 66px !important; gap: 6px !important; }
+.price-card-charger { width: 50px !important; height: 50px !important; flex: 0 0 50px !important; overflow: visible !important; background: transparent !important; }
+.price-card-charger img { position: absolute !important; max-width: none !important; object-fit: contain !important; image-rendering: auto !important; }
+.price-card[data-card-type="default"] .price-card-charger img,
+.price-card[data-card-type="lowPrice"] .price-card-charger img { left: 8px !important; top: 6px !important; width: 34px !important; height: 44px !important; }
+.price-card[data-card-type="recommended"] .price-card-charger img { left: 0 !important; top: 0 !important; width: 50px !important; height: 50px !important; }
+.price-stack { width: 87px !important; }
+
+/* Use prepared 50px card charger assets without shrinking */
+.price-card-charger { width: 50px !important; height: 50px !important; flex-basis: 50px !important; }
+.price-card-charger img,
+.price-card[data-card-type="default"] .price-card-charger img,
+.price-card[data-card-type="lowPrice"] .price-card-charger img,
+.price-card[data-card-type="recommended"] .price-card-charger img {
+  left: 0 !important;
+  top: 0 !important;
+  width: 50px !important;
+  height: 50px !important;
+  object-fit: contain !important;
+}
+.price-info { gap: 6px !important; }
+
+/* 100x100 source -> 50x50 card slot */
+.price-card-charger {
+  width: 50px !important;
+  height: 50px !important;
+  flex: 0 0 50px !important;
+  overflow: hidden !important;
+  background: transparent !important;
+}
+.price-card-charger img,
+.price-card[data-card-type="default"] .price-card-charger img,
+.price-card[data-card-type="lowPrice"] .price-card-charger img,
+.price-card[data-card-type="recommended"] .price-card-charger img {
+  left: 0 !important;
+  top: 0 !important;
+  width: 50px !important;
+  height: 50px !important;
+  max-width: none !important;
+  object-fit: contain !important;
+  image-rendering: auto !important;
+  transform: translateZ(0) !important;
+}
+.price-info {
+  left: 8px !important;
+  top: 6px !important;
+  width: 160px !important;
+  height: 66px !important;
+  gap: 6px !important;
+}
+
+/* Route dropdown top label should not cover button border/text */
+.route-select > img { clip-path: inset(24px 0 0 0) !important; }
+.route-label {
+  top: -2px !important;
+  height: 20px !important;
+  align-items: center !important;
+  overflow: visible !important;
+  z-index: 95 !important;
+  background: transparent !important;
+}
+.route-label img { width: 20px !important; height: 20px !important; }
+.route-label span { line-height: 20px !important; background: transparent !important; }
+.select-hotspot { top: 23px !important; height: 33px !important; }
+.select-value {
+  top: 24px !important;
+  height: 30px !important;
+  align-items: center !important;
+  line-height: 30px !important;
+  background: transparent !important;
+  z-index: 75 !important;
+}
+.select-value::before,
+.select-value::after { content: none !important; display: none !important; }
+
+/* Push map route content below the detail card, keeping controls in place */
+.map { top: 338px !important; }
+.route-layer,
+.station-layer,
+.flag,
+.route-city-label,
+.brand-label { transform: translateY(36px) !important; }
+.pin-total-badge { top: 651px !important; }
+
+/* Do not crop the route dropdown artwork: it cuts the button top border */
+.route-select > img {
+  clip-path: none !important;
+  overflow: visible !important;
+}
+.route-select {
+  overflow: visible !important;
+}
+.route-label {
+  top: -1px !important;
+  z-index: 110 !important;
+  background: transparent !important;
+}
+.select-hotspot {
+  top: 23px !important;
+}
+.select-value {
+  top: 23px !important;
+  height: 34px !important;
+  line-height: 34px !important;
+  align-items: center !important;
+  background: transparent !important;
+}
+
+/* Keep 20px space between pin order badge and navigation buttons */
+.btn-prev,
+.btn-next {
+  top: 704px !important;
+}
+.pin-total-badge {
+  top: 651px !important;
+}
+
+/* Clean textless dropbox.svg layout: no crop, no fake lines */
+.route-select {
+  left: 22px !important;
+  top: 133px !important;
+  width: 334px !important;
+  height: 55px !important;
+  overflow: visible !important;
+}
+.route-select > img {
+  inset: 0 !important;
+  width: 334px !important;
+  height: 55px !important;
+  clip-path: none !important;
+  object-fit: fill !important;
+  z-index: 1 !important;
+}
+.route-select::before,
+.route-select::after {
+  display: none !important;
+  content: none !important;
+}
+.route-label {
+  top: -4px !important;
+  height: 22px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  z-index: 20 !important;
+  background: transparent !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+}
+.route-label.origin-label { left: 0 !important; }
+.route-label.destination-label { left: 200px !important; }
+.route-label img {
+  width: 22px !important;
+  height: 22px !important;
+  flex: 0 0 22px !important;
+  object-fit: contain !important;
+}
+.route-label span {
+  display: block !important;
+  height: 22px !important;
+  line-height: 22px !important;
+  background: transparent !important;
+}
+.select-hotspot {
+  top: 21px !important;
+  width: 134px !important;
+  height: 34px !important;
+  z-index: 30 !important;
+}
+.select-value {
+  top: 21px !important;
+  height: 34px !important;
+  display: flex !important;
+  align-items: center !important;
+  line-height: 34px !important;
+  z-index: 25 !important;
+  background: transparent !important;
+  overflow: hidden !important;
+}
+.origin-value { left: 8px !important; width: 96px !important; }
+.destination-value { left: 208px !important; width: 96px !important; }
+
+/* Hard reset route dropdown: remove embedded SVG text completely */
+.route-select {
+  left: 22px !important;
+  top: 133px !important;
+  width: 334px !important;
+  height: 58px !important;
+  overflow: visible !important;
+  z-index: 40 !important;
+}
+.route-select > img {
+  display: none !important;
+}
+.route-select::before,
+.route-select::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 22px !important;
+  z-index: 1 !important;
+  width: 134px !important;
+  height: 34px !important;
+  box-sizing: border-box !important;
+  background: #fff !important;
+  border: 3px solid #000 !important;
+  box-shadow:
+    0 3px 0 #000,
+    3px 0 0 #000 !important;
+  pointer-events: none !important;
+}
+.route-select::before { left: 0 !important; }
+.route-select::after { left: 200px !important; }
+.route-label {
+  top: 0 !important;
+  height: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  z-index: 10 !important;
+  background: transparent !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+  color: #111 !important;
+  text-shadow: none !important;
+}
+.route-label.origin-label { left: 0 !important; }
+.route-label.destination-label { left: 200px !important; }
+.route-label img {
+  display: block !important;
+  width: 20px !important;
+  height: 20px !important;
+  flex: 0 0 20px !important;
+  object-fit: contain !important;
+}
+.route-label span {
+  display: block !important;
+  height: 20px !important;
+  line-height: 20px !important;
+  background: transparent !important;
+}
+.select-hotspot {
+  top: 22px !important;
+  width: 134px !important;
+  height: 34px !important;
+  z-index: 30 !important;
+}
+.select-hotspot.origin { left: 0 !important; }
+.select-hotspot.destination { left: 200px !important; }
+.select-value {
+  top: 22px !important;
+  height: 34px !important;
+  z-index: 20 !important;
+  display: flex !important;
+  align-items: center !important;
+  line-height: 34px !important;
+  background: transparent !important;
+  color: #222 !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  text-shadow: none !important;
+}
+.origin-value { left: 8px !important; width: 86px !important; }
+.destination-value { left: 208px !important; width: 86px !important; }
+.select-menu {
+  top: 58px !important;
+  width: 134px !important;
+  box-sizing: border-box !important;
+  z-index: 220 !important;
+}
+.origin-menu { left: 0 !important; }
+.destination-menu { left: 200px !important; }
+
+/* Figma node 1906:2695 route dropdown, no SVG */
+.route-select {
+  left: 21px !important;
+  top: 146px !important;
+  width: 334px !important;
+  height: 58px !important;
+  overflow: visible !important;
+  z-index: 40 !important;
+}
+.route-select > img { display: none !important; }
+.route-select::before,
+.route-select::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 24px !important;
+  width: 134px !important;
+  height: 34px !important;
+  box-sizing: border-box !important;
+  background: #fff !important;
+  border: 3px solid #000 !important;
+  box-shadow: 0 3px 0 #000, 3px 0 0 #000 !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+.route-select::before { left: 0 !important; }
+.route-select::after { left: 200px !important; }
+.route-label {
+  top: 0 !important;
+  height: 20px !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 4px !important;
+  padding-left: 2px !important;
+  z-index: 12 !important;
+  color: #111 !important;
+  font-family: "Mona10x12", "Mulmaru", "Malgun Gothic", system-ui, sans-serif !important;
+  font-size: 16px !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0 !important;
+  background: transparent !important;
+  text-shadow: none !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+}
+.route-label.origin-label { left: 0 !important; }
+.route-label.destination-label { left: 200px !important; gap: 5px !important; }
+.route-label img {
+  display: block !important;
+  width: 20px !important;
+  height: 20px !important;
+  flex: 0 0 20px !important;
+  object-fit: contain !important;
+}
+.route-label span {
+  display: block !important;
+  height: 20px !important;
+  line-height: 20px !important;
+  background: transparent !important;
+}
+.select-hotspot {
+  top: 24px !important;
+  width: 134px !important;
+  height: 34px !important;
+  z-index: 30 !important;
+}
+.select-hotspot.origin { left: 0 !important; }
+.select-hotspot.destination { left: 200px !important; }
+.select-value {
+  top: 24px !important;
+  height: 30px !important;
+  z-index: 20 !important;
+  display: flex !important;
+  align-items: center !important;
+  color: #222 !important;
+  font-family: "Mulmaru", "Mona10x12", "Malgun Gothic", system-ui, sans-serif !important;
+  font-size: 18px !important;
+  line-height: 1.4 !important;
+  letter-spacing: -0.6px !important;
+  white-space: nowrap !important;
+  background: transparent !important;
+  text-shadow: none !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+.origin-value { left: 8px !important; width: 88px !important; }
+.destination-value { left: 208px !important; width: 88px !important; }
+.origin-value::after,
+.destination-value::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 8px !important;
+  width: 10px !important;
+  height: 10px !important;
+  background: url("./assets/new/hero/hero-dropbox-ic-arrow.png") center / contain no-repeat !important;
+  display: block !important;
+}
+.origin-value::after { left: 106px !important; }
+.destination-value::after { left: 106px !important; }
+.origin-value::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 132px !important;
+  top: 10px !important;
+  width: 50px !important;
+  height: 10px !important;
+  background: url("./assets/new/dropdox-arrow-long.svg") center / contain no-repeat !important;
+  display: block !important;
+}
+.select-menu {
+  top: 62px !important;
+  width: 134px !important;
+  box-sizing: border-box !important;
+  z-index: 220 !important;
+}
+.origin-menu { left: 0 !important; }
+.destination-menu { left: 200px !important; }
+.price-card { top: 212px !important; }
+
+/* Figma node 1906:2695, split SVG assets, no embedded text */
+.route-select {
+  left: 21px !important;
+  top: 146px !important;
+  width: 334px !important;
+  height: 58px !important;
+  overflow: visible !important;
+  z-index: 40 !important;
+}
+.route-select > img { display: none !important; }
+.route-select::before,
+.route-select::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 24px !important;
+  width: 134px !important;
+  height: 34px !important;
+  background: url("./assets/new/dropdox-blank.svg") center / 134px 34px no-repeat !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.route-select::before { left: 0 !important; }
+.route-select::after { left: 200px !important; }
+.route-select .route-arrow,
+.route-select::marker { display:none !important; }
+.route-label {
+  top: 0 !important;
+  height: 20px !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 4px !important;
+  padding-left: 2px !important;
+  z-index: 12 !important;
+  color: #111 !important;
+  font-family: "Mona10x12", "Mulmaru", "Malgun Gothic", system-ui, sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0 !important;
+  background: transparent !important;
+  text-shadow: none !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+}
+.route-label.origin-label { left: 0 !important; }
+.route-label.destination-label { left: 200px !important; gap: 5px !important; }
+.route-label img {
+  display: block !important;
+  width: 20px !important;
+  height: 20px !important;
+  flex: 0 0 20px !important;
+  object-fit: contain !important;
+}
+.route-label span {
+  display: block !important;
+  height: 20px !important;
+  line-height: 20px !important;
+  background: transparent !important;
+}
+.select-hotspot {
+  top: 24px !important;
+  width: 134px !important;
+  height: 34px !important;
+  z-index: 30 !important;
+}
+.select-hotspot.origin { left: 0 !important; }
+.select-hotspot.destination { left: 200px !important; }
+.select-value {
+  top: 24px !important;
+  height: 30px !important;
+  z-index: 20 !important;
+  display: flex !important;
+  align-items: center !important;
+  color: #222 !important;
+  font-family: "Mulmaru", "Mona10x12", "Malgun Gothic", system-ui, sans-serif !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  line-height: 1.4 !important;
+  letter-spacing: -0.6px !important;
+  white-space: nowrap !important;
+  background: transparent !important;
+  text-shadow: none !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+.origin-value { left: 8px !important; width: 90px !important; }
+.destination-value { left: 208px !important; width: 90px !important; }
+.origin-value::after,
+.destination-value::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 8px !important;
+  left: 106px !important;
+  width: 10px !important;
+  height: 10px !important;
+  background: url("./assets/new/dropdox-ic-arrow.svg") center / 10px 10px no-repeat !important;
+  display: block !important;
+  pointer-events: none !important;
+}
+.origin-value::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 132px !important;
+  top: 10px !important;
+  width: 50px !important;
+  height: 10px !important;
+  background: url("./assets/new/dropdox-arrow-long.svg") center / 50px 10px no-repeat !important;
+  display: block !important;
+  pointer-events: none !important;
+}
+.select-menu {
+  top: 62px !important;
+  width: 134px !important;
+  box-sizing: border-box !important;
+  z-index: 220 !important;
+}
+.origin-menu { left: 0 !important; }
+.destination-menu { left: 200px !important; }
+
+/* Route dropdown rebuilt with explicit split SVG image elements */
+.route-select {
+  left: 21px !important;
+  top: 146px !important;
+  width: 334px !important;
+  height: 58px !important;
+  overflow: visible !important;
+  z-index: 40 !important;
+}
+.route-select > img.legacy-dropbox,
+.route-select > img:not(.dropbox-box):not(.dropbox-arrow):not(.dropbox-arrow-long) {
+  display: none !important;
+}
+.dropbox-box,
+.dropbox-arrow-long,
+.dropbox-arrow {
+  position: absolute !important;
+  display: block !important;
+  max-width: none !important;
+  object-fit: fill !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+.dropbox-box { top: 24px !important; width: 134px !important; height: 34px !important; }
+.dropbox-box-origin { left: 0 !important; }
+.dropbox-box-destination { left: 200px !important; }
+.dropbox-arrow-long { left: 140px !important; top: 34px !important; width: 50px !important; height: 10px !important; z-index: 2 !important; }
+.dropbox-arrow { top: 36px !important; width: 10px !important; height: 10px !important; z-index: 3 !important; }
+.dropbox-arrow-origin { left: 114px !important; }
+.dropbox-arrow-destination { left: 314px !important; }
+.route-select::before,
+.route-select::after,
+.origin-value::before,
+.origin-value::after,
+.destination-value::after { display: none !important; content: none !important; }
+.route-label {
+  top: 0 !important;
+  height: 20px !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 4px !important;
+  padding-left: 2px !important;
+  z-index: 12 !important;
+  background: transparent !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+  color: #111 !important;
+}
+.route-label.origin-label { left: 0 !important; }
+.route-label.destination-label { left: 200px !important; gap: 5px !important; }
+.route-label img { display:block !important; width:20px !important; height:20px !important; flex:0 0 20px !important; object-fit:contain !important; }
+.route-label span { display:block !important; height:20px !important; line-height:20px !important; background:transparent !important; }
+.select-hotspot { top:24px !important; width:134px !important; height:34px !important; z-index:30 !important; }
+.select-hotspot.origin { left:0 !important; }
+.select-hotspot.destination { left:200px !important; }
+.select-value {
+  top: 24px !important;
+  height: 30px !important;
+  z-index: 20 !important;
+  display: flex !important;
+  align-items: center !important;
+  color: #222 !important;
+  background: transparent !important;
+  text-shadow: none !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+.origin-value { left: 8px !important; width: 88px !important; }
+.destination-value { left: 208px !important; width: 88px !important; }
+.select-menu { top: 62px !important; width:134px !important; box-sizing:border-box !important; z-index:220 !important; }
+.origin-menu { left:0 !important; }
+.destination-menu { left:200px !important; }
+
+/* Override old global route image hiding: show split dropdown assets */
+.route-select > img.dropbox-box,
+.route-select > img.dropbox-arrow,
+.route-select > img.dropbox-arrow-long {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: absolute !important;
+  max-width: none !important;
+  pointer-events: none !important;
+}
+.route-select > img.legacy-dropbox {
+  display: none !important;
+}
+.route-select > img.dropbox-box {
+  top: 24px !important;
+  width: 134px !important;
+  height: 34px !important;
+  z-index: 5 !important;
+}
+.route-select > img.dropbox-box-origin { left: 0 !important; }
+.route-select > img.dropbox-box-destination { left: 200px !important; }
+.route-select > img.dropbox-arrow-long {
+  left: 140px !important;
+  top: 34px !important;
+  width: 50px !important;
+  height: 10px !important;
+  z-index: 6 !important;
+}
+.route-select > img.dropbox-arrow {
+  top: 36px !important;
+  width: 10px !important;
+  height: 10px !important;
+  z-index: 7 !important;
+}
+.route-select > img.dropbox-arrow-origin { left: 114px !important; }
+.route-select > img.dropbox-arrow-destination { left: 314px !important; }
+.select-value { z-index: 10 !important; }
+.route-label { z-index: 12 !important; }
+
+
+/* 2026-06-29: top summary card + selected pin detail box */
+.price-card {
+  top: 198px !important;
+  width: 340px !important;
+  height: 81px !important;
+}
+.price-card-bg {
+  width: 340px !important;
+  height: 81px !important;
+}
+.detail-meta-row {
+  display: none !important;
+}
+.price-card.is-low-price .detail-price {
+  color: #18a83f;
+}
+.price-card.is-recommended .detail-price {
+  color: #ec3f78;
+}
+.price-card.is-default .detail-price {
+  color: #2477db;
+}
+.price-card-charger {
+  width: 50px !important;
+  height: 50px !important;
+  overflow: visible !important;
+}
+.price-card-charger img {
+  width: 50px !important;
+  height: 50px !important;
+}
+.price-info {
+  left: 30px !important;
+  top: 14px !important;
+  gap: 6px !important;
+}
+.price-stack {
+  width: 87px !important;
+  height: 52px !important;
+}
+.price-card-labels {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 18px;
+  line-height: 0;
+}
+.price-card-labels[hidden] { display: none !important; }
+.price-card-labels img { display: block; height: 18px; width: auto; max-width: none; }
+.service-info { top: 14px !important; height: 50px !important; }
+
+.brand-label { display: none !important; }
+.selected-detail-box {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 14;
+  width: 129px;
+  height: 97px;
+  pointer-events: none;
+  font-family: "NanumSquareNeo", "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif;
+  font-weight: 900;
+  color: #111;
+}
+.selected-detail-box[hidden] { display: none !important; }
+.selected-detail-box-bg {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 129px;
+  height: 97px;
+  max-width: none;
+  image-rendering: auto;
+}
+.selected-detail-content {
+  position: absolute;
+  left: 13px;
+  top: 11px;
+  width: 101px;
+  height: 72px;
+  z-index: 2;
+}
+.selected-detail-operator-row,
+.selected-detail-option {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+.selected-detail-operator-row {
+  width: 101px;
+  height: 16px;
+}
+.selected-detail-operator-row img {
+  width: 17px;
+  height: 16px;
+  flex: 0 0 auto;
+  margin-right: 4px;
+}
+.selected-detail-divider {
+  width: 100px;
+  height: 0;
+  margin: 8px 0;
+  border-top: 2px dashed #a8bdd8;
+}
+.selected-detail-option-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 101px;
+}
+.selected-detail-speed img {
+  width: 13px;
+  height: 16px;
+  margin-right: 4px;
+}
+.selected-detail-count img {
+  width: 11px;
+  height: 16px;
+  margin-right: 4px;
+}
+.selected-detail-text {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  color: #111;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: -0.4px;
+  text-overflow: ellipsis;
+}
+
+
+/* 2026-06-29 card pixel alignment from Figma 1906:2331 / 1906:2586 */
+.price-card {
+  left: 18px !important;
+  top: 198px !important;
+  width: 340px !important;
+  height: 81px !important;
+}
+.price-card-bg {
+  inset: 0 !important;
+  width: 340px !important;
+  height: 81px !important;
+}
+.price-card::after {
+  left: 170px !important;
+  top: 14px !important;
+  width: 0 !important;
+  height: 50px !important;
+  border-left: 3px dashed #a8bdd8 !important;
+}
+.price-info {
+  left: 8px !important;
+  top: 3px !important;
+  width: 160px !important;
+  height: 72px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+}
+.price-card-charger {
+  flex: 0 0 auto !important;
+  display: block !important;
+  overflow: visible !important;
+  background: transparent !important;
+}
+.price-card.is-recommended .price-card-charger,
+.price-card.is-low-price .price-card-charger {
+  width: 50px !important;
+  height: 50px !important;
+}
+.price-card.is-default .price-card-charger {
+  width: 34px !important;
+  height: 43px !important;
+}
+.price-card-charger img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  max-width: none !important;
+}
+.price-stack {
+  flex: 0 0 auto !important;
+  width: 87px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 2px !important;
+  line-height: 0 !important;
+}
+.price-card.is-recommended .price-stack,
+.price-card.is-low-price .price-stack {
+  height: 52px !important;
+}
+.price-card.is-default .price-stack {
+  height: 32px !important;
+}
+.price-card-labels {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 2px !important;
+  height: 18px !important;
+  line-height: 0 !important;
+}
+.price-card-labels[hidden] { display: none !important; }
+.price-card-labels img {
+  display: block !important;
+  height: 18px !important;
+  width: auto !important;
+  max-width: none !important;
+}
+.detail-price {
+  width: 87px !important;
+  height: 32px !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: space-between !important;
+  letter-spacing: -0.6px !important;
+}
+.detail-price-number { font-size: 32px !important; line-height: 1 !important; }
+.detail-price-unit { font-size: 20px !important; line-height: 1.2 !important; }
+.service-info {
+  left: 172px !important;
+  top: 3px !important;
+  width: 160px !important;
+  height: 72px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.service-info-text {
+  max-width: 130px !important;
+  width: 130px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  line-height: 0 !important;
+  white-space: nowrap !important;
+}
+.detail-station {
+  max-width: 130px !important;
+  color: #111 !important;
+  font-size: 20px !important;
+  line-height: 1.4 !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.6px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+.detail-direction {
+  color: #09f !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.6px !important;
+}
+.detail-meta-row { display: none !important; }
+
+
+/* 2026-06-29 spacing fix: dropdown gap, normal card, selected detail distance */
+.price-card {
+  top: 206px !important;
+}
+.map {
+  top: 312px !important;
+}
+.route-layer,
+.station-layer {
+  top: 0 !important;
+}
+.selected-detail-box {
+  z-index: 16 !important;
+}
+.price-card.is-default .price-info {
+  left: 8px !important;
+  top: 3px !important;
+  width: 160px !important;
+  height: 72px !important;
+  gap: 6px !important;
+}
+.price-card.is-default .price-card-charger {
+  width: 34px !important;
+  height: 43px !important;
+  transform: translateY(0.5px);
+}
+.price-card.is-default .price-stack {
+  width: 87px !important;
+  height: 32px !important;
+  justify-content: center !important;
+  gap: 0 !important;
+}
+.price-card.is-default .price-card-labels {
+  display: none !important;
+}
+.price-card.is-default .detail-price {
+  transform: translateY(0) !important;
+}
+
+
+/* 2026-06-29 exact default card coordinates from Figma 1906:2586 */
+.price-card.is-default .price-info {
+  left: 0 !important;
+  top: 0 !important;
+  width: 160px !important;
+  height: 81px !important;
+  display: block !important;
+}
+.price-card.is-default .price-card-charger {
+  position: absolute !important;
+  left: 24.5px !important;
+  top: 17.5px !important;
+  width: 34px !important;
+  height: 43px !important;
+  transform: none !important;
+}
+.price-card.is-default .price-card-charger img {
+  width: 34px !important;
+  height: 43px !important;
+  object-fit: contain !important;
+}
+.price-card.is-default .price-stack {
+  position: absolute !important;
+  left: 64.5px !important;
+  top: 23px !important;
+  width: 87px !important;
+  height: 32px !important;
+  display: block !important;
+  transform: none !important;
+}
+.price-card.is-default .detail-price {
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  width: 87px !important;
+  height: 32px !important;
+  transform: none !important;
+}
+.price-card.is-default .detail-price-number {
+  font-size: 32px !important;
+  line-height: 32px !important;
+}
+.price-card.is-default .detail-price-unit {
+  font-size: 20px !important;
+  line-height: 24px !important;
+  padding-bottom: 0 !important;
+}
+.price-card.is-default .price-card-labels,
+.price-card.is-default .price-card-label {
+  display: none !important;
+}
+.price-card.is-default .service-info {
+  left: 172px !important;
+  top: 3px !important;
+  width: 160px !important;
+  height: 72px !important;
+}
+.price-card.is-default .service-info-text {
+  width: 130px !important;
+  max-width: 130px !important;
+}
+
+
+/* 2026-06-29 default card inner frame exact Figma 1906:2613 */
+.price-card.is-default .price-info {
+  position: absolute !important;
+  left: 8px !important;
+  top: 3px !important;
+  width: 160px !important;
+  height: 72px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+}
+.price-card.is-default .price-card-charger {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  flex: 0 0 34px !important;
+  width: 34px !important;
+  height: 43px !important;
+  transform: none !important;
+  overflow: hidden !important;
+  background: transparent !important;
+}
+.price-card.is-default .price-card-charger img {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 34px !important;
+  height: 43px !important;
+  object-fit: cover !important;
+  max-width: none !important;
+}
+.price-card.is-default .price-stack {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  flex: 0 0 87px !important;
+  width: 87px !important;
+  height: 32px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  transform: none !important;
+}
+.price-card.is-default .detail-price {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  width: 87px !important;
+  height: 32px !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: space-between !important;
+  transform: none !important;
+}
+.price-card.is-default .detail-price-number {
+  font-size: 32px !important;
+  line-height: 32px !important;
+}
+.price-card.is-default .detail-price-unit {
+  font-size: 20px !important;
+  line-height: 24px !important;
+  padding: 0 !important;
+}
+.price-card.is-default .service-info {
+  position: absolute !important;
+  left: 172px !important;
+  top: 3px !important;
+  width: 160px !important;
+  height: 72px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.price-card.is-default .service-info-text {
+  width: 130px !important;
+  max-width: 130px !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+}
+.price-card.is-default .price-card-labels,
+.price-card.is-default .price-card-label {
+  display: none !important;
+}
+
+
+/* 2026-06-29 Figma 1910:785: 10px gap between dropdown group and info card */
+.price-card {
+  top: 201px !important;
+}
+.getStaticUiCollisionRects-placeholder { display: none; }
+
+
+/* 2026-06-29 selected detail exact Figma 1910:786 padding */
+.selected-detail-box {
+  width: 129px !important;
+  height: 97px !important;
+}
+.selected-detail-box-bg {
+  width: 129px !important;
+  height: 97px !important;
+}
+.selected-detail-content {
+  position: absolute !important;
+  left: 13px !important;
+  top: 11px !important;
+  width: 101px !important;
+  height: 72px !important;
+}
+.selected-detail-operator-row {
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  width: 101px !important;
+  height: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+.selected-detail-operator-row img {
+  width: 17px !important;
+  height: 16px !important;
+  margin: 0 !important;
+  object-fit: cover !important;
+}
+.selected-detail-divider {
+  position: absolute !important;
+  left: 0 !important;
+  top: 24px !important;
+  width: 100px !important;
+  height: 0 !important;
+  margin: 0 !important;
+  border-top: 2px dashed #a8bdd8 !important;
+}
+.selected-detail-option-row {
+  position: absolute !important;
+  left: 0 !important;
+  top: 32px !important;
+  width: 85px !important;
+  height: 40px !important;
+  display: block !important;
+}
+.selected-detail-option {
+  position: absolute !important;
+  left: 0 !important;
+  height: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+.selected-detail-speed { top: 0 !important; width: 85px !important; }
+.selected-detail-count { top: 24px !important; width: auto !important; }
+.selected-detail-speed img {
+  width: 13px !important;
+  height: 16px !important;
+  margin: 0 !important;
+  object-fit: cover !important;
+}
+.selected-detail-count img {
+  width: 11px !important;
+  height: 16px !important;
+  margin: 0 !important;
+  object-fit: cover !important;
+}
+.selected-detail-text {
+  font-size: 12px !important;
+  line-height: 14.4px !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.6px !important;
+}
+
+
+/* 2026-06-29 Figma 1910:785 visible dropdown-to-info gap */
+.price-card {
+  top: 211px !important;
+}
+
+
+/* 2026-06-30: 일반 충전소 아이콘 영역도 50x50으로 통일 */
+.price-card.is-default .price-info {
+  left: 8px !important;
+  top: 3px !important;
+  width: 160px !important;
+  height: 72px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+}
+.price-card.is-default .price-card-charger {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  flex: 0 0 50px !important;
+  width: 50px !important;
+  height: 50px !important;
+  overflow: visible !important;
+  transform: none !important;
+  background: transparent !important;
+}
+.price-card.is-default .price-card-charger img {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 50px !important;
+  height: 50px !important;
+  object-fit: contain !important;
+  max-width: none !important;
+}
+.price-card.is-default .price-stack {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  flex: 0 0 87px !important;
+  width: 87px !important;
+  height: 32px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  transform: none !important;
+}
+.price-card.is-default .detail-price {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  width: 87px !important;
+  height: 32px !important;
+}
+.price-card.is-default .price-card-labels,
+.price-card.is-default .price-card-label {
+  display: none !important;
+}
+
+
+/* 2026-06-30: 상단 카드 방향 텍스트 검은색 적용 */
+.detail-direction {
+  color: #111 !important;
+}
+
+
+/* 2026-06-30: 이전/다음 충전소 버튼 SVG 적용 */
+.image-button > img {
+  object-fit: contain !important;
+}
+
+
+/* 2026-06-30: 지도 위 출발 라벨 파란색 */
+.route-city-label.start {
+  color: #2477db !important;
+}
+
+
+/* 2026-07-01: 시작 화면 드롭다운 라벨-지역명 간격 조정 */
+.hero-field > span {
+  top: 8px !important;
+}
+.hero-select-trigger {
+  top: 0 !important;
+  height: 64px !important;
+  padding-top: 27px !important;
+  display: flex !important;
+  align-items: flex-start !important;
+}
+
+/* 2026-07-01: 이용안내 박스 - 피그마 1948:773 구조 */
+.btn-prev,
+.btn-next {
+  top: 682px !important;
+}
+.route-notice-box {
+  position: absolute !important;
+  left: 20px !important;
+  top: 736px !important;
+  z-index: 28 !important;
+  width: 334px !important;
+  height: 58px !important;
+  box-sizing: border-box !important;
+  padding: 0 !important;
+  display: block !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+}
+.route-notice-bg {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  display: block !important;
+  width: 334px !important;
+  height: 58px !important;
+  object-fit: fill !important;
+  image-rendering: pixelated !important;
+}
+.route-notice-content {
+  position: relative !important;
+  z-index: 1 !important;
+  display: flex !important;
+  width: 334px !important;
+  height: 58px !important;
+  padding: 0 8px 0 12px !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+}
+.route-notice-info {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  width: 258px !important;
+  min-width: 0 !important;
+  height: 31px !important;
+}
+.route-notice-heading {
+  position: relative !important;
+  flex: 0 0 72px !important;
+  width: 72px !important;
+  height: 31px !important;
+  margin: 0 !important;
+  color: #000 !important;
+  font-family: "NanumSquareNeo", "NanumSquare_Neo_OTF", "Malgun Gothic", system-ui, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 900 !important;
+  line-height: 1.3 !important;
+  letter-spacing: -0.6px !important;
+  white-space: nowrap !important;
+}
+.route-notice-heading span {
+  position: absolute !important;
+  left: 30px !important;
+  top: 0 !important;
+  display: block !important;
+  width: 34px !important;
+  line-height: 1.3 !important;
+}
+.route-notice-tip {
+  position: absolute !important;
+  left: 0 !important;
+  top: 1px !important;
+  display: block !important;
+  width: 26px !important;
+  height: 30px !important;
+  object-fit: contain !important;
+}
+.route-notice-list {
+  flex: 0 0 170px !important;
+  width: 170px !important;
+  height: 27px !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  gap: 5px !important;
+  color: #000 !important;
+  font-family: "NanumSquareNeo", "NanumSquare_Neo_OTF", "Malgun Gothic", system-ui, sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.6px !important;
+  overflow: visible !important;
+}
+.route-notice-list p {
+  margin: 0 !important;
+  height: 11px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+  white-space: nowrap !important;
+  transform: scale(0.94) !important;
+  transform-origin: left center !important;
+}
+.route-notice-list strong {
+  font-weight: 900 !important;
+}
+.route-notice-bullet {
+  display: inline-block !important;
+  flex: 0 0 4px !important;
+  width: 4px !important;
+  height: 4px !important;
+  background: #000 !important;
+}
+.route-notice-car {
+  display: block !important;
+  flex: 0 0 50px !important;
+  width: 50px !important;
+  height: 26px !important;
+  margin: 0 !important;
+  object-fit: contain !important;
+}
+
+/* 2026-07-01: 지도/노선/핀/순서 배지 위치만 위로 조정 */
+.map {
+  top: 282px !important;
+}
+.route-layer,
+.station-layer,
+.flag-start,
+.flag-end,
+.route-city-label,
+.brand-label {
+  transform: translateY(-20px) !important;
+}
+.pin-total-badge {
+  top: 631px !important;
+}
+
+
+/* 2026-07-01: 이용안내 spacing exact - left 12 / icon-title 4 / title-body 16 */
+.route-notice-content {
+  position: relative !important;
+  z-index: 1 !important;
+  display: flex !important;
+  width: 334px !important;
+  height: 58px !important;
+  padding: 0 8px 0 12px !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+}
+.route-notice-info {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  width: 258px !important;
+  height: 31px !important;
+  min-width: 0 !important;
+}
+.route-notice-heading {
+  position: relative !important;
+  flex: 0 0 72px !important;
+  width: 72px !important;
+  height: 31px !important;
+  margin: 0 !important;
+}
+.route-notice-tip {
+  position: absolute !important;
+  left: 0 !important;
+  top: 1px !important;
+  width: 26px !important;
+  height: 30px !important;
+  object-fit: contain !important;
+}
+.route-notice-heading span {
+  position: absolute !important;
+  left: 30px !important;
+  top: 0 !important;
+  width: 34px !important;
+  display: block !important;
+  color: #000 !important;
+  font-family: "NanumSquareNeo", "NanumSquare_Neo_OTF", "Malgun Gothic", system-ui, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 900 !important;
+  line-height: 1.3 !important;
+  letter-spacing: -0.6px !important;
+  white-space: nowrap !important;
+}
+.route-notice-list {
+  flex: 0 0 170px !important;
+  width: 170px !important;
+  height: 27px !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  gap: 5px !important;
+}
+
+
+/* 2026-07-01: 상단 인포박스 휴게소명 영역 - 고속도로 태그/방향/휴게소명 */
+.service-info {
+  left: 171px !important;
+  top: 6px !important;
+  width: 160px !important;
+  height: 72px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  padding: 10px !important;
+  box-sizing: border-box !important;
+}
+.info-service-name,
+.service-info-text.info-service-name {
+  width: 141px !important;
+  max-width: 141px !important;
+  height: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  overflow: visible !important;
+  text-align: left !important;
+}
+.detail-route-line {
+  display: flex !important;
+  align-items: center !important;
+  gap: 2px !important;
+  height: 18px !important;
+  max-width: 141px !important;
+  white-space: nowrap !important;
+}
+.detail-highway-tag {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 0 auto !important;
+  min-width: 27px !important;
+  height: 18px !important;
+  padding: 1px 4px 2px !important;
+  box-sizing: border-box !important;
+  color: #fff !important;
+  background: #000 !important;
+  font-family: "NanumSquareNeo", "NanumSquare_Neo_OTF", "Malgun Gothic", system-ui, sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  line-height: 1.4 !important;
+  letter-spacing: -0.6px !important;
+  text-align: center !important;
+}
+.detail-highway-tag::before,
+.detail-highway-tag::after {
+  content: "" !important;
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  background: #000 !important;
+}
+.detail-highway-tag::before { left: -1px !important; top: 3px !important; box-shadow: 1px -1px 0 #000, 1px 13px 0 #000, 0 12px 0 #000; }
+.detail-highway-tag::after { right: -1px !important; top: 3px !important; box-shadow: -1px -1px 0 #000, -1px 13px 0 #000, 0 12px 0 #000; }
+.detail-direction {
+  display: block !important;
+  flex: 0 1 auto !important;
+  max-width: 106px !important;
+  color: #000 !important;
+  font-family: "NanumSquareNeo", "NanumSquare_Neo_OTF", "Malgun Gothic", system-ui, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.6px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
+}
+.detail-station {
+  display: block !important;
+  max-width: 141px !important;
+  color: #222 !important;
+  font-family: "NanumSquareNeo", "NanumSquare_Neo_OTF", "Malgun Gothic", system-ui, sans-serif !important;
+  font-size: 20px !important;
+  font-weight: 900 !important;
+  line-height: 1.4 !important;
+  letter-spacing: -1.6px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
+  text-align: left !important;
+}
+
+
+/* 2026-07-01: 고속도로명 태그 SVG 배경 반응형 */
+.detail-route-line {
+  gap: 2px !important;
+  max-width: 141px !important;
+  min-width: 0 !important;
+}
+.detail-highway-tag {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 1 auto !important;
+  width: auto !important;
+  min-width: 29px !important;
+  max-width: 58px !important;
+  height: 18px !important;
+  padding: 1px 5px 2px !important;
+  box-sizing: border-box !important;
+  color: #fff !important;
+  background: #000 !important;
+  border: 0 solid transparent !important;
+  border-image-source: url("./assets/new/label-highway-blank.svg") !important;
+  border-image-slice: 4 4 4 4 fill !important;
+  border-image-width: 4px !important;
+  border-image-repeat: stretch !important;
+  font-family: "NanumSquareNeo", "NanumSquare_Neo_OTF", "Malgun Gothic", system-ui, sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  line-height: 1.4 !important;
+  letter-spacing: -0.6px !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
+}
+.detail-highway-tag::before,
+.detail-highway-tag::after {
+  display: none !important;
+  content: none !important;
+}
+.detail-direction {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  max-width: calc(141px - 31px) !important;
+}
+
+
+/* 2026-07-01: label-highway-blank 3분할 stretch */
+.detail-highway-tag {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 1 auto !important;
+  width: auto !important;
+  min-width: 29px !important;
+  max-width: 62px !important;
+  height: 18px !important;
+  padding: 1px 6px 2px !important;
+  box-sizing: border-box !important;
+  color: #fff !important;
+  background: transparent !important;
+  border: 0 !important;
+  font-family: "NanumSquareNeo", "NanumSquare_Neo_OTF", "Malgun Gothic", system-ui, sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  line-height: 1.4 !important;
+  letter-spacing: -0.6px !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
+  z-index: 0 !important;
+}
+.detail-highway-tag::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: -1 !important;
+  background-image: url("./assets/new/label-highway-blank.svg") !important;
+  background-repeat: no-repeat !important;
+  background-size: 100% 18px !important;
+  image-rendering: pixelated !important;
+}
+.detail-highway-tag::after {
+  display: none !important;
+  content: none !important;
+}
+.detail-highway-tag {
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+
+
+/* 2026-07-01: label-highway-blank SVG border-image 최종 */
+.detail-highway-tag {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 1 auto !important;
+  width: auto !important;
+  min-width: 29px !important;
+  max-width: 62px !important;
+  height: 18px !important;
+  padding: 0 4px 1px !important;
+  box-sizing: border-box !important;
+  color: #fff !important;
+  background: transparent !important;
+  border: 4px solid transparent !important;
+  border-image-source: url("./assets/new/label-highway-blank.svg") !important;
+  border-image-slice: 4 fill !important;
+  border-image-width: 4px !important;
+  border-image-repeat: stretch !important;
+  font-family: "NanumSquareNeo", "NanumSquare_Neo_OTF", "Malgun Gothic", system-ui, sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  letter-spacing: -0.6px !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
+  z-index: 0 !important;
+}
+.detail-highway-tag::before,
+.detail-highway-tag::after {
+  display: none !important;
+  content: none !important;
+}
+
+
+/* 2026-07-01: 고속도로 태그 텍스트 잘림 보정 */
+.detail-highway-tag {
+  min-width: 29px !important;
+  max-width: 62px !important;
+  height: 18px !important;
+  min-height: 18px !important;
+  padding: 1px 5px 1px !important;
+  border: 3px solid transparent !important;
+  border-image-source: url("./assets/new/label-highway-blank.svg") !important;
+  border-image-slice: 3 fill !important;
+  border-image-width: 3px !important;
+  border-image-repeat: stretch !important;
+  line-height: 14px !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+}
+
+
+/* 2026-07-01: restore hero dropdown placeholder/value visibility */
+.hero-select-trigger {
+  left: 0 !important;
+  top: 0 !important;
+  width: 100% !important;
+  height: 64px !important;
+  padding: 0 44px 0 67px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  overflow: hidden !important;
+  color: #222 !important;
+  background: transparent !important;
+}
+.hero-select-value {
+  display: block !important;
+  width: 100% !important;
+  padding-top: 15px !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
+  line-height: 1.1 !important;
+}
+.hero-select-trigger.is-placeholder .hero-select-value {
+  font-size: 20px !important;
+  color: #222 !important;
+}
+.hero-field > span {
+  left: 67px !important;
+  top: 8px !important;
+  z-index: 3 !important;
+}
+
+
+/* 2026-07-01: route start/end label safe placement */
+.route-city-label {
+  min-width: 35px !important;
+  font-size: 17px !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
+}
+
+
+/* 2026-07-01: hero selected value matches dropdown option text */
+.hero-select-trigger,
+.hero-select-value {
+  font-family: "NanumSquareNeo", "NanumSquare_Neo_OTF", "Malgun Gothic", system-ui, sans-serif !important;
+  font-size: 20px !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.6px !important;
+  color: #222 !important;
+}
+.hero-select-value {
+  line-height: 1.4 !important;
+}
+
+
+/* 2026-07-01: placeholder keeps original hero style, selected value matches option style */
+.hero-select-trigger.is-placeholder,
+.hero-select-trigger.is-placeholder .hero-select-value {
+  font-family: "NanumSquareNeo", "Malgun Gothic", sans-serif !important;
+  font-size: 20px !important;
+  font-weight: 800 !important;
+  line-height: 1.1 !important;
+  letter-spacing: -0.6px !important;
+  color: #222 !important;
+}
+.hero-select-trigger:not(.is-placeholder),
+.hero-select-trigger:not(.is-placeholder) .hero-select-value {
+  font-family: "NanumSquareNeo", "NanumSquare_Neo_OTF", "Malgun Gothic", system-ui, sans-serif !important;
+  font-size: 20px !important;
+  font-weight: 900 !important;
+  line-height: 1.4 !important;
+  letter-spacing: -0.6px !important;
+  color: #222 !important;
+}
+
+
+/* 2026-07-01: box-detail-info Figma 1934 card layout final */
+.price-card {
+  left: 18px !important;
+  top: 212px !important;
+  width: 340px !important;
+  height: 81px !important;
+  overflow: visible !important;
+}
+.price-card-bg {
+  inset: 0 !important;
+  width: 340px !important;
+  height: 81px !important;
+  object-fit: fill !important;
+}
+.price-card::after {
+  left: 168px !important;
+  top: 14px !important;
+  height: 53px !important;
+}
+.price-info {
+  position: absolute !important;
+  left: 8px !important;
+  top: 3px !important;
+  width: 160px !important;
+  height: 72px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 2px !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  z-index: 6 !important;
+}
+.price-card-charger {
+  position: relative !important;
+  flex: 0 0 50px !important;
+  width: 50px !important;
+  height: 50px !important;
+  overflow: visible !important;
+  background: transparent !important;
+}
+.price-card-charger img,
+.price-card.is-default .price-card-charger img,
+.price-card.is-low-price .price-card-charger img,
+.price-card.is-recommended .price-card-charger img,
+.price-card[data-card-type="default"] .price-card-charger img,
+.price-card[data-card-type="lowPrice"] .price-card-charger img,
+.price-card[data-card-type="recommended"] .price-card-charger img {
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  width: 50px !important;
+  height: 50px !important;
+  max-width: none !important;
+  object-fit: contain !important;
+  image-rendering: auto !important;
+}
+.price-stack {
+  display: flex !important;
+  flex: 0 0 92px !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  width: 92px !important;
+  min-width: 92px !important;
+  height: 48px !important;
+  gap: 4px !important;
+  line-height: 0 !important;
+}
+.price-card.is-default .price-stack,
+.price-card[data-card-type="default"] .price-stack {
+  height: 26px !important;
+  gap: 0 !important;
+}
+.price-card-labels {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 3px !important;
+  height: 18px !important;
+  min-height: 18px !important;
+  line-height: 0 !important;
+}
+.price-card-labels[hidden],
+.price-card.is-default .price-card-labels,
+.price-card[data-card-type="default"] .price-card-labels {
+  display: none !important;
+}
+.price-card-labels img,
+.price-card-label {
+  display: block !important;
+  flex: 0 0 auto !important;
+  height: 18px !important;
+  width: auto !important;
+  max-width: none !important;
+  object-fit: contain !important;
+  image-rendering: auto !important;
+}
+.detail-price {
+  display: inline-flex !important;
+  align-items: flex-end !important;
+  justify-content: flex-start !important;
+  width: auto !important;
+  min-width: 0 !important;
+  height: 26px !important;
+  font-family: "NanumSquareNeo", "NanumSquare Neo", "Malgun Gothic", system-ui, sans-serif !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  letter-spacing: -1px !important;
+  white-space: nowrap !important;
+}
+.detail-price-number {
+  display: block !important;
+  font-size: 26px !important;
+  line-height: 1 !important;
+  letter-spacing: -1px !important;
+}
+.detail-price-unit {
+  display: block !important;
+  margin-left: 0 !important;
+  padding-bottom: 1px !important;
+  font-size: 16px !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.6px !important;
+}
+.service-info {
+  position: absolute !important;
+  left: 172px !important;
+  top: 3px !important;
+  width: 160px !important;
+  height: 72px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 10px !important;
+  box-sizing: border-box !important;
+  z-index: 6 !important;
+}
+.service-info-text,
+.service-info-text.info-service-name {
+  display: flex !important;
+  flex: 0 0 auto !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  width: 126px !important;
+  max-width: 126px !important;
+  min-height: 45px !important;
+  gap: 2px !important;
+  line-height: 0 !important;
+  white-space: nowrap !important;
+}
+.detail-route-line {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 2px !important;
+  width: 126px !important;
+  height: 18px !important;
+  min-height: 18px !important;
+  overflow: visible !important;
+}
+.detail-highway-tag {
+  flex: 0 0 auto !important;
+  height: 18px !important;
+  min-height: 18px !important;
+  padding: 1px 5px !important;
+  box-sizing: border-box !important;
+  font-family: "NanumSquareNeo", "NanumSquare Neo", "Malgun Gothic", system-ui, sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  line-height: 14px !important;
+  letter-spacing: -0.6px !important;
+  color: #fff !important;
+}
+.detail-direction {
+  display: block !important;
+  flex: 0 1 auto !important;
+  min-width: 0 !important;
+  max-width: 92px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  color: #000 !important;
+  font-family: "NanumSquareNeo", "NanumSquare Neo", "Malgun Gothic", system-ui, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.6px !important;
+}
+.detail-station {
+  display: block !important;
+  width: 126px !important;
+  max-width: 126px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  color: #222 !important;
+  font-family: "NanumSquareNeo", "NanumSquare Neo", "Malgun Gothic", system-ui, sans-serif !important;
+  font-size: 18px !important;
+  font-weight: 900 !important;
+  line-height: 1.4 !important;
+  letter-spacing: -1.6px !important;
+}
+.detail-meta-row {
+  display: none !important;
+}
+
+
+/* 2026-07-01: box-detail-info inner content centers by actual text width */
+.price-info {
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 2px !important;
+}
+.price-stack {
+  flex: 0 0 auto !important;
+  width: max-content !important;
+  min-width: 0 !important;
+  max-width: 96px !important;
+  align-items: flex-start !important;
+}
+.detail-price {
+  width: max-content !important;
+  min-width: 0 !important;
+  max-width: 96px !important;
+}
+.price-card-labels {
+  width: max-content !important;
+  max-width: 96px !important;
+}
+.service-info {
+  align-items: center !important;
+  justify-content: center !important;
+}
+.service-info-text,
+.service-info-text.info-service-name {
+  width: max-content !important;
+  min-width: 0 !important;
+  max-width: 140px !important;
+  align-items: flex-start !important;
+}
+.detail-route-line {
+  width: max-content !important;
+  min-width: 0 !important;
+  max-width: 140px !important;
+}
+.detail-direction {
+  max-width: 104px !important;
+}
+.detail-station {
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: 140px !important;
+}
+
+
+/* 2026-07-01: box-detail-info-default info-price/serviceName final override */
+.price-card.is-default .price-info,
+.price-card[data-card-type="default"] .price-info {
+  left: 8px !important;
+  top: 3px !important;
+  width: 160px !important;
+  height: 72px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 2px !important;
+}
+.price-card.is-default .price-card-charger,
+.price-card[data-card-type="default"] .price-card-charger {
+  flex: 0 0 50px !important;
+  width: 50px !important;
+  height: 50px !important;
+}
+.price-card.is-default .price-card-charger img,
+.price-card[data-card-type="default"] .price-card-charger img {
+  left: 0 !important;
+  top: 0 !important;
+  width: 50px !important;
+  height: 50px !important;
+  object-fit: contain !important;
+}
+.price-card.is-default .price-stack,
+.price-card[data-card-type="default"] .price-stack {
+  flex: 0 0 92px !important;
+  width: 92px !important;
+  min-width: 92px !important;
+  max-width: 92px !important;
+  height: 26px !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 0 !important;
+}
+.price-card.is-default .detail-price,
+.price-card[data-card-type="default"] .detail-price {
+  width: 92px !important;
+  max-width: 92px !important;
+  height: 26px !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: flex-start !important;
+  font-size: 26px !important;
+  line-height: 1 !important;
+  letter-spacing: -1px !important;
+  transform: scaleX(0.92) !important;
+  transform-origin: left bottom !important;
+}
+.price-card.is-default .detail-price-number,
+.price-card[data-card-type="default"] .detail-price-number {
+  font-size: 26px !important;
+  line-height: 1 !important;
+  letter-spacing: -1px !important;
+}
+.price-card.is-default .detail-price-unit,
+.price-card[data-card-type="default"] .detail-price-unit {
+  font-size: 16px !important;
+  line-height: 1.2 !important;
+  padding-bottom: 1px !important;
+  letter-spacing: -0.6px !important;
+}
+.price-card.is-default .service-info,
+.price-card[data-card-type="default"] .service-info {
+  left: 172px !important;
+  top: 3px !important;
+  width: 160px !important;
+  height: 72px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 10px !important;
+}
+.price-card.is-default .service-info-text,
+.price-card.is-default .service-info-text.info-service-name,
+.price-card[data-card-type="default"] .service-info-text,
+.price-card[data-card-type="default"] .service-info-text.info-service-name {
+  width: max-content !important;
+  min-width: 0 !important;
+  max-width: 140px !important;
+  align-items: flex-start !important;
+}
+
+
+/* 2026-07-02: selected-box-detail-info Figma 1906:3069 / 1906:3035 padding final */
+.selected-detail-content {
+  left: 13px !important;
+  top: 11px !important;
+  width: 101px !important;
+  height: 72px !important;
+}
+.selected-detail-operator-row {
+  left: 0 !important;
+  top: 0 !important;
+  width: 101px !important;
+  height: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+.selected-detail-operator-row img {
+  width: 17px !important;
+  height: 16px !important;
+  flex: 0 0 17px !important;
+  margin: 0 !important;
+  object-fit: contain !important;
+}
+.selected-detail-operator-row .selected-detail-text {
+  flex: 1 1 auto !important;
+  width: auto !important;
+  max-width: 80px !important;
+}
+.selected-detail-divider {
+  left: 0 !important;
+  top: 24px !important;
+  width: 101px !important;
+  margin: 0 !important;
+}
+.selected-detail-option-row {
+  left: 0 !important;
+  top: 32px !important;
+  width: 101px !important;
+  height: 40px !important;
+  display: block !important;
+}
+.selected-detail-option {
+  left: 0 !important;
+  width: 101px !important;
+  height: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+.selected-detail-speed { top: 0 !important; width: 101px !important; }
+.selected-detail-count { top: 24px !important; width: 101px !important; }
+.selected-detail-speed img {
+  width: 13px !important;
+  height: 16px !important;
+  flex: 0 0 13px !important;
+  margin: 0 !important;
+  object-fit: contain !important;
+}
+.selected-detail-count img {
+  width: 11px !important;
+  height: 16px !important;
+  flex: 0 0 11px !important;
+  margin: 0 !important;
+  object-fit: contain !important;
+}
+.selected-detail-option .selected-detail-text {
+  flex: 1 1 auto !important;
+  width: auto !important;
+  max-width: 86px !important;
+}
+.selected-detail-text {
+  min-width: 0 !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
+  white-space: nowrap !important;
+  font-family: "NanumSquareNeo", "NanumSquare Neo", "Malgun Gothic", system-ui, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  line-height: 14.4px !important;
+  letter-spacing: -0.6px !important;
+}
+
+
+/* 2026-07-02: detail card text-dependent Figma centering */
+.price-card.is-default.is-price-short .price-stack,
+.price-card[data-card-type="default"].is-price-short .price-stack {
+  flex: 0 0 68px !important;
+  width: 68px !important;
+  min-width: 68px !important;
+  max-width: 68px !important;
+}
+.price-card.is-default.is-price-short .detail-price,
+.price-card[data-card-type="default"].is-price-short .detail-price {
+  width: 68px !important;
+  max-width: 68px !important;
+  transform: none !important;
+}
+.price-card.is-default.is-price-short .detail-price-number,
+.price-card[data-card-type="default"].is-price-short .detail-price-number {
+  width: auto !important;
+}
+.price-card.is-default .service-info-text,
+.price-card.is-default .service-info-text.info-service-name,
+.price-card[data-card-type="default"] .service-info-text,
+.price-card[data-card-type="default"] .service-info-text.info-service-name,
+.service-info-text,
+.service-info-text.info-service-name {
+  width: 126px !important;
+  min-width: 126px !important;
+  max-width: 126px !important;
+  align-items: flex-start !important;
+}
+.detail-route-line {
+  width: 126px !important;
+  min-width: 126px !important;
+  max-width: 126px !important;
+}
+.detail-direction {
+  max-width: 92px !important;
+}
+.detail-station {
+  width: 126px !important;
+  min-width: 126px !important;
+  max-width: 126px !important;
+}
+
+
+/* 2026-07-02: price text must not be geometrically scaled */
+.detail-price,
+.price-card.is-default .detail-price,
+.price-card[data-card-type="default"] .detail-price,
+.price-card.is-low-price .detail-price,
+.price-card.is-recommended .detail-price {
+  transform: none !important;
+  font-stretch: normal !important;
+}
+.detail-price-number,
+.detail-price-unit {
+  transform: none !important;
+  font-stretch: normal !important;
+}
+.price-card.is-default:not(.is-price-short) .price-stack,
+.price-card[data-card-type="default"]:not(.is-price-short) .price-stack {
+  flex: 0 0 92px !important;
+  width: 92px !important;
+  min-width: 92px !important;
+  max-width: 92px !important;
+}
+.price-card.is-default:not(.is-price-short) .detail-price,
+.price-card[data-card-type="default"]:not(.is-price-short) .detail-price {
+  width: 92px !important;
+  max-width: 92px !important;
+}
+
+
+/* 2026-07-02: info-serviceName long station name Figma 1934:1946 */
+.service-info-text,
+.service-info-text.info-service-name,
+.price-card.is-default .service-info-text,
+.price-card.is-default .service-info-text.info-service-name,
+.price-card.is-low-price .service-info-text,
+.price-card.is-low-price .service-info-text.info-service-name,
+.price-card.is-recommended .service-info-text,
+.price-card.is-recommended .service-info-text.info-service-name,
+.price-card[data-card-type="default"] .service-info-text,
+.price-card[data-card-type="default"] .service-info-text.info-service-name,
+.price-card[data-card-type="lowPrice"] .service-info-text,
+.price-card[data-card-type="lowPrice"] .service-info-text.info-service-name,
+.price-card[data-card-type="recommended"] .service-info-text,
+.price-card[data-card-type="recommended"] .service-info-text.info-service-name {
+  width: 141px !important;
+  min-width: 141px !important;
+  max-width: 141px !important;
+  align-items: flex-start !important;
+}
+.detail-route-line {
+  width: 141px !important;
+  min-width: 141px !important;
+  max-width: 141px !important;
+}
+.detail-direction {
+  max-width: 108px !important;
+}
+.detail-station {
+  width: 141px !important;
+  min-width: 141px !important;
+  max-width: 141px !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
+  white-space: nowrap !important;
+}
+
+
+/* 2026-07-02: info-serviceName dynamic centered width final */
+.service-info {
+  align-items: center !important;
+  justify-content: center !important;
+}
+.service-info-text,
+.service-info-text.info-service-name,
+.price-card.is-default .service-info-text,
+.price-card.is-default .service-info-text.info-service-name,
+.price-card.is-low-price .service-info-text,
+.price-card.is-low-price .service-info-text.info-service-name,
+.price-card.is-recommended .service-info-text,
+.price-card.is-recommended .service-info-text.info-service-name,
+.price-card[data-card-type="default"] .service-info-text,
+.price-card[data-card-type="default"] .service-info-text.info-service-name,
+.price-card[data-card-type="lowPrice"] .service-info-text,
+.price-card[data-card-type="lowPrice"] .service-info-text.info-service-name,
+.price-card[data-card-type="recommended"] .service-info-text,
+.price-card[data-card-type="recommended"] .service-info-text.info-service-name {
+  width: max-content !important;
+  min-width: 0 !important;
+  max-width: 141px !important;
+  align-items: flex-start !important;
+}
+.detail-route-line {
+  width: max-content !important;
+  min-width: 0 !important;
+  max-width: 141px !important;
+}
+.detail-direction {
+  flex: 0 1 auto !important;
+  max-width: 108px !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
+}
+.detail-station {
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: 141px !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
+  white-space: nowrap !important;
+}
+
+
+/* 2026-07-02: 이용안내 박스 Figma 1941:772 padding lock
+   - inner content frame: 334x32
+   - left/right padding: 12px / 8px
+   - tip-title group: 53px, title-body gap: 16px
+   - body frame: x81 width 180, car: 50x26 at x277
+*/
+.route-notice-box {
+  width: 334px !important;
+  height: 58px !important;
+  overflow: visible !important;
+}
+.route-notice-bg {
+  width: 334px !important;
+  height: 58px !important;
+  object-fit: fill !important;
+  image-rendering: pixelated !important;
+}
+.route-notice-content {
+  position: absolute !important;
+  left: 0 !important;
+  top: 13px !important;
+  z-index: 1 !important;
+  display: flex !important;
+  width: 334px !important;
+  height: 32px !important;
+  padding: 0 8px 0 12px !important;
+  box-sizing: border-box !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  gap: 0 !important;
+}
+.route-notice-info {
+  display: flex !important;
+  align-items: center !important;
+  width: 249px !important;
+  height: 32px !important;
+  flex: 0 0 249px !important;
+  gap: 16px !important;
+  min-width: 0 !important;
+}
+.route-notice-heading {
+  position: relative !important;
+  width: 53px !important;
+  height: 32px !important;
+  flex: 0 0 53px !important;
+  margin: 0 !important;
+}
+.route-notice-tip {
+  position: absolute !important;
+  left: 0 !important;
+  top: 1px !important;
+  display: block !important;
+  width: 26px !important;
+  height: 30px !important;
+  object-fit: contain !important;
+  image-rendering: pixelated !important;
+}
+.route-notice-heading span {
+  position: absolute !important;
+  left: 30px !important;
+  top: 0 !important;
+  display: block !important;
+  width: 23px !important;
+  height: 32px !important;
+  color: #000 !important;
+  font-family: "NanumSquareNeo", "NanumSquare_Neo_OTF", "Malgun Gothic", system-ui, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 900 !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0 !important;
+  white-space: nowrap !important;
+}
+.route-notice-list {
+  width: 180px !important;
+  height: 29px !important;
+  flex: 0 0 180px !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  gap: 5px !important;
+  overflow: visible !important;
+}
+.route-notice-list p {
+  display: flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+  width: max-content !important;
+  height: 12px !important;
+  margin: 0 !important;
+  color: #000 !important;
+  font-family: "NanumSquareNeo", "NanumSquare_Neo_OTF", "Malgun Gothic", system-ui, sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0 !important;
+  white-space: nowrap !important;
+}
+.route-notice-list strong {
+  font-weight: 900 !important;
+}
+.route-notice-bullet {
+  display: inline-block !important;
+  flex: 0 0 4px !important;
+  width: 4px !important;
+  height: 4px !important;
+  background: #000 !important;
+}
+.route-notice-car {
+  display: block !important;
+  flex: 0 0 50px !important;
+  width: 50px !important;
+  height: 26px !important;
+  margin-left: 16px !important;
+  object-fit: contain !important;
+  image-rendering: pixelated !important;
+}
+
+
+/* 2026-07-02: 이용안내 텍스트 스타일 Figma 1926:846 / title spec lock */
+.route-notice-heading span {
+  font-family: "NanumSquare Neo OTF", "NanumSquareNeo", "NanumSquare_Neo_OTF", "Malgun Gothic", system-ui, sans-serif !important;
+  font-size: 12px !important;
+  font-style: normal !important;
+  font-weight: 800 !important;
+  line-height: 130% !important;
+  letter-spacing: -0.6px !important;
+}
+.route-notice-list p {
+  font-family: "NanumSquare Neo", "NanumSquare Neo OTF", "NanumSquareNeo", "NanumSquare_Neo_OTF", "Malgun Gothic", system-ui, sans-serif !important;
+  font-size: 10px !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  line-height: 120% !important;
+  letter-spacing: -0.6px !important;
+}
+.route-notice-list strong {
+  font-weight: 900 !important;
+}
+
+
+/* 2026-07-02: 이용안내 박스 Figma 1941:772 final padding correction
+   content: display flex; padding 0 12px; justify-content center; align-items center; gap 16px.
+   visual positions: left padding 12, title-body gap 16, body-car gap 16, right padding 12.
+*/
+.route-notice-content {
+  width: 334px !important;
+  height: 32px !important;
+  padding: 0 12px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 16px !important;
+  box-sizing: border-box !important;
+}
+.route-notice-info {
+  width: 244px !important;
+  flex: 0 0 244px !important;
+  height: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+}
+.route-notice-heading {
+  width: 53px !important;
+  flex: 0 0 53px !important;
+}
+.route-notice-list {
+  width: 175px !important;
+  flex: 0 0 175px !important;
+}
+.route-notice-car {
+  width: 50px !important;
+  height: 26px !important;
+  flex: 0 0 50px !important;
+  margin-left: 0 !important;
+}

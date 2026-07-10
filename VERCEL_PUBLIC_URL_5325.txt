@@ -1,0 +1,3 @@
+﻿VERCEL_DEPLOYMENT_URL=https://vercel-public-5325-20260708-kzqyfd3y9-mini99.vercel.app
+VERCEL_ALIAS_URL=https://vercel-public-5325-20260708.vercel.app
+VERCEL_INSPECT_URL=https://vercel.com/mini99/vercel-public-5325-20260708/6r8RGXpfbhPJGNUq6rtpaqWiuhh7

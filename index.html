@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>경로별 최저가 급속 충전소</title>
+    <link rel="stylesheet" href="./styles.preview-5281.css?v=5328" />
+  </head>
+    <body>
+    <main id="heroScreen" class="hero-screen" aria-label="고속도로 최저가 충전소 찾기 시작 화면">
+      <img class="asset hero-bg" src="./assets/new/bg.png" alt="" />
+      <section class="hero-sign" aria-label="서비스 소개">
+        <span class="hero-sign-small">EXPRESSWAY</span>
+        <strong>고속도로<br />최저가 충전소 찾기</strong>
+      </section>
+      <section class="hero-form" aria-label="출발지와 도착지 선택">
+        <label class="hero-field">
+          <span>출발지</span>
+          <select id="heroOriginSelect" aria-label="출발지 선택"></select>
+        </label>
+        <div class="hero-arrow" aria-hidden="true">⌄</div>
+        <label class="hero-field">
+          <span>도착지</span>
+          <select id="heroDestinationSelect" aria-label="도착지 선택"></select>
+        </label>
+        <button id="heroSearchButton" class="hero-search-button" type="button" onclick="enterRouteFromHero()">최저가 찾기</button>
+      </section>
+      <p class="hero-caption">최저가 충전소로 안내해드릴게요!</p>
+    </main>
+    <main id="mapScreen" class="figma-screen is-hidden" aria-label="경로별 최저가 급속 충전소">
+      <img class="asset bg" src="./assets/new/bg.png" alt="" />
+      <img class="asset map" src="./assets/new/korea-map-clean.png" alt="" />
+      <button id="backButton" class="back-button" type="button" aria-label="이전 화면" onclick="showHero()">
+        <img src="./assets/new/btn-back.png" alt="" />
+      </button>
+
+      <h1 class="map-title" data-title="경로별 최저가 급속 충전소">경로별 최저가 급속 충전소</h1>
+      <section class="route-select" aria-label="경로 선택">
+        <img class="legacy-dropbox" src="./assets/new/dropdox-blank.svg" alt="" />
+        <img class="dropbox-box dropbox-box-origin" src="./assets/new/dropdox-blank.svg" alt="" />
+        <img class="dropbox-box dropbox-box-destination" src="./assets/new/dropdox-blank.svg" alt="" />
+        <img class="dropbox-arrow-long" src="./assets/new/dropdox-arrow-long.svg" alt="" />
+        <img class="dropbox-arrow dropbox-arrow-origin" src="./assets/new/dropdox-ic-arrow.svg" alt="" />
+        <img class="dropbox-arrow dropbox-arrow-destination" src="./assets/new/dropdox-ic-arrow.svg" alt="" />
+        <div class="route-label origin-label"><img src="./assets/new/hero/hero-dropbox-start-ic.png" alt="" /><span>출발지</span></div>
+        <div class="route-label destination-label"><img src="./assets/new/hero/hero-dropbox-end-ic.png" alt="" /><span>도착지</span></div>
+        <button id="originTrigger" class="select-hotspot origin" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="출발지 서울"></button>
+        <button id="destinationTrigger" class="select-hotspot destination" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="도착지 부산"></button>
+        <span id="originValue" class="select-value origin-value">서울</span>
+        <span id="destinationValue" class="select-value destination-value">부산</span>
+        <div id="originMenu" class="select-menu origin-menu" role="listbox" hidden></div>
+        <div id="destinationMenu" class="select-menu destination-menu" role="listbox" hidden></div>
+      </section>
+
+      <svg id="routeLayer" class="route-layer" viewBox="0 0 375 812" aria-hidden="true"></svg>
+      <div id="stationLayer" class="station-layer" aria-live="polite"></div>
+      <div id="brandLabel" class="selected-detail-box" aria-live="polite" hidden>
+        <img class="selected-detail-box-bg" src="./assets/new/selected-box-detail-info-blank.svg" alt="" />
+        <div class="selected-detail-content">
+          <div class="selected-detail-operator-row">
+            <img src="./assets/new/ic_operator.png" alt="" />
+            <span id="detailOperator" class="selected-detail-text">--</span>
+          </div>
+          <div class="selected-detail-divider" aria-hidden="true"></div>
+          <div class="selected-detail-option-row">
+            <span class="selected-detail-option selected-detail-speed"><img src="./assets/new/ic_charging_speed.png" alt="" /><span id="detailSpeed" class="selected-detail-text">--</span></span>
+            <span class="selected-detail-option selected-detail-count"><img src="./assets/new/ic_charger_count.png" alt="" /><span id="detailCount" class="selected-detail-text">--</span></span>
+          </div>
+        </div>
+      </div>
+      <img class="asset flag flag-start" src="./assets/new/icon-flag-red.png?v=20260626-1614" alt="서울" />
+      <img class="asset flag flag-end" src="./assets/new/icon-flag-red.png?v=20260626-1614" alt="부산" />
+      <span id="startCityLabel" class="route-city-label start">서울</span>
+      <span id="endCityLabel" class="route-city-label end">부산</span>
+
+      <section class="price-card" aria-label="최저가 충전소 정보">
+        <img class="price-card-bg" src="./assets/new/box-detail-info-blank.svg" alt="" />
+        <div class="price-info">
+          <span class="price-card-charger" aria-hidden="true">
+            <img id="detailCharger" src="./assets/new/ic-evCharger.png?v=icon100-20260629-1" alt="" />
+          </span>
+          <span class="price-stack">
+            <img id="detailLowPriceLabel" class="price-card-label" src="./assets/new/label-lowPrice.svg" alt="최저가" />
+            <strong id="detailPrice" class="detail-price"><span class="detail-price-number">294</span><span class="detail-price-unit">원</span></strong>
+          </span>
+        </div>
+        <div class="service-info">
+          <div class="service-info-text info-service-name">
+            <div class="detail-route-line">
+              <span id="detailHighwayTag" class="detail-highway-tag">경부</span>
+              <span id="detailDirection" class="detail-direction">부산방향</span>
+            </div>
+            <strong id="detailStation" class="detail-station">천안휴게소</strong>
+          </div>
+        </div>
+      </section>
+
+
+      <div id="pinTotalBadge" class="pin-total-badge" aria-live="polite" hidden>
+        <img class="pin-total-icon" src="./assets/new/ic-pin-total.png" alt="" />
+        <span id="pinTotalText" class="pin-total-text">1/0</span>
+      </div>
+
+      <button class="image-button btn-prev" type="button" aria-label="이전 충전소">
+        <img src="./assets/new/btn-pre.svg" alt="" />
+      </button>
+      <button class="image-button btn-next" type="button" aria-label="다음 충전소">
+        <img src="./assets/new/btn-next.svg" alt="" />
+      </button>
+      <section class="route-notice-box" aria-label="이용안내">
+        <img class="route-notice-bg" src="./assets/new/box-notice-blank.svg" alt="" />
+        <div class="route-notice-content">
+          <div class="route-notice-info">
+            <div class="route-notice-heading">
+              <img class="route-notice-tip" src="./assets/new/ic-notice-tips.png" alt="" />
+              <span>이용<br />안내</span>
+            </div>
+            <div class="route-notice-list">
+              <p><span class="route-notice-bullet"></span><strong>일반 회원가 · 100kW 이상 급속</strong> 기준!</p>
+              <p><span class="route-notice-bullet"></span>이전/다음 버튼으로 충전소를 <strong>순서대로 확인</strong></p>
+            </div>
+          </div>
+          <img class="route-notice-car" src="./assets/new/ic-notice-car.png" alt="" />
+        </div>
+      </section>
+    </main>
+<script src="./data.generated-20260701.js?v=20260701"></script>
+    <script src="./app.preview-5281.js?v=5328"></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
