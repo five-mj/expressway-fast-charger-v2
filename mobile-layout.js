@@ -1,4 +1,4 @@
-// Keep the original 375 x 812 artwork coordinates, including map pins.
+// Preserve artwork coordinates; the main screen uses the Figma 375 x 892 frame.
 // A numeric scale also works in browsers without CSS length division.
 (() => {
   const viewport = document.querySelector('.screen-viewport');
@@ -6,9 +6,12 @@
 
   function updateMobileLayout() {
     if (mobile.matches) {
-      viewport.style.setProperty('--mobile-scale', document.documentElement.clientWidth / 375);
+      const scale = document.documentElement.clientWidth / 375;
+      viewport.style.setProperty('--mobile-scale', scale);
+      viewport.style.setProperty('--map-height', `${Math.max(892, window.innerHeight / scale)}px`);
     } else {
       viewport.style.removeProperty('--mobile-scale');
+      viewport.style.removeProperty('--map-height');
     }
   }
 

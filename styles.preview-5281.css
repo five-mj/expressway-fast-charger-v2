@@ -3932,3 +3932,44 @@ h1,
   flex: 0 0 50px !important;
   margin-left: 0 !important;
 }
+
+/* Figma main 2337:4: compact header and a seamless lower background. */
+.figma-screen {
+  height: var(--map-height, 892px);
+  background: #0099ff;
+}
+.figma-screen > .bg { top: 1px; height: 891px; }
+.figma-screen::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 741px;
+  bottom: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(0, 153, 255, 0), #0099ff 73.5px);
+}
+.figma-screen .back-button { left: 19px; top: 17px; }
+.figma-screen .map-title { top: 86px; }
+.figma-screen .route-select { top: 141px !important; }
+.figma-screen .select-hotspot,
+.figma-screen .select-value { top: 24px !important; }
+.figma-screen .price-card { top: 209px !important; }
+.figma-screen .pin-total-badge { top: 708px !important; }
+.figma-screen .btn-prev { left: 19px !important; top: 761px !important; width: 154px !important; height: 44px !important; }
+.figma-screen .btn-next { left: 202px !important; top: 761px !important; width: 154px !important; height: 44px !important; }
+.figma-screen .route-notice-box {
+  left: 19px !important;
+  top: 815px !important;
+  width: 338px !important;
+  height: 60px !important;
+}
+.figma-screen .route-notice-bg { width: 338px !important; height: 60px !important; }
+body:has(.figma-screen:not(.is-hidden)) { background: #0099ff; }
+@media (max-width: 767.98px) {
+  .screen-viewport:has(.figma-screen:not(.is-hidden)) {
+    height: calc(var(--map-height, 892px) * var(--mobile-scale, 1));
+    background: #0099ff;
+  }
+}
