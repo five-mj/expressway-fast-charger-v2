@@ -249,7 +249,11 @@ function fillMenu(menu, values, current, onSelect) {
     button.textContent = value;
     button.setAttribute("role", "option");
     button.setAttribute("aria-selected", value === current ? "true" : "false");
-    button.addEventListener("click", () => onSelect(value));
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      onSelect(value);
+    });
     menu.append(button);
   });
 }
@@ -318,12 +322,14 @@ function ensureHeroSelect(which) {
   menu.setAttribute("role", "listbox");
 
   trigger.addEventListener("click", (event) => {
+    event.preventDefault();
     event.stopPropagation();
     toggleHeroMenu(which);
   });
 
   field.addEventListener("click", (event) => {
     if (event.target.closest(".hero-select-menu")) return;
+    event.preventDefault();
     event.stopPropagation();
     toggleHeroMenu(which);
   });
@@ -349,6 +355,7 @@ function syncHeroSelect(which, values) {
     button.setAttribute("role", "option");
     button.setAttribute("aria-selected", value === current ? "true" : "false");
     button.addEventListener("click", (event) => {
+      event.preventDefault();
       event.stopPropagation();
       heroState[which] = value;
       if (which === "origin") heroState.destination = "";
