@@ -496,8 +496,11 @@ function bindControls() {
     refreshHeroControls();
   });
   els.heroSearchButton?.addEventListener("click", enterRouteFromHero);
-  els.heroSearchButton?.addEventListener("pointerenter", startHeroCoinMotion);
-  els.heroSearchButton?.addEventListener("pointerleave", stopHeroCoinMotion);
+  // Mouse movement also restores hover after the intro animation or a screen
+  // transition places the button underneath an already stationary pointer.
+  els.heroSearchButton?.addEventListener("mouseenter", startHeroCoinMotion);
+  els.heroSearchButton?.addEventListener("mousemove", startHeroCoinMotion);
+  els.heroSearchButton?.addEventListener("mouseleave", stopHeroCoinMotion);
   els.heroSearchButton?.addEventListener("focus", startHeroCoinMotion);
   els.heroSearchButton?.addEventListener("blur", stopHeroCoinMotion);
   els.originTrigger.addEventListener("click", (event) => {
