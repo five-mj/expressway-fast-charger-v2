@@ -3982,3 +3982,35 @@ body:has(.figma-screen:not(.is-hidden)) { background: #0099ff; }
     background: #0099ff;
   }
 }
+
+/* Responsive rules: see README.md. Desktop retains its original layout. */
+body:has(.responsive-screen) { display: block; padding: 0; }
+.screen-viewport.responsive-screen {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: var(--hero-flow-height);
+  overflow: hidden;
+}
+.screen-viewport.responsive-screen:has(.figma-screen:not(.is-hidden)) {
+  height: var(--map-flow-height);
+}
+.responsive-screen > .hero-screen,
+.responsive-screen > .figma-screen {
+  width: 375px !important;
+  max-width: none !important;
+  margin: 0 !important;
+  transform-origin: top left;
+}
+.responsive-screen > .hero-screen {
+  left: calc((100% - 375px * var(--hero-scale)) / 2);
+  transform: scale(var(--hero-scale));
+}
+.responsive-screen > .figma-screen {
+  left: calc((100% - 375px * var(--map-scale)) / 2);
+  transform: scale(var(--map-scale));
+}
+/* Keep classic scrollbars from toggling the width-fit scale at height boundaries.
+   On phones with overlay scrollbars this reserves no additional space. */
+html:has(.responsive-screen[data-layout="full-width"]) { overflow-y: scroll; }
+.responsive-screen[data-layout="full-width"] > main { left: 0; }

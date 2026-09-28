@@ -1,22 +1,40 @@
-// Preserve artwork coordinates; the main screen uses the Figma 375 x 892 frame.
-// A numeric scale also works in browsers without CSS length division.
+// Responsive policy is documented in README.md.
 (() => {
   const viewport = document.querySelector('.screen-viewport');
-  const mobile = window.matchMedia('(max-width: 767.98px)');
+  const narrow = matchMedia('(max-width: 767.98px)');
+  const touch = matchMedia('(hover: none) and (pointer: coarse)');
+  const MIN_SCALE = 0.85;
 
   function updateMobileLayout() {
-    if (mobile.matches) {
-      const scale = document.documentElement.clientWidth / 375;
-      viewport.style.setProperty('--mobile-scale', scale);
-      viewport.style.setProperty('--map-height', `${Math.max(892, window.innerHeight / scale)}px`);
-    } else {
-      viewport.style.removeProperty('--mobile-scale');
-      viewport.style.removeProperty('--map-height');
+    const responsive = narrow.matches || touch.matches;
+    viewport.classList.toggle('responsive-screen', responsive);
+    if (!responsive) {
+      viewport.removeAttribute('data-layout');
+      viewport.removeAttribute('style');
+      return;
     }
+    const width = document.documentElement.clientWidth;
+    const height = window.innerHeight;
+    // Use viewport width for the breakpoint so scrollbar appearance cannot
+    // repeatedly switch modes. Use usable width for the artwork itself.
+    const fit = innerWidth >= 480 && innerWidth / height >= 0.6;
+    const widthScale = width / 375;
+    const scaleFor = baseHeight => fit
+      ? Math.min(widthScale, Math.max(MIN_SCALE, height / baseHeight))
+      : widthScale;
+    const heroScale = scaleFor(812);
+    const mapScale = scaleFor(892);
+    const mapHeight = fit ? 892 : Math.max(892, height / mapScale);
+    viewport.dataset.layout = fit ? 'fit-height' : 'full-width';
+    viewport.style.setProperty('--hero-scale', heroScale);
+    viewport.style.setProperty('--map-scale', mapScale);
+    viewport.style.setProperty('--map-height', `${mapHeight}px`);
+    viewport.style.setProperty('--hero-flow-height', `${812 * heroScale}px`);
+    viewport.style.setProperty('--map-flow-height', `${mapHeight * mapScale}px`);
   }
-
   updateMobileLayout();
   window.addEventListener('resize', updateMobileLayout);
-  // Desktop-style scrollbars can change the usable width without a resize.
+  narrow.addEventListener('change', updateMobileLayout);
+  touch.addEventListener('change', updateMobileLayout);
   new ResizeObserver(updateMobileLayout).observe(document.documentElement);
 })();
