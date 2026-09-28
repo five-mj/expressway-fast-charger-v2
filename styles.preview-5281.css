@@ -907,15 +907,11 @@ h1,
   width: 148.278px;
 }
 
-@media (max-width: 374px) {
-  .figma-screen {
-    width: 375px;
-    transform: scale(calc(100vw / 375));
-    transform-origin: top center;
-  }
+.screen-viewport {
+  display: contents;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 767.98px) {
   html,
   body {
     width: 100%;
@@ -924,11 +920,19 @@ h1,
   }
 
   body {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    display: block;
     padding: 0;
     place-items: initial;
+  }
+
+  /* Transforms do not affect flow: reserve the scaled artwork height so
+     the document can scroll all the way to the bottom of either screen. */
+  .screen-viewport {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: calc(812px * var(--mobile-scale, 1));
+    overflow: hidden;
   }
 
   .hero-screen,
@@ -937,9 +941,9 @@ h1,
     left: auto;
     width: 375px !important;
     max-width: none !important;
-    margin: 0 auto !important;
-    transform: scale(calc(100vw / 375));
-    transform-origin: top center;
+    margin: 0 !important;
+    transform: scale(var(--mobile-scale, 1));
+    transform-origin: top left;
   }
 }
 
