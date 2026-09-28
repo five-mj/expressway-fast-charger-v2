@@ -194,11 +194,11 @@ button {
   pointer-events: none;
 }
 
-.hero-field:nth-of-type(2) > span {
+.hero-field.hero-field-destination > span {
   color: #de285e;
 }
 
-.hero-field:nth-of-type(2)::before {
+.hero-field.hero-field-destination::before {
   background-image: url("./assets/new/hero/hero-dropbox-end-ic.png");
 }
 
@@ -393,11 +393,11 @@ button {
   animation: heroPanelIntro 420ms steps(5, end) both;
 }
 
-.hero-screen:not(.is-hidden) .hero-field:nth-of-type(1) {
+.hero-screen:not(.is-hidden) .hero-field.hero-field-origin {
   animation-delay: 140ms;
 }
 
-.hero-screen:not(.is-hidden) .hero-field:nth-of-type(2) {
+.hero-screen:not(.is-hidden) .hero-field.hero-field-destination {
   animation-delay: 230ms;
 }
 
