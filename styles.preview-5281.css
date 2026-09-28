@@ -4014,3 +4014,32 @@ body:has(.responsive-screen) { display: block; padding: 0; }
    On phones with overlay scrollbars this reserves no additional space. */
 html:has(.responsive-screen[data-layout="full-width"]) { overflow-y: scroll; }
 .responsive-screen[data-layout="full-width"] > main { left: 0; }
+
+/* Figma 2337:4: direction badge + operator-specific opening status. */
+.detail-route-line .detail-highway-tag {
+  min-width: 46px !important;
+  max-width: 92px !important;
+  flex: 0 0 auto !important;
+  padding: 0 3px !important;
+}
+.detail-upcoming {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 46px;
+  width: 46px;
+  height: 18px;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-family: "NanumSquareNeo", "Malgun Gothic", sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: -0.6px;
+}
+.detail-upcoming[hidden] { display: none !important; }
+.detail-upcoming img { position: absolute; }
+.upcoming-center { left: 3px; top: 0; }
+.upcoming-left { left: 0; top: 1px; }
+.upcoming-right { right: 0; top: 1px; transform: scaleX(-1); }
+.detail-upcoming span { position: relative; }

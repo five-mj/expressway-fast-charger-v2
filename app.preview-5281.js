@@ -144,7 +144,7 @@ function boot() {
     schematic_order: Number(station.schematic_order),
     operator_name: station.operator_name || station.operatorName || station.operator || (String(station.station_id || "").startsWith("water_") ? "워터" : "")
   }));
-  applyWaterReststopData();
+  // Workbook snapshot is authoritative; do not overlay the legacy Water inventory.
   state.waypoints = (window.PROTOTYPE_DATA?.waypoints || []).map((point) => ({
     ...point,
     display_order: Number(point.display_order)
@@ -928,7 +928,7 @@ function renderStations(points) {
     ].filter(Boolean).join(" ");
     button.style.left = `${x}px`;
     button.style.top = `${y}px`;
-    button.setAttribute("aria-label", `${station.service_area_name} ${station.price_per_kwh}원`);
+    button.setAttribute("aria-label", `${station.service_area_name} ${station.price_per_kwh == null ? '요금 정보 없음' : station.price_per_kwh + '원'}`);
     button.setAttribute("aria-current", isFocused ? "true" : "false");
     if (isRecommended && isFocused) {
       const effect = document.createElement("img");
@@ -1187,12 +1187,12 @@ function getStationPinPoint(points, station, index, overlapGroups) {
 }
 
 function getRouteLowestPrice() {
-  const prices = state.routeStations.map((station) => Number(station.price_per_kwh)).filter(Number.isFinite);
-  return prices.length ? Math.min(...prices) : LOWEST_PRICE;
+  const prices = state.routeStations.map((station) => station.price_per_kwh).filter((price) => typeof price === 'number' && Number.isFinite(price));
+  return prices.length ? Math.min(...prices) : null;
 }
 
 function isLowestPriceStation(station) {
-  return Number(station?.price_per_kwh) === getRouteLowestPrice();
+  return typeof station?.price_per_kwh === 'number' && station.price_per_kwh === getRouteLowestPrice();
 }
 
 function getStationAvailableCount(station) {
@@ -1243,6 +1243,7 @@ function getChargingSpeedScore(speed) {
 }
 
 function getRecommendedStation() {
+  if (getExcelRoute()?.stops) return state.routeStations.find(station => station.excelRecommended) || null;
   const lowestStations = getLowestPriceStations();
   if (!lowestStations.length) return null;
   if (lowestStations.length === 1) return lowestStations[0];
@@ -1456,12 +1457,13 @@ function renderDetail() {
   }
   els.priceCard.hidden = false;
   applyDetailCardType(station);
-  const detailPriceText = String(station.price_per_kwh ?? "");
+  const detailPriceText = String(station.price_per_kwh ?? "--");
   const isShortDefaultPrice = getDetailCardType(station) === "default" && /^\d{1,3}$/.test(detailPriceText);
   els.priceCard.classList.toggle("is-price-short", isShortDefaultPrice);
   els.detailPrice.innerHTML = `<span class="detail-price-number">${detailPriceText}</span><span class="detail-price-unit">원</span>`;
-  if (els.detailHighwayTag) els.detailHighwayTag.textContent = getHighwayShortLabel(station.highway_name || state.highway);
-  els.detailDirection.textContent = station.direction || "--";
+  if (els.detailHighwayTag) els.detailHighwayTag.textContent = station.direction || "방향 미상";
+  const upcoming = document.querySelector('#detailUpcoming');
+  if (upcoming) upcoming.hidden = station.openingStatus !== '오픈예정';
   els.detailStation.textContent = station.service_area_name || "휴게소";
 }
 
@@ -1474,7 +1476,7 @@ function moveFocus(delta) {
 
 
 // 2026-07-01 stable Excel data integration.
-var EXCEL_ROUTE_DATA = window.APP_ROUTE_DATA_20260701 || { originOptions: [], routes: [], stationDetails: [] };
+var EXCEL_ROUTE_DATA = window.APP_ROUTE_DATA || { originOptions: [], routes: [], stationDetails: [] };
 var ORIGIN_REGION_ORDER = ["서울", "경기", "인천", "강원", "대전", "세종", "충북", "충남", "대구", "경북", "부산", "울산", "경남", "광주", "전북", "전남"];
 var DESTINATION_REGION_ORDER = ["서울", "경기", "인천", "강릉", "속초", "대전", "세종", "청주", "제천", "충남", "대구", "안동", "포항", "부산", "울산", "창원", "통영", "광주", "전북", "전남"];
 
@@ -1489,7 +1491,9 @@ function sortByConfiguredRegionOrder(values, order) {
 }
 
 var EXCEL_STATION_INDEX = new Map();
+var EXCEL_STATION_ROWS = new Map();
 (EXCEL_ROUTE_DATA.stationDetails || []).forEach(function(station) {
+  EXCEL_STATION_ROWS.set(station.sourceRow, station);
   var key = normalizeExcelKey(station.serviceAreaName);
   if (!EXCEL_STATION_INDEX.has(key)) EXCEL_STATION_INDEX.set(key, []);
   EXCEL_STATION_INDEX.get(key).push(station);
@@ -1646,6 +1650,23 @@ function computeRouteStations() {
     return;
   }
   var total = route.restAreas.length;
+  if (route.stops) {
+    state.routeStations = route.stops.map(function(stop, index) {
+      var candidates = stop.candidateRows.map(row => EXCEL_STATION_ROWS.get(row)).filter(Boolean);
+      var display = EXCEL_STATION_ROWS.get(stop.displayRow) || {
+        sourceRow: 'unavailable_' + stop.sourceRow, serviceAreaName: stop.name,
+        direction: stop.direction, price: null, openingStatus: '확인필요', operatorDisplay: '정보 없음'
+      };
+      var station = convertExcelStation(display, candidates, route, index, total);
+      return Object.assign(station, {service_area_name:stop.name, direction:stop.direction,
+        openingStatus:display.openingStatus, excelRecommended:stop.recommended,
+        price_per_kwh:display.price, operator_name:display.detailOperator || display.operatorDisplay,
+        sourceRow:stop.sourceRow});
+    });
+    window.__debugRouteStations = state.routeStations;
+    selectInitialFocusedStation();
+    return;
+  }
   state.routeStations = route.restAreas.map(function(name, index) {
     var candidates = EXCEL_STATION_INDEX.get(normalizeExcelKey(name)) || [];
     var display = getDisplayCandidateFromExcel(candidates, route);
