@@ -3934,6 +3934,15 @@ h1,
 }
 
 /* Figma main 2337:4: compact header and a seamless lower background. */
+.figma-screen .map { top: 302px !important; }
+.figma-screen .route-layer,
+.figma-screen .station-layer,
+.figma-screen .flag-start,
+.figma-screen .flag-end,
+.figma-screen .route-city-label,
+.figma-screen .brand-label { transform: translateY(0) !important; }
+.figma-screen .selected-detail-box { transform: translateY(20px) !important; }
+
 .figma-screen {
   height: var(--map-height, 892px);
   background: #0099ff;
