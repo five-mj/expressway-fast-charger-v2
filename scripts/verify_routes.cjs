@@ -23,5 +23,8 @@ const result=vm.runInContext(`(() => {
  }
  return {routes:EXCEL_ROUTE_DATA.routes.length,nonEmpty,stops,water,water294};
 })()`,context);
-assert.equal(result.routes,300);assert.equal(result.nonEmpty,287);assert.equal(result.stops,1584);assert.equal(result.water,129);assert.equal(result.water294,107);
+assert.equal(result.routes,300);assert.equal(result.nonEmpty,287);assert.equal(result.stops,1584);assert.equal(result.water,122);assert.equal(result.water294,107);
+const prices=vm.runInContext(`EXCEL_ROUTE_DATA.stationDetails.filter(s=>['테슬라','에버온','E1'].includes(s.operatorDisplay)).map(s=>[s.operatorDisplay,s.price])`,context);
+for(const [operator,price] of prices)assert.equal(price,{'테슬라':339,'에버온':296,E1:347.2}[operator]);
+assert.equal(prices.length,94);
 console.log('Verified all workbook routes:',JSON.stringify(result));
