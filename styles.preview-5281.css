@@ -4047,6 +4047,8 @@ html:has(.responsive-screen[data-layout="full-width"]) { overflow-y: scroll; }
 .detail-upcoming {
   position: relative;
   display: inline-flex;
+  box-sizing: border-box;
+  padding: 0 3px;
   flex: 0 0 46px;
   width: 46px;
   height: 18px;
@@ -4064,4 +4066,11 @@ html:has(.responsive-screen[data-layout="full-width"]) { overflow-y: scroll; }
 .upcoming-center { left: 3px; top: 0; }
 .upcoming-left { left: 0; top: 1px; }
 .upcoming-right { right: 0; top: 1px; transform: scaleX(-1); }
-.detail-upcoming span { position: relative; }
+.detail-upcoming span {
+  position: relative;
+  flex: 0 0 auto;
+  white-space: nowrap;
+  text-align: center;
+  /* Cancel the final negative tracking so the visible text is centered. */
+  padding-right: 0.6px;
+}

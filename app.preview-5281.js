@@ -42,7 +42,7 @@ const OVERLAP_PIN_SPACING = 7;
 const BRAND_LABEL_SIZE = { width: 129, height: 97 };
 const BRAND_LABEL_GAP = 34;
 const BRAND_LABEL_BOUNDS = { left: 12, top: 320, right: 363, bottom: 672 };
-const CITY_LABEL_GAP = 12;
+const CITY_LABEL_GAP = 4;
 const CITY_LABEL_BOUNDS = { left: 10, top: 318, right: 360, bottom: 652 };
 const LOWEST_PRICE = 294;
 const PUBLIC_DATA_SYNC_TIMEOUT_MS = 60000;
@@ -863,8 +863,8 @@ function renderRouteEnds(points, start, end) {
   const stationPoints = getRouteStationPoints(points);
   const occupiedRects = [];
   setRouteEndsHidden(false);
-  placeRouteEnd(els.startFlag, els.startLabel, startPoint, "출발", points, stationPoints, occupiedRects);
-  placeRouteEnd(els.endFlag, els.endLabel, endPoint, "도착", points, stationPoints, occupiedRects);
+  placeRouteEnd(els.startFlag, els.startLabel, startPoint, state.origin, points, stationPoints, occupiedRects);
+  placeRouteEnd(els.endFlag, els.endLabel, endPoint, state.destination, points, stationPoints, occupiedRects);
 }
 
 function chooseCityLabelRect(flagRect, name, points, stationPoints, occupiedRects) {
@@ -906,7 +906,7 @@ function clampCityLabelRect(rect, size) {
 
 function cityLabelCollisionScore(rect, flagRect, points, stationPoints, occupiedRects) {
   let score = 0;
-  if (rectsOverlap(rect, padRect(flagRect, 10))) score += 1200;
+  if (rectsOverlap(rect, padRect(flagRect, 2))) score += 1200;
   occupiedRects.forEach((occupied) => {
     if (rectsOverlap(rect, padRect(occupied, 4))) score += 900;
   });
@@ -915,7 +915,7 @@ function cityLabelCollisionScore(rect, flagRect, points, stationPoints, occupied
   });
   stationPoints.forEach((point) => {
     const isFocused = point.index === state.focusedIndex;
-    if (rectsOverlap(rect, padRect(getPinBox(point), isFocused ? 28 : 16))) score += isFocused ? 2600 : 700;
+    if (rectsOverlap(rect, padRect(getPinBox(point), isFocused ? 8 : 4))) score += isFocused ? 2600 : 700;
   });
   sampleRoutePoints(points).forEach(([x, y]) => {
     if (pointInRect(x, y, rect, 9)) score += 80;
