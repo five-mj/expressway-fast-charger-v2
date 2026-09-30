@@ -4088,3 +4088,15 @@ html:has(.responsive-screen[data-layout="full-width"]) { overflow-y: scroll; }
 .route-share-buttons button:focus-visible {outline:2px solid white;outline-offset:4px;}
 .share-status {margin:4px 10px 0; text-align:center; font-size:10px; line-height:12px; color:#fff;}
 .share-status input {width:100%;font-size:10px;}
+
+/* Figma Rectangle 3468187 (2383:3571): transparent to blue at 76.515%. */
+.figma-screen .top-gradient {
+  position: absolute;
+  left: 0;
+  top: 66px;
+  width: 375px;
+  height: 66px;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(0,153,255,0) 0%, #0099ff 76.515%);
+}
