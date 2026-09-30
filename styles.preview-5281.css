@@ -4089,14 +4089,14 @@ html:has(.responsive-screen[data-layout="full-width"]) { overflow-y: scroll; }
 .share-status {margin:4px 10px 0; text-align:center; font-size:10px; line-height:12px; color:#fff;}
 .share-status input {width:100%;font-size:10px;}
 
-/* Figma Rectangle 3468187 (2383:3571): transparent to blue at 76.515%. */
+/* Upper edge overlay: blue at the canvas top, fading into the sky below. */
 .figma-screen .top-gradient {
   position: absolute;
   left: 0;
-  top: 66px;
+  top: 0;
   width: 375px;
   height: 66px;
   z-index: 1;
   pointer-events: none;
-  background: linear-gradient(to bottom, rgba(0,153,255,0) 0%, #0099ff 76.515%);
+  background: linear-gradient(to bottom, #0099ff 23.485%, rgba(0,153,255,0) 100%);
 }
