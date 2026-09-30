@@ -821,9 +821,14 @@ function setRouteEndsHidden(hidden) {
 function placeRouteEnd(flag, label, point, name, points, stationPoints, occupiedRects) {
   if (!flag || !label) return;
   const [x, y] = point;
-  const flagLeft = clamp(x - FLAG_POLE_OFFSET_X, 18, 340);
-  const flagTop = clamp(y - FLAG_TOP_OFFSET_Y, 248, 664);
-  const flagRect = { left: flagLeft, top: flagTop, right: flagLeft + 24, bottom: flagTop + 37 };
+  const city = flag === els.startFlag ? state.origin : state.destination;
+  const layout = window.FIGMA_CITY_PIN_LAYOUT;
+  const spec = layout && layout.cities[city] ? layout.flag : null;
+  const flagLeft = spec ? x - spec.anchorX : clamp(x - FLAG_POLE_OFFSET_X, 18, 340);
+  const flagTop = spec ? y - spec.anchorY : clamp(y - FLAG_TOP_OFFSET_Y, 248, 664);
+  const flagHeight = spec ? spec.height : 37;
+  flag.style.height = `${flagHeight}px`;
+  const flagRect = { left: flagLeft, top: flagTop, right: flagLeft + 24, bottom: flagTop + flagHeight };
 
   flag.hidden = false;
   label.hidden = false;
@@ -1539,9 +1544,20 @@ function findHighway(origin, destination) {
   return route ? route.highway : "";
 }
 
+function getCityRoutePoint(city) {
+  var layout = window.FIGMA_CITY_PIN_LAYOUT;
+  var pin = layout && layout.cities[city];
+  if (!pin) return FIXED_CITY_ROUTE_POINTS_FINAL[city];
+  var map = document.querySelector("#mapScreen .map");
+  var rect = map && map.offsetWidth ? {
+    left: map.offsetLeft, top: map.offsetTop, width: map.offsetWidth, height: map.offsetHeight
+  } : layout.map;
+  return [rect.left + pin.x * rect.width, rect.top + pin.y * rect.height];
+}
+
 function makeFixedRoutePointsFinal(route) {
-  var start = FIXED_CITY_ROUTE_POINTS_FINAL[route && route.origin];
-  var end = FIXED_CITY_ROUTE_POINTS_FINAL[route && route.destination];
+  var start = getCityRoutePoint(route && route.origin);
+  var end = getCityRoutePoint(route && route.destination);
   if (!start || !end) return null;
   var dx = end[0] - start[0];
   var dy = end[1] - start[1];

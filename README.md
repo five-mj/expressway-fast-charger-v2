@@ -2,6 +2,10 @@
 
 Route-based lowest-price fast charger miniapp.
 
+## 2026-09-30 지도 지역 좌표
+
+27개 도시의 Figma 핀 좌표와 산출 기준은 [지도 핀 좌표 리스트](docs/map-pin-coordinates.md)에 저장합니다. 실행 데이터는 `map-city-pins.js`입니다. 현재 출발지·도착지와 이름이 정확히 같은 도시만 새 좌표를 적용하고, 권역명과 미등록 지역은 기존 좌표를 유지합니다. 선택 목록과 경로·요금 데이터는 변경하지 않습니다.
+
 ## Independent V2 deployment
 
 - V2 website: https://five-mj.github.io/expressway-fast-charger-v2/

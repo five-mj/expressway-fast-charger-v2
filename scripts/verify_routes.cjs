@@ -1,6 +1,7 @@
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
 const context=vm.createContext({window:{},document:{querySelector:()=>null},console});
 vm.runInContext(fs.readFileSync('data.generated-20260917.js','utf8'),context);
+vm.runInContext(fs.readFileSync('map-city-pins.js','utf8'),context);
 vm.runInContext(fs.readFileSync('app.preview-5281.js','utf8').replace(/^boot\(\);/m,''),context);
 const result=vm.runInContext(`(() => {
  let stops=0,water=0,water294=0,nonEmpty=0;
