@@ -863,8 +863,8 @@ function renderRouteEnds(points, start, end) {
   const stationPoints = getRouteStationPoints(points);
   const occupiedRects = [];
   setRouteEndsHidden(false);
-  placeRouteEnd(els.startFlag, els.startLabel, startPoint, state.origin, points, stationPoints, occupiedRects);
-  placeRouteEnd(els.endFlag, els.endLabel, endPoint, state.destination, points, stationPoints, occupiedRects);
+  placeRouteEnd(els.startFlag, els.startLabel, startPoint, "출발", points, stationPoints, occupiedRects);
+  placeRouteEnd(els.endFlag, els.endLabel, endPoint, "도착", points, stationPoints, occupiedRects);
 }
 
 function chooseCityLabelRect(flagRect, name, points, stationPoints, occupiedRects) {
