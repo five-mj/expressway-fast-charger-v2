@@ -3961,7 +3961,7 @@ h1,
 .figma-screen .selected-detail-box { transform: translateY(20px) !important; }
 
 .figma-screen {
-  height: var(--map-height, 892px);
+  height: var(--map-height, 1011px);
   background: #0099ff;
 }
 .figma-screen > .bg { top: 1px; height: 891px; }
@@ -4000,7 +4000,7 @@ h1,
 body:has(.figma-screen:not(.is-hidden)) { background: #0099ff; }
 @media (max-width: 767.98px) {
   .screen-viewport:has(.figma-screen:not(.is-hidden)) {
-    height: calc(var(--map-height, 892px) * var(--mobile-scale, 1));
+    height: calc(var(--map-height, 1011px) * var(--mobile-scale, 1));
     background: #0099ff;
   }
 }
@@ -4076,3 +4076,15 @@ html:has(.responsive-screen[data-layout="full-width"]) { overflow-y: scroll; }
   text-align: center;
   padding: 0;
 }
+
+/* Figma main 2375:2701, 375 x 1011. Keep original map and controls in place. */
+.route-share { position:absolute; left:0; top:875px; width:375px; z-index:5; font-family:"NanumSquareNeo",sans-serif; }
+.route-share h2 { display:flex; align-items:center; justify-content:center; gap:10px; height:54.4px; margin:0; padding:16px 10px; background:#0099ff; color:#fff; font-size:16px; font-weight:900; line-height:1.4; letter-spacing:-.6px; }
+.route-share h2::before,.route-share h2::after {content:""; width:48px; height:2px; background:#fff;}
+.route-share-buttons {display:flex; justify-content:center; gap:20px;}
+.route-share-buttons button {display:flex; flex-direction:column; align-items:center; gap:2px; width:50.561px; flex:0 0 50.561px; color:#000; font-size:10px; font-weight:900; line-height:1.4; letter-spacing:-.6px;}
+.share-coin {display:block; width:100%; aspect-ratio:770/731; position:relative; overflow:hidden;}
+.share-coin img {position:absolute; width:169.48%; height:164.84%; left:-34.81%; top:-22.02%; max-width:none;}
+.route-share-buttons button:focus-visible {outline:2px solid white;outline-offset:4px;}
+.share-status {margin:4px 10px 0; text-align:center; font-size:10px; line-height:12px; color:#fff;}
+.share-status input {width:100%;font-size:10px;}

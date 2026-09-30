@@ -23,8 +23,8 @@
       ? Math.min(widthScale, Math.max(MIN_SCALE, height / baseHeight))
       : widthScale;
     const heroScale = scaleFor(812);
-    const mapScale = scaleFor(892);
-    const mapHeight = fit ? 892 : Math.max(892, height / mapScale);
+    const mapScale = scaleFor(1011);
+    const mapHeight = fit ? 1011 : Math.max(1011, height / mapScale);
     viewport.dataset.layout = fit ? 'fit-height' : 'full-width';
     viewport.style.setProperty('--hero-scale', heroScale);
     viewport.style.setProperty('--map-scale', mapScale);
