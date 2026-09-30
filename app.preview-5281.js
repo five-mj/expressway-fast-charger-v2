@@ -967,7 +967,6 @@ function renderStations(points) {
       state.focusedIndex = index;
       renderStations(points);
     });
-    if (!isFocused) button.style.opacity = "0.92";
     els.stationLayer.append(button);
   });
   renderBrandLabel(points, stationPoints);

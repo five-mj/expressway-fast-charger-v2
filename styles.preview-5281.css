@@ -3981,6 +3981,11 @@ h1,
 .figma-screen .route-select { top: 141px !important; }
 .figma-screen .select-hotspot,
 .figma-screen .select-value { top: 24px !important; }
+.figma-screen .select-value {
+  height: 34px !important;
+  display: flex !important;
+  align-items: center !important;
+}
 .figma-screen .price-card { top: 209px !important; }
 .figma-screen .pin-total-badge { top: 708px !important; }
 .figma-screen .btn-prev { left: 19px !important; top: 761px !important; width: 154px !important; height: 44px !important; }
