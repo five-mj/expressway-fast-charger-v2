@@ -808,7 +808,8 @@ function render() {
   const start = getWaypointRatio(state.highway, state.origin) ?? 0;
   const end = getWaypointRatio(state.highway, state.destination) ?? 1;
   const segment = routeSegmentPoints(points, start, end);
-  els.routeLayer.innerHTML = `<path class="route-shadow" d="${svgPath(insetRouteStroke(segment, 5))}" transform="translate(2 2)"></path><path class="route-main" d="${svgPath(insetRouteStroke(segment, 1.5))}"></path><path class="route-dash" d="${svgPath(insetRouteStroke(segment, 6))}"></path>`;
+  const roadPath = svgPath(segment);
+  els.routeLayer.innerHTML = `<path class="route-outline" d="${roadPath}"></path><path class="route-main" d="${roadPath}"></path><path class="route-dash" d="${svgPath(insetRouteStroke(segment, 3))}"></path>`;
   renderRouteEnds(points, start, end);
   if (els.routeBadge) {
     els.routeBadge.textContent = state.highway;

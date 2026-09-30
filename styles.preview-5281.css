@@ -1044,21 +1044,21 @@ h1,
   z-index: 10;
 }
 
-.route-shadow,
+/* Figma 2375:1867: 6px filled road with a centered 1px black border. */
+.route-outline,
 .route-main {
   fill: none;
-  stroke-width: 6;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.route-shadow { stroke: #07143b; }
-.route-main { stroke: #17a653; }
+.route-outline { stroke: #000; stroke-width: 7; }
+.route-main { stroke: #3ad351; stroke-width: 5; }
 
 .route-dash {
   fill: none;
   stroke: #fff;
-  stroke-width: 1.7;
-  stroke-dasharray: 7 7;
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
   stroke-linecap: butt;
 }
 
