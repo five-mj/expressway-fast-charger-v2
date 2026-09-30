@@ -4039,10 +4039,10 @@ html:has(.responsive-screen[data-layout="full-width"]) { overflow-y: scroll; }
 
 /* Figma 2337:4: direction badge + operator-specific opening status. */
 .detail-route-line .detail-highway-tag {
-  min-width: 46px !important;
+  min-width: 52px !important;
   max-width: 92px !important;
   flex: 0 0 auto !important;
-  padding: 0 3px !important;
+  padding: 0 6px !important;
   /* The decorative border must not add another 3px to the text inset. */
   border-width: 0 !important;
   line-height: 1.4 !important;
@@ -4051,9 +4051,9 @@ html:has(.responsive-screen[data-layout="full-width"]) { overflow-y: scroll; }
   position: relative;
   display: inline-flex;
   box-sizing: border-box;
-  padding: 0 3px;
-  flex: 0 0 46px;
-  width: 46px;
+  padding: 0 6px;
+  flex: 0 0 52px;
+  width: 52px;
   height: 18px;
   align-items: center;
   justify-content: center;
@@ -4066,7 +4066,7 @@ html:has(.responsive-screen[data-layout="full-width"]) { overflow-y: scroll; }
 }
 .detail-upcoming[hidden] { display: none !important; }
 .detail-upcoming img { position: absolute; }
-.upcoming-center { left: 3px; top: 0; }
+.upcoming-center { left: 3px; top: 0; width: calc(100% - 6px); height: 18px; }
 .upcoming-left { left: 0; top: 1px; }
 .upcoming-right { right: 0; top: 1px; transform: scaleX(-1); }
 .detail-upcoming span {
