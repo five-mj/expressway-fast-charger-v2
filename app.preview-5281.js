@@ -610,6 +610,20 @@ function svgPath(points) {
   return points.map(([x, y], index) => `${index ? "L" : "M"} ${x.toFixed(1)} ${y.toFixed(1)}`).join(" ");
 }
 
+// Trim only the painted road, never its geographic endpoints or station positions.
+function insetRouteStroke(points, inset) {
+  const distances = [0];
+  for (let i = 1; i < points.length; i++) {
+    distances.push(distances[i - 1] + Math.hypot(points[i][0] - points[i - 1][0], points[i][1] - points[i - 1][1]));
+  }
+  const total = distances.at(-1);
+  if (!total) return points.map(point => [...point]);
+  const trim = Math.min(inset, total / 4);
+  return [pointOnPath(points, trim / total),
+    ...points.filter((point, i) => distances[i] > trim && distances[i] < total - trim),
+    pointOnPath(points, 1 - trim / total)];
+}
+
 function routeSegmentPoints(points, start, end) {
   const steps = Math.max(8, Math.ceil(Math.abs(end - start) * 28));
   return Array.from({ length: steps + 1 }, (_, index) => pointOnPath(points, start + ((end - start) * index) / steps));
@@ -794,7 +808,7 @@ function render() {
   const start = getWaypointRatio(state.highway, state.origin) ?? 0;
   const end = getWaypointRatio(state.highway, state.destination) ?? 1;
   const segment = routeSegmentPoints(points, start, end);
-  els.routeLayer.innerHTML = `<path class="route-main" d="${svgPath(segment)}"></path><path class="route-dash" d="${svgPath(segment)}"></path>`;
+  els.routeLayer.innerHTML = `<path class="route-shadow" d="${svgPath(insetRouteStroke(segment, 5))}" transform="translate(2 2)"></path><path class="route-main" d="${svgPath(insetRouteStroke(segment, 1.5))}"></path><path class="route-dash" d="${svgPath(insetRouteStroke(segment, 6))}"></path>`;
   renderRouteEnds(points, start, end);
   if (els.routeBadge) {
     els.routeBadge.textContent = state.highway;

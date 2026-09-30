@@ -1044,21 +1044,22 @@ h1,
   z-index: 10;
 }
 
+.route-shadow,
 .route-main {
   fill: none;
-  stroke: #17a653;
   stroke-width: 6;
-  stroke-linecap: square;
+  stroke-linecap: round;
   stroke-linejoin: round;
-  filter: drop-shadow(2px 2px 0 #07143b);
 }
+.route-shadow { stroke: #07143b; }
+.route-main { stroke: #17a653; }
 
 .route-dash {
   fill: none;
   stroke: #fff;
   stroke-width: 1.7;
   stroke-dasharray: 7 7;
-  stroke-linecap: square;
+  stroke-linecap: butt;
 }
 
 .station-pin {
