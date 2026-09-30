@@ -33,7 +33,12 @@ const result = vm.runInContext(`(() => {
   }
   return {count: Object.keys(layout.cities).length, matched, preserved, routes: EXCEL_ROUTE_DATA.routes.length};
 })()`, context);
-assert.equal(result.count, 27);
+assert.equal(result.count, 14);
+const reference = JSON.parse(fs.readFileSync('docs/map-pin-coordinates-27.json', 'utf8'));
+assert.equal(Object.keys(reference.cities).length, 27);
+for (const name of result.matched) {
+  assert.deepEqual(JSON.parse(JSON.stringify(context.window.FIGMA_CITY_PIN_LAYOUT.cities[name])), reference.cities[name]);
+}
 assert.equal(result.matched.length, 14);
 assert.equal(result.preserved.length, 10);
 console.log(JSON.stringify(result, null, 2));
