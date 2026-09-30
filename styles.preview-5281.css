@@ -3934,7 +3934,23 @@ h1,
 }
 
 /* Figma main 2337:4: compact header and a seamless lower background. */
-.figma-screen .map { top: 302px !important; }
+/* Figma 2365:660: preserve the supplied map's image crop and placement. */
+.figma-screen .map {
+  left: 23px;
+  top: 285px !important;
+  width: 329px;
+  height: 430px;
+  overflow: hidden;
+  pointer-events: none;
+}
+.figma-screen .map > img {
+  position: absolute;
+  left: -4.86%;
+  top: -1.63%;
+  width: 106.69%;
+  height: 103.96%;
+  max-width: none;
+}
 .figma-screen .route-layer,
 .figma-screen .station-layer,
 .figma-screen .flag-start,
