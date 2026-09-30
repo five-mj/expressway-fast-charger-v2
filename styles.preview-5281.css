@@ -4043,6 +4043,9 @@ html:has(.responsive-screen[data-layout="full-width"]) { overflow-y: scroll; }
   max-width: 92px !important;
   flex: 0 0 auto !important;
   padding: 0 3px !important;
+  /* The decorative border must not add another 3px to the text inset. */
+  border-width: 0 !important;
+  line-height: 1.4 !important;
 }
 .detail-upcoming {
   position: relative;
@@ -4071,6 +4074,5 @@ html:has(.responsive-screen[data-layout="full-width"]) { overflow-y: scroll; }
   flex: 0 0 auto;
   white-space: nowrap;
   text-align: center;
-  /* Cancel the final negative tracking so the visible text is centered. */
-  padding-right: 0.6px;
+  padding: 0;
 }
