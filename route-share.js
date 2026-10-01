@@ -6,7 +6,7 @@
     status.textContent = message;
     status.classList.toggle('is-expanded', message !== '링크 복사 성공!');
     status.classList.add('is-visible');
-    if (!persistent) toastTimer = setTimeout(() => status.classList.remove('is-visible'), 3000);
+    if (!persistent) toastTimer = setTimeout(() => status.classList.remove('is-visible'), 2000);
   }
   const incoming = new URLSearchParams(location.search);
   const origin = incoming.get('origin');
