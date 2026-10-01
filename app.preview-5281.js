@@ -970,6 +970,12 @@ function renderStations(points) {
     els.stationLayer.append(button);
   });
   renderBrandLabel(points, stationPoints);
+  // Recheck endpoints against the final info-box position on every pin change.
+  renderRouteEnds(
+    points,
+    getWaypointRatio(state.highway, state.origin) ?? 0,
+    getWaypointRatio(state.highway, state.destination) ?? 1
+  );
   els.prev.disabled = state.focusedIndex <= 0;
   els.next.disabled = state.focusedIndex >= state.routeStations.length - 1;
 }
@@ -1082,7 +1088,17 @@ function getCityLabelUiCollisionRects() {
   const rects = [];
   const selectedBox = els.selectedDetailBox || els.brandLabel;
   const selectedRect = rectFromPositionedNode(selectedBox, BRAND_LABEL_SIZE.width, BRAND_LABEL_SIZE.height);
-  if (selectedRect) rects.push(padRect(selectedRect, 18));
+  if (selectedRect) {
+    // CSS moves the info box after layout; collision checks use that visible position.
+    const transform = getComputedStyle(selectedBox).transform;
+    const matrix = transform === 'none' ? null : new DOMMatrixReadOnly(transform);
+    const dx = matrix?.m41 || 0;
+    const dy = matrix?.m42 || 0;
+    rects.push(padRect({
+      left: selectedRect.left + dx, top: selectedRect.top + dy,
+      right: selectedRect.right + dx, bottom: selectedRect.bottom + dy
+    }, 18));
+  }
 
   const badge = getPinTotalBadgeCollisionRect() || getPinTotalBadgePlannedCollisionRect();
   if (badge) rects.push(padRect(badge, 8));
