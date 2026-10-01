@@ -1,5 +1,13 @@
 (() => {
   const status = document.getElementById('shareStatus');
+  let toastTimer;
+  function showStatus(message, persistent = false) {
+    clearTimeout(toastTimer);
+    status.textContent = message;
+    status.classList.toggle('is-expanded', message !== '링크 복사 성공!');
+    status.classList.add('is-visible');
+    if (!persistent) toastTimer = setTimeout(() => status.classList.remove('is-visible'), 3000);
+  }
   const incoming = new URLSearchParams(location.search);
   const origin = incoming.get('origin');
   const destination = incoming.get('destination');
@@ -21,9 +29,9 @@
   async function copy(url, message) {
     try {
       await navigator.clipboard.writeText(url);
-      status.textContent = message;
+      showStatus(message);
     } catch {
-      status.textContent = '아래 링크를 복사해주세요.';
+      showStatus('아래 링크를 복사해주세요.', true);
       const input = document.createElement('input');
       input.value = url;
       input.readOnly = true;
@@ -36,7 +44,8 @@
     button.addEventListener('click', async () => {
       const url = shareUrl();
       const title = `${state.origin} → ${state.destination} 최저가 급속 충전소`;
-      status.textContent = '';
+      clearTimeout(toastTimer);
+      status.classList.remove('is-visible');
       switch (button.dataset.share) {
         case 'facebook':
           window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank', 'noopener,noreferrer');
@@ -55,7 +64,7 @@
           } else await copy(url, '링크를 복사했어요. 카카오톡에 붙여넣어주세요.');
           break;
         default:
-          await copy(url, '선택한 경로의 링크를 복사했어요.');
+          await copy(url, '링크 복사 성공!');
       }
     });
   });
