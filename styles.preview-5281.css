@@ -4108,6 +4108,37 @@ html:has(.responsive-screen[data-layout="full-width"]) { overflow-y: scroll; }
 }
 .detail-upcoming[hidden] { display: none !important; }
 .detail-upcoming img { display: block; flex: 0 0 auto; }
+.detail-text-label {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+  height: 18px;
+  align-items: center;
+  justify-content: center;
+}
+.detail-text-label.label-low { width: 38px; }
+.detail-text-label.label-recommended { width: 29px; }
+.detail-text-label.label-tied { width: 58px; }
+.detail-text-label > img { position: absolute; left: 0; top: 0; }
+.detail-text-label > span {
+  position: relative;
+  display: block;
+  padding-right: .6px;
+  white-space: nowrap;
+}
+.price-card .detail-text-label,
+.price-card .detail-route-line .detail-highway-tag {
+  font-family: "NanumSquareNeo", sans-serif !important;
+  font-weight: 800 !important;
+  font-size: 11px !important;
+  font-style: normal !important;
+  line-height: 1.4 !important;
+  letter-spacing: -.6px !important;
+  font-synthesis: none !important;
+  color: #fff !important;
+  text-shadow: none !important;
+  -webkit-text-stroke: 0 !important;
+}
 .price-card .price-card-labels { gap: 2px !important; }
 
 /* Figma main 2375:2701, 375 x 1031. Keep original map and controls in place. */
@@ -4143,6 +4174,11 @@ html:has(.responsive-screen[data-layout="full-width"]) { overflow-y: scroll; }
 .figma-screen .route-notice-content {top:10px !important; width:338px !important; height:44px !important; padding:0 11px !important;}
 .figma-screen .route-notice-info {width:250px !important; flex:0 0 250px !important; height:44px !important;}
 .figma-screen .route-notice-list {width:181px !important; flex:0 0 181px !important; height:44px !important; gap:4px !important;}
+.figma-screen .route-notice-list p { transform: none !important; }
+.figma-screen .route-notice-heading span {
+  font-family: "NanumSquareNeo", sans-serif !important;
+  font-synthesis: none;
+}
 
 /* Center desktop artwork when it fits; keep the top reachable on short windows. */
 @media (min-width:768px) {

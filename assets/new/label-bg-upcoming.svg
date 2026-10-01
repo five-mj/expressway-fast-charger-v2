@@ -1,0 +1,14 @@
+<svg width="46" height="18" viewBox="0 0 46 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M43 18H3V0H43V18Z" fill="#2477DB"/>
+<rect width="1" height="14" transform="matrix(-1 0 0 1 44 2)" fill="#2477DB"/>
+<rect x="43" y="1" width="1" height="1" fill="#2477DB"/>
+<rect x="44" y="2" width="1" height="1" fill="#2477DB"/>
+<rect x="45" y="3" width="1" height="1" fill="#2477DB"/>
+<rect width="1" height="1" transform="matrix(1 0 0 -1 45 15)" fill="#2477DB"/>
+<rect width="1" height="10" transform="matrix(-1 0 0 1 46 4)" fill="#2477DB"/>
+<rect width="2" height="12" transform="matrix(-1 0 0 1 45 3)" fill="#2477DB"/>
+<rect width="1" height="1" transform="matrix(1 0 0 -1 43 17)" fill="#2477DB"/>
+<rect width="1" height="1" transform="matrix(1 0 0 -1 44 16)" fill="#2477DB"/>
+<path d="M3 17H2V16H1V15H0V3H1V2H2V1H3V17Z" fill="#2477DB"/>
+</svg>
+

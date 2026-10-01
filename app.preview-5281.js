@@ -1475,12 +1475,12 @@ function renderDetailLabels(station, type) {
   const lowestCount = getLowestPriceStations().length;
   const labels = [];
   if (type === "recommended") {
-    labels.push({ src: ASSETS.labelLowPrice, alt: "최저가" });
-    if (lowestCount > 1) labels.push({ src: ASSETS.labelRecommended, alt: "추천" });
+    labels.push({ kind: "low", alt: "최저가" });
+    if (lowestCount > 1) labels.push({ kind: "recommended", alt: "추천" });
   } else if (type === "lowPrice") {
-    labels.push({ src: ASSETS.labelSharedLowPrice, alt: "공동 최저가" });
+    labels.push({ kind: "tied", alt: "공동 최저가" });
   }
-  container.innerHTML = labels.map((label) => '<img src="' + label.src + '" alt="' + label.alt + '" />').join("");
+  container.innerHTML = labels.map((label) => `<span class="detail-text-label label-${label.kind}"><img src="./assets/new/label-bg-${label.kind}.svg" alt=""><span>${label.alt}</span></span>`).join("");
   container.hidden = labels.length === 0;
 }
 
