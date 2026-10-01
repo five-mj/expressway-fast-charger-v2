@@ -3961,7 +3961,7 @@ h1,
 .figma-screen .selected-detail-box { transform: translateY(20px) !important; }
 
 .figma-screen {
-  height: var(--map-height, 1011px);
+  height: var(--map-height, 1031px);
   background: #0099ff;
 }
 .figma-screen > .bg { top: 1px; height: 891px; }
@@ -3992,15 +3992,15 @@ h1,
 .figma-screen .btn-next { left: 202px !important; top: 761px !important; width: 154px !important; height: 44px !important; }
 .figma-screen .route-notice-box {
   left: 19px !important;
-  top: 815px !important;
+  top: 813px !important;
   width: 338px !important;
-  height: 60px !important;
+  height: 64px !important;
 }
-.figma-screen .route-notice-bg { width: 338px !important; height: 60px !important; }
+.figma-screen .route-notice-bg { width: 338px !important; height: 64px !important; }
 body:has(.figma-screen:not(.is-hidden)) { background: #0099ff; }
 @media (max-width: 767.98px) {
   .screen-viewport:has(.figma-screen:not(.is-hidden)) {
-    height: calc(var(--map-height, 1011px) * var(--mobile-scale, 1));
+    height: calc(var(--map-height, 1031px) * var(--mobile-scale, 1));
     background: #0099ff;
   }
 }
@@ -4077,9 +4077,9 @@ html:has(.responsive-screen[data-layout="full-width"]) { overflow-y: scroll; }
   padding: 0;
 }
 
-/* Figma main 2375:2701, 375 x 1011. Keep original map and controls in place. */
-.route-share { position:absolute; left:0; top:875px; width:375px; z-index:5; font-family:"NanumSquareNeo",sans-serif; }
-.route-share h2 { display:flex; align-items:center; justify-content:center; gap:10px; height:54.4px; margin:0; padding:16px 10px; background:#0099ff; color:#fff; font-size:16px; font-weight:900; line-height:1.4; letter-spacing:-.6px; }
+/* Figma main 2375:2701, 375 x 1031. Keep original map and controls in place. */
+.route-share { position:absolute; left:0; top:877px; width:375px; z-index:5; font-family:"NanumSquareNeo",sans-serif; }
+.route-share h2 { display:flex; align-items:center; justify-content:center; gap:10px; height:54px; margin:0; padding:16px 10px; background:#0099ff; color:#fff; font-size:16px; font-weight:900; line-height:1.4; letter-spacing:-.6px; }
 .route-share h2::before,.route-share h2::after {content:""; width:48px; height:2px; background:#fff;}
 .route-share-buttons {display:flex; justify-content:center; gap:20px;}
 .route-share-buttons button {display:flex; flex-direction:column; align-items:center; gap:2px; width:50px; flex:0 0 50px; color:#000; font-size:10px; font-weight:900; line-height:1.4; letter-spacing:-.6px;}
@@ -4105,3 +4105,8 @@ html:has(.responsive-screen[data-layout="full-width"]) { overflow-y: scroll; }
   pointer-events: none;
   background: linear-gradient(to bottom, #0099ff 23.485%, rgba(0,153,255,0) 100%);
 }
+
+/* Figma 2401:2606: three notice rows and 36px below sharing. */
+.figma-screen .route-notice-content {top:10px !important; width:338px !important; height:44px !important; padding:0 11px !important;}
+.figma-screen .route-notice-info {width:250px !important; flex:0 0 250px !important; height:44px !important;}
+.figma-screen .route-notice-list {width:181px !important; flex:0 0 181px !important; height:44px !important; gap:4px !important;}
