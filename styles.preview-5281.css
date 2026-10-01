@@ -4086,11 +4086,12 @@ html:has(.responsive-screen[data-layout="full-width"]) { overflow-y: scroll; }
 .share-coin {display:block; width:50px; height:48px; position:relative;}
 .share-coin img {display:block; max-width:none;}
 .route-share-buttons button:focus-visible {outline:2px solid white;outline-offset:4px;}
-.share-status {position:absolute; left:244px; bottom:68px; width:96px; min-height:27px; margin:0; padding:6px 11px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; font-weight:800; line-height:1.2; letter-spacing:-.6px; color:#fff; background:url('./assets/new/share-toast.svg') center/100% 100% no-repeat; opacity:0; visibility:hidden; transform:translateY(5px); pointer-events:none; transition:opacity .22s ease,transform .22s ease,visibility .22s; z-index:10;}
-.share-status.is-visible {opacity:1; visibility:visible; transform:translateY(0);}
-.share-status.is-expanded {left:auto; right:20px; width:260px; flex-direction:column; gap:6px;}
-.share-status.is-expanded.is-visible {pointer-events:auto;}
-@media (prefers-reduced-motion:reduce) {.share-status {transition:none;transform:none;}}
+.share-copy-anchor {position:relative; width:50px; flex:0 0 50px;}
+.share-status {position:absolute; left:50%; bottom:calc(100% + 4px); width:96px; min-height:27px; margin:0; padding:6px 11px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:12px; font-weight:800; line-height:1.2; letter-spacing:-.6px; color:#fff; background:url('./assets/new/share-toast.svg') center/100% 100% no-repeat; opacity:0; visibility:hidden; transform:translate(-50%,5px); pointer-events:none; transition:opacity .22s ease,transform .22s ease,visibility .22s; z-index:10;}
+.share-status.is-visible {opacity:1; visibility:visible; transform:translate(-50%,0);}
+.share-status.is-expanded {left:auto; right:0; transform:translateY(5px); width:260px; flex-direction:column; gap:6px;}
+.share-status.is-expanded.is-visible {pointer-events:auto; transform:translateY(0);}
+@media (prefers-reduced-motion:reduce) {.share-status {transition:none;}}
 .share-status input {width:100%;font-size:10px;}
 
 /* Upper edge overlay: blue at the canvas top, fading into the sky below. */

@@ -19,7 +19,7 @@
     <meta name="twitter:title" content="최저가 충전소로 안내해드릴게요!" />
     <meta name="twitter:description" content="출발지와 도착지를 선택하고, 경로별 최저가 급속 충전소를 확인하세요." />
     <meta name="twitter:image" content="https://five-mj.github.io/expressway-fast-charger-v2/assets/new/og-share-20260930.png" />
-    <link rel="stylesheet" href="./styles.preview-5281.css?v=share-toast-20261001" />
+    <link rel="stylesheet" href="./styles.preview-5281.css?v=share-toast-anchor-20261001" />
   </head>
     <body>
     <div class="screen-viewport">
@@ -146,9 +146,11 @@
           <button type="button" data-share="kakao"><span class="share-coin"><img src="./assets/new/btn-share-kakao.svg?v=vector-20261001" alt="" /></span><span>카카오톡</span></button>
           <button type="button" data-share="facebook"><span class="share-coin"><img src="./assets/new/btn-share-facebook.svg?v=vector-20261001" alt="" /></span><span>페이스북</span></button>
           <button type="button" data-share="x"><span class="share-coin"><img src="./assets/new/btn-share-x.svg?v=vector-20261001" alt="" /></span><span>X</span></button>
-          <button type="button" data-share="copy"><span class="share-coin"><img src="./assets/new/btn-share-link.svg?v=vector-20261001" alt="" /></span><span>링크복사</span></button>
+          <div class="share-copy-anchor">
+            <button type="button" data-share="copy"><span class="share-coin"><img src="./assets/new/btn-share-link.svg?v=vector-20261001" alt="" /></span><span>링크복사</span></button>
+            <p id="shareStatus" class="share-status" role="status" aria-live="polite"></p>
+          </div>
         </div>
-        <p id="shareStatus" class="share-status" role="status" aria-live="polite"></p>
       </section>
     </main>
     </div>
