@@ -252,8 +252,9 @@ button {
   top: 62px;
   z-index: 140;
   width: 204px;
-  max-height: 390px;
+  max-height: min(390px, var(--hero-menu-available-height, 390px));
   overflow-y: auto;
+  overscroll-behavior-y: contain;
   padding: 8px 5px;
   border: 3px solid #000;
   background: #fff;
@@ -4038,22 +4039,52 @@ html:has(.responsive-screen[data-layout="full-width"]) { overflow-y: scroll; }
 .responsive-screen[data-layout="full-width"] > main { left: 0; }
 
 /* Figma 2337:4: direction badge + operator-specific opening status. */
+.price-card[data-card-type] .detail-price-unit {
+  /* Figma items-end: the unit's 19.2px line box has no extra inset. */
+  padding-bottom: 0 !important;
+}
+.price-card .detail-route-line {
+  align-self: center !important;
+  justify-content: center !important;
+}
+.price-card .detail-station {
+  align-self: center !important;
+  text-align: center !important;
+}
 .detail-route-line .detail-highway-tag {
-  min-width: 52px !important;
+  min-width: 46px !important;
   max-width: 92px !important;
   flex: 0 0 auto !important;
-  padding: 0 6px !important;
+  padding: 0 3px !important;
   /* The decorative border must not add another 3px to the text inset. */
   border-width: 0 !important;
+  /* A single silhouette avoids seams between stretched border-image slices. */
+  border-image: none !important;
+  background: #000 !important;
+  line-height: 1.4 !important;
+}
+.detail-route-line .detail-highway-tag {
+  clip-path: polygon(3px 0, calc(100% - 3px) 0,
+    calc(100% - 3px) 1px, calc(100% - 2px) 1px,
+    calc(100% - 2px) 2px, calc(100% - 1px) 2px,
+    calc(100% - 1px) 3px, 100% 3px,
+    100% calc(100% - 3px), calc(100% - 1px) calc(100% - 3px),
+    calc(100% - 1px) calc(100% - 2px), calc(100% - 2px) calc(100% - 2px),
+    calc(100% - 2px) calc(100% - 1px), calc(100% - 3px) calc(100% - 1px),
+    calc(100% - 3px) 100%, 3px 100%,
+    3px calc(100% - 1px), 2px calc(100% - 1px),
+    2px calc(100% - 2px), 1px calc(100% - 2px),
+    1px calc(100% - 3px), 0 calc(100% - 3px),
+    0 3px, 1px 3px, 1px 2px, 2px 2px, 2px 1px, 3px 1px) !important;
   line-height: 1.4 !important;
 }
 .detail-upcoming {
   position: relative;
   display: inline-flex;
   box-sizing: border-box;
-  padding: 0 6px;
-  flex: 0 0 52px;
-  width: 52px;
+  padding: 0;
+  flex: 0 0 46px;
+  width: 46px;
   height: 18px;
   align-items: center;
   justify-content: center;
@@ -4065,17 +4096,8 @@ html:has(.responsive-screen[data-layout="full-width"]) { overflow-y: scroll; }
   letter-spacing: -0.6px;
 }
 .detail-upcoming[hidden] { display: none !important; }
-.detail-upcoming img { position: absolute; }
-.upcoming-center { left: 3px; top: 0; width: calc(100% - 6px); height: 18px; }
-.upcoming-left { left: 0; top: 1px; }
-.upcoming-right { right: 0; top: 1px; transform: scaleX(-1); }
-.detail-upcoming span {
-  position: relative;
-  flex: 0 0 auto;
-  white-space: nowrap;
-  text-align: center;
-  padding: 0;
-}
+.detail-upcoming img { display: block; flex: 0 0 auto; }
+.price-card .price-card-labels { gap: 2px !important; }
 
 /* Figma main 2375:2701, 375 x 1031. Keep original map and controls in place. */
 .route-share { position:absolute; left:0; top:877px; width:375px; z-index:5; font-family:"NanumSquareNeo",sans-serif; }

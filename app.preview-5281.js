@@ -67,9 +67,9 @@ const ASSETS = {
   cardLowPrice: "./assets/new/box-detail-info-blank.svg",
   cardRecommended: "./assets/new/box-detail-info-blank.svg",
   selectedDetailBox: "./assets/new/selected-box-detail-info-blank.svg",
-  labelLowPrice: "./assets/new/label-lowPrice.svg",
-  labelRecommended: "./assets/new/label-recommended.svg",
-  labelSharedLowPrice: "./assets/new/label-sharedLowPrice.svg",
+  labelLowPrice: "./assets/new/label-lowPrice-v2.svg",
+  labelRecommended: "./assets/new/label-recommended-v2.svg",
+  labelSharedLowPrice: "./assets/new/label-sharedLowPrice-v2.svg",
   pinDefault: "./assets/new/icon_pin_default.png",
   pinOthers: "./assets/new/icon_pin_default.png",
   pinRecommended: "./assets/new/icon_pin_recommended.png",
@@ -377,8 +377,33 @@ function toggleHeroMenu(which) {
     refs.menu.hidden = false;
     refs.trigger.setAttribute("aria-expanded", "true");
     refs.trigger.closest(".hero-field")?.classList.add("is-open");
+    fitHeroMenusToViewport();
   }
 }
+
+function fitHeroMenusToViewport() {
+  if (!els.heroScreen) return;
+  const screenRect = els.heroScreen.getBoundingClientRect();
+  const scale = screenRect.height / els.heroScreen.offsetHeight;
+  if (!scale) return;
+  const viewport = window.visualViewport;
+  const visibleBottom = viewport ? viewport.offsetTop + viewport.height : window.innerHeight;
+  const bottom = Math.min(screenRect.bottom, visibleBottom) - 8;
+  document.querySelectorAll(".hero-field.is-open .hero-select-menu").forEach((menu) => {
+    const available = Math.max(0, (bottom - menu.getBoundingClientRect().top) / scale);
+    menu.style.setProperty("--hero-menu-available-height", `${available}px`);
+  });
+}
+
+let heroMenuLayoutFrame;
+function scheduleHeroMenuLayout() {
+  cancelAnimationFrame(heroMenuLayoutFrame);
+  heroMenuLayoutFrame = requestAnimationFrame(fitHeroMenusToViewport);
+}
+window.addEventListener("resize", scheduleHeroMenuLayout);
+window.addEventListener("scroll", scheduleHeroMenuLayout, { passive: true });
+window.visualViewport?.addEventListener("resize", scheduleHeroMenuLayout);
+window.visualViewport?.addEventListener("scroll", scheduleHeroMenuLayout);
 
 function closeHeroMenus() {
   document.querySelectorAll(".hero-field.is-open").forEach((field) => {
