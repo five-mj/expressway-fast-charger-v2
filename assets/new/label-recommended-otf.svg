@@ -1,0 +1,25 @@
+<svg width="29" height="18" viewBox="0 0 29 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="3" width="23" height="17" fill="#EC3F78"/>
+<rect width="1" height="1" transform="matrix(-1 0 0 1 3 1)" fill="#DE285E"/>
+<rect width="1" height="1" transform="matrix(-1 0 0 1 2 2)" fill="#DE285E"/>
+<rect width="1" height="1" transform="matrix(-1 0 0 1 1 3)" fill="#EC3F78"/>
+<rect x="1" y="15" width="1" height="1" transform="rotate(180 1 15)" fill="#DE285E"/>
+<rect width="1" height="11" transform="matrix(-1 0 0 1 1 3)" fill="#DE285E"/>
+<rect x="3" y="17" width="23" height="1" fill="#DE285E"/>
+<rect x="3" width="23" height="1" fill="#DE285E"/>
+<rect x="1" y="3" width="2" height="12" fill="#EC3F78"/>
+<rect x="2" y="2" width="1" height="15" fill="#EC3F78"/>
+<rect width="1" height="14" transform="matrix(-1 0 0 1 27 2)" fill="#EC3F78"/>
+<rect x="26" y="1" width="1" height="1" fill="#DE285E"/>
+<rect x="27" y="2" width="1" height="1" fill="#DE285E"/>
+<rect x="28" y="3" width="1" height="1" fill="#DE285E"/>
+<rect width="1" height="1" transform="matrix(1 0 0 -1 28 15)" fill="#DE285E"/>
+<rect width="1" height="10" transform="matrix(-1 0 0 1 29 4)" fill="#DE285E"/>
+<rect width="2" height="12" transform="matrix(-1 0 0 1 28 3)" fill="#EC3F78"/>
+<rect width="1" height="1" transform="matrix(1 0 0 -1 26 17)" fill="#DE285E"/>
+<rect width="1" height="1" transform="matrix(1 0 0 -1 27 16)" fill="#DE285E"/>
+<rect x="3" y="17" width="1" height="1" transform="rotate(180 3 17)" fill="#DE285E"/>
+<rect x="2" y="16" width="1" height="1" transform="rotate(180 2 16)" fill="#DE285E"/>
+<path d="M5.86534 9.217L5.32634 7.974C7.71334 7.215 8.75834 6.368 8.90134 5.565H5.92034V4.322H8.92334V3.31H10.3203V4.322H13.2463V5.565H10.3093C10.2983 5.851 10.2323 6.126 10.1223 6.39L13.8293 7.996L13.2243 9.217L9.30834 7.501C8.59334 8.15 7.47134 8.722 5.86534 9.217ZM4.74334 9.943H14.4233V11.219H10.2873V13.848H8.87934V11.219H4.74334V9.943ZM20.305 10.042L17.72 8.15C17.203 8.909 16.4 9.569 15.344 10.196L14.651 9.085C16.257 8.106 17.027 7.094 17.126 5.873H15.003V4.619H17.148V3.409H18.512V4.619H20.712V5.873H18.49C18.479 6.258 18.413 6.632 18.303 6.973L21.064 8.931L20.305 10.042ZM20.283 7.578V6.379H22.076V3.464H23.484V11.164H22.076V7.578H20.283ZM17.918 10.636V12.462H23.858V13.738H16.51V10.636H17.918Z" fill="white"/>
+</svg>
+

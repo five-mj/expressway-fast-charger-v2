@@ -32,6 +32,14 @@
 
 @font-face {
   font-family: "NanumSquareNeo";
+  src: url("./assets/fonts/NanumSquareNeoOTF-Bd.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "NanumSquareNeo";
   src: url("./assets/fonts/NanumSquareNeoOTF-Eb.otf") format("opentype");
   font-weight: 800;
   font-style: normal;
@@ -3886,7 +3894,7 @@ h1,
   letter-spacing: -0.6px !important;
 }
 .route-notice-list p {
-  font-family: "NanumSquare Neo", "NanumSquare Neo OTF", "NanumSquareNeo", "NanumSquare_Neo_OTF", "Malgun Gothic", system-ui, sans-serif !important;
+  font-family: "NanumSquareNeo", "Malgun Gothic", system-ui, sans-serif !important;
   font-size: 10px !important;
   font-style: normal !important;
   font-weight: 700 !important;
@@ -4052,10 +4060,13 @@ html:has(.responsive-screen[data-layout="full-width"]) { overflow-y: scroll; }
   text-align: center !important;
 }
 .detail-route-line .detail-highway-tag {
+  font-synthesis: none;
   min-width: 46px !important;
   max-width: 92px !important;
   flex: 0 0 auto !important;
-  padding: 0 3px !important;
+  /* CSS includes trailing negative letter-spacing in the text width.
+     Restore that 0.6px so the visible glyphs retain equal edge clearance. */
+  padding: 0 3.6px 0 3px !important;
   /* The decorative border must not add another 3px to the text inset. */
   border-width: 0 !important;
   /* A single silhouette avoids seams between stretched border-image slices. */
