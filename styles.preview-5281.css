@@ -4181,6 +4181,17 @@ html:has(.responsive-screen[data-layout="full-width"]) { overflow-y: scroll; }
 }
 
 /* Center desktop artwork when it fits; keep the top reachable on short windows. */
+html, body, body:has(.figma-screen:not(.is-hidden)) {
+  background: #e6f5ff;
+}
+html:has(.responsive-screen), body:has(.responsive-screen) {
+  background: #0099ff;
+  /* Allow scrolling, but exclude double-tap and pinch zoom on touch screens. */
+  touch-action: pan-x pan-y;
+}
+.responsive-screen, .responsive-screen button, .responsive-screen select {
+  touch-action: pan-x pan-y;
+}
 @media (min-width:768px) {
   body:not(:has(.responsive-screen)) {
     align-items:safe center;

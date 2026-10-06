@@ -3,10 +3,15 @@
   const viewport = document.querySelector('.screen-viewport');
   const narrow = matchMedia('(max-width: 767.98px)');
   const touch = matchMedia('(hover: none) and (pointer: coarse)');
+  const viewportMeta = document.querySelector('meta[name="viewport"]');
   const MIN_SCALE = 0.85;
 
   function updateMobileLayout() {
     const responsive = narrow.matches || touch.matches;
+    const viewportContent = responsive
+      ? 'width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no'
+      : 'width=device-width, initial-scale=1.0';
+    if (viewportMeta.content !== viewportContent) viewportMeta.content = viewportContent;
     viewport.classList.toggle('responsive-screen', responsive);
     if (!responsive) {
       viewport.removeAttribute('data-layout');
