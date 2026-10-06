@@ -4185,7 +4185,7 @@ html, body, body:has(.figma-screen:not(.is-hidden)) {
   background: #e6f5ff;
 }
 html:has(.responsive-screen), body:has(.responsive-screen) {
-  background: #0099ff;
+  background: #e6f5ff;
   /* Allow scrolling, but exclude double-tap and pinch zoom on touch screens. */
   touch-action: pan-x pan-y;
 }
