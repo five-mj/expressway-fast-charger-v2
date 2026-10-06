@@ -161,8 +161,7 @@ button {
   z-index: 120;
 }
 
-.hero-field.is-required-shake,
-.hero-field.is-required-shake .hero-select-trigger {
+.hero-field.is-required-shake {
   animation: heroRequiredShake 420ms steps(2, end);
 }
 

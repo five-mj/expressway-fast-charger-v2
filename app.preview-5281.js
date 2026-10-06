@@ -372,7 +372,11 @@ function toggleHeroMenu(which) {
   if (!refs) return;
   const shouldOpen = refs.menu.hidden;
   closeHeroMenus();
-  if (which === "destination" && !heroState.origin) return;
+  if (which === "destination" && !heroState.origin) {
+    shakeHeroRequiredFields("origin");
+    ensureHeroSelect("origin")?.trigger.focus({ preventScroll: true });
+    return;
+  }
   if (shouldOpen) {
     refs.menu.hidden = false;
     refs.trigger.setAttribute("aria-expanded", "true");
@@ -433,17 +437,20 @@ function isHeroSelectionMissing(which) {
   return !value || value === HERO_PLACEHOLDERS[which];
 }
 
-function shakeHeroRequiredFields() {
+const heroShakeTimers = new WeakMap();
+function shakeHeroRequiredFields(onlyWhich) {
   [
     ["origin", els.heroOriginSelect],
     ["destination", els.heroDestinationSelect]
   ].forEach(([which, select]) => {
+    if (onlyWhich && which !== onlyWhich) return;
     const field = select?.closest(".hero-field");
     if (!field || !isHeroSelectionMissing(which)) return;
+    clearTimeout(heroShakeTimers.get(field));
     field.classList.remove("is-required-shake");
     void field.offsetWidth;
     field.classList.add("is-required-shake");
-    window.setTimeout(() => field.classList.remove("is-required-shake"), 520);
+    heroShakeTimers.set(field, window.setTimeout(() => field.classList.remove("is-required-shake"), 520));
   });
 }
 
