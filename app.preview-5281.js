@@ -437,7 +437,7 @@ function isHeroSelectionMissing(which) {
   return !value || value === HERO_PLACEHOLDERS[which];
 }
 
-const heroShakeTimers = new WeakMap();
+const heroShakeAnimations = new WeakMap();
 function shakeHeroRequiredFields(onlyWhich) {
   [
     ["origin", els.heroOriginSelect],
@@ -446,11 +446,14 @@ function shakeHeroRequiredFields(onlyWhich) {
     if (onlyWhich && which !== onlyWhich) return;
     const field = select?.closest(".hero-field");
     if (!field || !isHeroSelectionMissing(which)) return;
-    clearTimeout(heroShakeTimers.get(field));
-    field.classList.remove("is-required-shake");
-    void field.offsetWidth;
-    field.classList.add("is-required-shake");
-    heroShakeTimers.set(field, window.setTimeout(() => field.classList.remove("is-required-shake"), 520));
+    heroShakeAnimations.get(field)?.cancel();
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // A separate animation takes precedence over the field's CSS entrance motion
+    // without restarting that entrance when the nudge finishes.
+    heroShakeAnimations.set(field, field.animate(
+      [0, -5, 5, -4, 4, -2, 0].map(x => ({ transform: `translateX(${x}px)` })),
+      { duration: 420, easing: "ease-in-out" }
+    ));
   });
 }
 
