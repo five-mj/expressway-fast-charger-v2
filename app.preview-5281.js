@@ -1547,8 +1547,8 @@ function moveFocus(delta) {
 
 // 2026-07-01 stable Excel data integration.
 var EXCEL_ROUTE_DATA = window.APP_ROUTE_DATA || { originOptions: [], routes: [], stationDetails: [] };
-var ORIGIN_REGION_ORDER = ["서울", "경기", "인천", "강원", "대전", "세종", "충북", "충남", "대구", "경북", "부산", "울산", "경남", "광주", "전북", "전남"];
-var DESTINATION_REGION_ORDER = ["서울", "경기", "인천", "강릉", "속초", "대전", "세종", "청주", "제천", "충남", "대구", "안동", "포항", "부산", "울산", "창원", "통영", "광주", "전북", "전남"];
+var ORIGIN_REGION_ORDER = EXCEL_ROUTE_DATA.originOptions || [];
+var DESTINATION_REGION_ORDER = ORIGIN_REGION_ORDER;
 
 function sortByConfiguredRegionOrder(values, order) {
   return values.slice().sort(function(a, b) {
@@ -1710,7 +1710,15 @@ function convertExcelStation(candidate, allCandidates, route, index, total) {
       source_data: item
     };
   });
-  var displayCandidate = operatorCandidates.find(function(item) { return item.source_row === candidate.sourceRow; }) || operatorCandidates[0];
+  // An unmatched representative is unavailable, not the first operator (which
+  // may be a 50kW operator or a different fare). Never borrow its details.
+  var displayCandidate = operatorCandidates.find(function(item) { return item.source_row === candidate.sourceRow; }) || {
+    operator_name: candidate.detailOperator || candidate.operatorDisplay || "정보 없음",
+    price_per_kwh: candidate.price ?? null,
+    source_row: candidate.sourceRow,
+    source_data: candidate,
+    direction: candidate.direction
+  };
   return Object.assign({}, displayCandidate, {
     station_id: "route_" + route.origin + "_" + route.destination + "_" + index,
     highway_name: route.highway,

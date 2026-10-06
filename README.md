@@ -2,6 +2,20 @@
 
 Route-based lowest-price fast charger miniapp.
 
+## 현재 데이터: 2026-10-06 교체
+
+- 원본 `WATER-3685_경로별_휴게소_추천_20260930.xlsx`의 급속 대수 기준 재계산본을 반영했습니다. 원본 엑셀은 저장소에 게시하지 않습니다.
+- `data.generated-20260930.js` 사용: 27개 지역, 선택 가능한 662개 경로, 3,635개 휴게소 순번 행. 휴게소가 없는 경로는 선택 목록에서 제외합니다.
+- 648개 경로에 추천이 있습니다. 요금 정보가 부족한 14개 경로는 휴게소를 유지하되 추천을 표시하지 않습니다. 이전 파일의 요금 보완값을 가져오지 않습니다.
+- 전달된 대표 운영기관을 유지하고, 해당 기관의 `급속(100kW+) 수`만 표시·점수 계산에 사용합니다. 총 충전기 수나 휴게소 전체 운영기관 합계로 대체하지 않습니다.
+- 소수점까지 요금을 먼저 비교합니다. 공동 최저가에서는 전체 휴게소 순번 기준 위치 점수 + 급속 대수 점수 + 출력 점수로 결정합니다. 동점이면 출력, 급속 대수, 앞선 순번 순서입니다. 오픈예정도 포함합니다.
+- 속초→목포 추천은 부안고려청자 SK시그넷(347원, 급속 6기)입니다. 망향 SK시그넷은 급속 2기로 계산합니다.
+- 27개 지도 좌표를 모두 `map-city-pins.js`에 적용했습니다.
+- 재생성: `python scripts/import_routes_20260930.py <재계산본 엑셀경로>`. 검증: `node scripts/verify_routes_20260930.cjs`.
+- Vercel 운영 URL: https://vercel-public-5325-20260708.vercel.app/ (`main` 연결).
+
+아래 날짜별 내용은 이전 반영 이력입니다. 현재 데이터와 충돌하는 경우 위 정책이 우선합니다.
+
 ## 2026-09-30 지도 지역 좌표
 
 전체 27개 도시 좌표는 [별도 좌표 리스트](docs/map-pin-coordinates-27.md)와 `docs/map-pin-coordinates-27.json`에 보관합니다. [좌표 산출 및 적용 기준](docs/map-pin-coordinates.md)에 따라 실행 데이터 `map-city-pins.js`에는 현재 출발지·도착지와 이름이 정확히 같은 14개 도시만 포함합니다. 권역명과 미등록 지역은 기존 좌표를 유지합니다. 선택 목록과 경로·요금 데이터는 변경하지 않습니다.
@@ -20,7 +34,7 @@ V2 includes the mobile full-width and vertical-scrolling fix (`e7737af`).
 The original version is preserved in this history as `c02c0e4` and in the
 separate V1 repository. Asset paths remain relative to support both URLs.
 
-`VERCEL_PUBLIC_URL_5325.txt` is a historical reference from V1, not the V2 URL.
+The current V2 Vercel URL is listed above; older deployment files are historical references.
 
 ## 반응형 화면 정책 (2026-09-28)
 
