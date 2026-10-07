@@ -1494,7 +1494,7 @@ function renderDetailLabels(station, type) {
   const labels = [];
   if (type === "recommended") {
     if (station.price_per_kwh != null) labels.push({ kind: "low", alt: "최저가" });
-    if (lowestCount > 1 || station.price_per_kwh == null) labels.push({ kind: "recommended", alt: "추천" });
+    labels.push({ kind: "recommended", alt: "추천" });
   } else if (type === "lowPrice") {
     labels.push({ kind: "tied", alt: "공동 최저가" });
   }
