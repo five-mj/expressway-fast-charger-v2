@@ -4,7 +4,16 @@
   function showStatus(message, persistent = false) {
     clearTimeout(toastTimer);
     status.textContent = message;
-    status.classList.toggle('is-expanded', message !== '링크 복사 성공!');
+    status.classList.toggle('is-expanded', message !== '링크 복사 성공!' && message !== '다시 시도해주세요.');
+    if (!status.classList.contains('is-expanded')) {
+      status.style.setProperty('width', 'max-content', 'important');
+      status.style.setProperty('padding', '7px 18px', 'important');
+      status.style.setProperty('box-sizing', 'content-box', 'important');
+    } else {
+      status.style.removeProperty('width');
+      status.style.removeProperty('padding');
+      status.style.removeProperty('box-sizing');
+    }
     status.classList.add('is-visible');
     if (!persistent) toastTimer = setTimeout(() => status.classList.remove('is-visible'), 1000);
   }
@@ -31,13 +40,7 @@
       await navigator.clipboard.writeText(url);
       showStatus(message);
     } catch {
-      showStatus('아래 링크를 복사해주세요.', true);
-      const input = document.createElement('input');
-      input.value = url;
-      input.readOnly = true;
-      input.setAttribute('aria-label', '공유 링크');
-      status.append(input);
-      input.select();
+      showStatus('다시 시도해주세요.');
     }
   }
   document.querySelectorAll('[data-share]').forEach(button => {
@@ -69,3 +72,4 @@
     });
   });
 })();
+

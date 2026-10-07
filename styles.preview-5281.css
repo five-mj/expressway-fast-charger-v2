@@ -4197,3 +4197,10 @@ html:has(.responsive-screen), body:has(.responsive-screen) {
     justify-items:center;
   }
 }
+
+/* Keep short copy-status messages on one line. */
+.share-status:not(.is-expanded) {width:max-content;min-width:0;max-width:none;padding:7px 18px;box-sizing:content-box;white-space:nowrap;flex-shrink:0;}
+
+
+
+
