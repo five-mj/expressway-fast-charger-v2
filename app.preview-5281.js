@@ -810,15 +810,13 @@ function selectInitialFocusedStation() {
     state.focusedIndex = recommendedIndex;
     return;
   }
-  const lowestPrice = getRouteLowestPrice();
-  const lowestIndex = state.routeStations.findIndex((station) => Number(station?.price_per_kwh) === lowestPrice);
-  state.focusedIndex = Math.max(0, lowestIndex);
+  state.focusedIndex = -1;
 }
 
 function renderPinTotalBadge() {
   if (!els.pinTotalBadge || !els.pinTotalText) return;
   const count = state.routeStations.length;
-  const selected = count > 0 ? Math.min(count, Math.max(1, state.focusedIndex + 1)) : 0;
+  const selected = count > 0 && state.focusedIndex >= 0 ? Math.min(count, state.focusedIndex + 1) : 0;
   els.pinTotalText.textContent = selected + "/" + count;
   els.pinTotalBadge.hidden = count <= 0;
 }
@@ -1280,7 +1278,7 @@ function getStationChargingSpeed(station) {
 
 function getLowestPriceStations() {
   const lowestPrice = getRouteLowestPrice();
-  return state.routeStations.filter((station) => Number(station?.price_per_kwh) === lowestPrice);
+  return lowestPrice === null ? [] : state.routeStations.filter((station) => station.price_per_kwh === lowestPrice);
 }
 
 function getStationTotalCount(station) {
@@ -1316,13 +1314,20 @@ function getChargingSpeedScore(speed) {
 }
 
 function getRecommendedStation() {
-  if (getExcelRoute()?.stops) return state.routeStations.find(station => station.excelRecommended) || null;
+  const supplied = state.routeStations.find(station => station.excelRecommended);
+  if (supplied) return supplied;
   const lowestStations = getLowestPriceStations();
-  if (!lowestStations.length) return null;
-  if (lowestStations.length === 1) return lowestStations[0];
+  const candidates = lowestStations.length ? lowestStations : state.routeStations.filter(station => {
+    const data = station.displayOperatorCandidate?.source_data;
+    return typeof data?.chargerCount === 'number' && data.chargerCount > 0
+      && typeof data?.maxOutputKw === 'number' && data.maxOutputKw >= 100
+      && ['운영', '오픈예정'].includes(data.openingStatus);
+  });
+  if (!candidates.length) return null;
+  if (candidates.length === 1) return candidates[0];
   const routeCount = state.routeStations.length;
 
-  return lowestStations
+  return candidates
     .map((station) => {
       const index = state.routeStations.indexOf(station);
       const total = getStationTotalCount(station);
@@ -1346,7 +1351,7 @@ function getRecommendedStation() {
       b.speed - a.speed ||
       b.total - a.total ||
       a.index - b.index
-    )[0]?.station || lowestStations[0];
+    )[0]?.station || null;
 }
 
 function isRecommendedStation(station) {
@@ -1488,8 +1493,8 @@ function renderDetailLabels(station, type) {
   const lowestCount = getLowestPriceStations().length;
   const labels = [];
   if (type === "recommended") {
-    labels.push({ kind: "low", alt: "최저가" });
-    if (lowestCount > 1) labels.push({ kind: "recommended", alt: "추천" });
+    if (station.price_per_kwh != null) labels.push({ kind: "low", alt: "최저가" });
+    if (lowestCount > 1 || station.price_per_kwh == null) labels.push({ kind: "recommended", alt: "추천" });
   } else if (type === "lowPrice") {
     labels.push({ kind: "tied", alt: "공동 최저가" });
   }
@@ -1743,9 +1748,17 @@ function computeRouteStations() {
   }
   var total = route.restAreas.length;
   if (route.stops) {
+    const hasKnownFare = route.stops.some(stop => typeof EXCEL_STATION_ROWS.get(stop.displayRow)?.price === 'number');
     state.routeStations = route.stops.map(function(stop, index) {
       var candidates = stop.candidateRows.map(row => EXCEL_STATION_ROWS.get(row)).filter(Boolean);
-      var display = EXCEL_STATION_ROWS.get(stop.displayRow) || {
+      const scoreCandidates = !hasKnownFare ? candidates.filter(item =>
+        typeof item.chargerCount === 'number' && item.chargerCount > 0
+        && typeof item.maxOutputKw === 'number' && item.maxOutputKw >= 100
+        && ['운영', '오픈예정'].includes(item.openingStatus))
+        .sort((a,b) => (getChargerCountScore(b.chargerCount)+getChargingSpeedScore(b.maxOutputKw))
+          -(getChargerCountScore(a.chargerCount)+getChargingSpeedScore(a.maxOutputKw))
+          || b.maxOutputKw-a.maxOutputKw || b.chargerCount-a.chargerCount || a.sourceRow-b.sourceRow) : [];
+      var display = EXCEL_STATION_ROWS.get(stop.displayRow) || scoreCandidates[0] || {
         sourceRow: 'unavailable_' + stop.sourceRow, serviceAreaName: stop.name,
         direction: stop.direction, price: null, openingStatus: '확인필요', operatorDisplay: '정보 없음'
       };

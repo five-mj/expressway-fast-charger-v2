@@ -24,7 +24,16 @@ const result=vm.runInContext(`(() => {
    recommended++;
    if(actual!==ranked[0].s || state.routeStations[state.focusedIndex]!==actual)throw Error('Recommendation '+route.origin+route.destination);
    if(!isLowestPriceStation(actual))throw Error('Price');
-  }else{noPrice++;if(actual)throw Error('Invented recommendation');}
+  }else{
+   noPrice++;
+   const scored=state.routeStations.map((s,i)=>({s,i,data:s.displayOperatorCandidate?.source_data}))
+     .filter(x=>typeof x.data?.chargerCount==='number'&&x.data.chargerCount>0&&typeof x.data?.maxOutputKw==='number'&&x.data.maxOutputKw>=100&&['운영','오픈예정'].includes(x.data.openingStatus))
+     .map(x=>({...x,count:x.data.chargerCount,power:x.data.maxOutputKw,score:getRouteDistanceScore(x.i,route.stops.length)+getChargerCountScore(x.data.chargerCount)+getChargingSpeedScore(x.data.maxOutputKw)}))
+     .sort((a,b)=>b.score-a.score||b.power-a.power||b.count-a.count||a.i-b.i);
+   if(actual!==(scored[0]?.s||null))throw Error('Score-only recommendation');
+   if(actual&&isLowestPriceStation(actual))throw Error('Unknown fare labelled lowest');
+   if(state.focusedIndex!==(actual?state.routeStations.indexOf(actual):-1))throw Error('Initial selection');
+  }
   state.routeStations.forEach((s,i)=>{
    if(s.sourceRow!==route.stops[i].sourceRow)throw Error('Order');
    if(s.price_per_kwh===0)throw Error('Missing price becomes zero');
