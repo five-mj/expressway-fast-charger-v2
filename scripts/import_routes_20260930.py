@@ -26,6 +26,12 @@ def count_score(n):
 def speed_score(n):
     return 3 if n >= 350 else 2 if n >= 200 else 1 if n >= 100 else 0
 
+def has_fast_operator(row):
+    return any(
+        (number(o['최대 출력(kW)']) and o['최대 출력(kW)'] >= 100)
+        or (number(o['급속(100kW+) 수']) and o['급속(100kW+) 수'] > 0)
+        for _, o in operators[key(row)])
+
 cities = [r['도시'] for _, r in records('대표좌표')]
 assert len(cities) == len(set(cities)) == 27
 layout = json.loads((root / 'docs/map-pin-coordinates-27.json').read_text(encoding='utf-8'))
@@ -44,14 +50,17 @@ for row, r in records('경로별_휴게소(순서)'):
     stops[r['출발'], r['도착']].append((row, r))
 routes = []
 changes = []
+removed = []
 for _, summary in records('경로별_요약'):
     origin, destination = summary['출발'], summary['도착']
     rows = sorted(stops[origin, destination], key=lambda r: r[1]['순번'])
+    removed.extend(dict(origin=origin,destination=destination,name=r['휴게소'],sourceRow=row)
+        for row,r in rows if not has_fast_operator(r))
+    rows = [(row,r) for row,r in rows if has_fast_operator(r)]
     route = dict(origin=origin, destination=destination, highway=origin+' → '+destination,
         highwayLabel='', travelDirection='', restAreas=[], stops=[])
     ranked = []
     for index, (row, r) in enumerate(rows):
-        assert r['순번'] == index + 1
         candidates = operators[key(r)]
         selected = []
         if r['대표 운영기관']:
@@ -78,7 +87,7 @@ for _, summary in records('경로별_요약'):
             score = pos + count_score(quantity) + speed_score(power)
             ranked.append((price, -score, -power, -quantity, index))
         route['restAreas'].append(r['휴게소'])
-        route['stops'].append(dict(name=r['휴게소'], direction=r['방향'] or '', order=r['순번'],
+        route['stops'].append(dict(name=r['휴게소'], direction=r['방향'] or '', order=index+1, originalOrder=r['순번'],
             recommended=False, sourceRow=row, candidateRows=[o[0] for o in candidates],
             displayRow=best[0] if best else None, lat=r['위도'], lng=r['경도']))
     if ranked:
@@ -97,11 +106,10 @@ stats = dict(cities=len(cities), routes=len(routes), selectableRoutes=sum(bool(r
     recommendedRoutes=sum(any(s['recommended'] for s in r['stops']) for r in routes),
     excludedNoHighway=len(excluded), excludedNoStops=sum(not r['stops'] for r in routes),
     missingPriceRoutes=sum(r['recommendationStatus']=='price-unavailable' for r in routes))
-assert stats == dict(cities=27,routes=678,selectableRoutes=662,stops=3635,operators=7566,
-    recommendedRoutes=648,excludedNoHighway=24,excludedNoStops=16,missingPriceRoutes=14), stats
-data = dict(version='20260930-fast-count-20261006',sourceSha256=hashlib.sha256(source.read_bytes()).hexdigest(),
+assert stats['stops'] + len(removed) == 3635
+data = dict(version='20260930-fast-only-20261007',sourceSha256=hashlib.sha256(source.read_bytes()).hexdigest(),
     recommendationPolicy='supplied-representative / price / stop-order / 100kW+ count / maximum-output',
-    originOptions=cities,routes=routes,stationDetails=details,excludedRoutes=excluded,stats=stats)
+    originOptions=cities,routes=routes,stationDetails=details,excludedRoutes=excluded,stats=stats,excludedNonFastStops=removed)
 (root/'data.generated-20260930.js').write_text('window.APP_ROUTE_DATA = '+json.dumps(data,ensure_ascii=False,separators=(',',':'))+';\n',encoding='utf-8')
 (root/'map-city-pins.js').write_text('// All 27 supplied cities; Figma reference: docs/map-pin-coordinates-27.json\nwindow.FIGMA_CITY_PIN_LAYOUT = '+json.dumps(layout,ensure_ascii=False,indent=2)+';\n',encoding='utf-8')
-print(json.dumps(dict(stats=stats,changesFromWorkbook=changes),ensure_ascii=False))
+print(json.dumps(dict(stats=stats,removedStops=len(removed),changedRecommendations=len(changes),changesFromWorkbook=changes),ensure_ascii=False))

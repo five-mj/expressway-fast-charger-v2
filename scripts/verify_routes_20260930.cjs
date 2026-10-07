@@ -35,6 +35,9 @@ const result=vm.runInContext(`(() => {
    if(state.focusedIndex!==(actual?state.routeStations.indexOf(actual):-1))throw Error('Initial selection');
   }
   state.routeStations.forEach((s,i)=>{
+   const source=route.stops[i];
+   if(source.order!==i+1)throw Error('Filtered stop order');
+   if(!source.candidateRows.some(row=>{const o=EXCEL_STATION_ROWS.get(row);return o?.maxOutputKw>=100||o?.chargerCount>0;}))throw Error('Non-fast stop retained');
    if(s.sourceRow!==route.stops[i].sourceRow)throw Error('Order');
    if(s.price_per_kwh===0)throw Error('Missing price becomes zero');
    if(s.displayOperatorCandidate && s.direction!==s.displayOperatorCandidate.direction)throw Error('Direction');
@@ -47,7 +50,9 @@ const result=vm.runInContext(`(() => {
  if(mang.price_per_kwh!==347 || getStationTotalCount(mang)!==2)throw Error('Manghyang');
  return {stops,recommended,noPrice,selectable};
 })()`,context);
-assert.deepEqual(JSON.parse(JSON.stringify(result)),{stops:3635,recommended:648,noPrice:14,selectable:662});
+assert.deepEqual(JSON.parse(JSON.stringify(result)),{stops:3539,recommended:648,noPrice:14,selectable:662});
+assert.equal(context.window.APP_ROUTE_DATA.excludedNonFastStops.length,96);
+assert(!context.window.APP_ROUTE_DATA.routes.find(r=>r.origin==='서울'&&r.destination==='부산').restAreas.includes('군위영천휴게소'));
 const reference=JSON.parse(fs.readFileSync('docs/map-pin-coordinates-27.json','utf8'));
 assert.deepEqual(JSON.parse(JSON.stringify(context.window.FIGMA_CITY_PIN_LAYOUT)),reference);
 console.log('All routes, recommendations, missing fares and 27 map coordinates verified:',result);
