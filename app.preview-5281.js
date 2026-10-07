@@ -458,8 +458,11 @@ function shakeHeroRequiredFields(onlyWhich) {
 }
 
 function enterRouteFromHero() {
-  if (isHeroSelectionMissing("origin") || isHeroSelectionMissing("destination")) {
-    shakeHeroRequiredFields();
+  const missingField = isHeroSelectionMissing("origin") ? "origin"
+    : isHeroSelectionMissing("destination") ? "destination" : null;
+  if (missingField) {
+    shakeHeroRequiredFields(missingField);
+    ensureHeroSelect(missingField)?.trigger.focus({ preventScroll: true });
     return;
   }
   state.origin = heroState.origin;
