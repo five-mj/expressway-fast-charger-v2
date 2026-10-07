@@ -4204,3 +4204,6 @@ html:has(.responsive-screen), body:has(.responsive-screen) {
 
 
 
+
+/* The viewport includes the outer gutters on touch layouts. */
+.screen-viewport, .screen-viewport.responsive-screen, .screen-viewport:has(.figma-screen:not(.is-hidden)) {background:#e6f5ff !important;}
