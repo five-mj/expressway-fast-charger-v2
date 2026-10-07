@@ -1542,7 +1542,11 @@ function renderDetail() {
   if (els.detailHighwayTag) els.detailHighwayTag.textContent = station.direction || "방향 미상";
   const upcoming = document.querySelector('#detailUpcoming');
   if (upcoming) upcoming.hidden = station.openingStatus !== '오픈예정';
-  els.detailStation.textContent = station.service_area_name || "휴게소";
+  const stationName = station.service_area_name || "휴게소";
+  const compactName = stationName.replace(/\s/g, "");
+  const isLongTemporaryName = ["관촌임시주차장휴게소", "남원임시주차장휴게소", "영광임시주차장휴게소"].includes(compactName);
+  els.detailStation.textContent = isLongTemporaryName ? compactName : stationName;
+  els.detailStation.classList.toggle("is-long-temporary-name", isLongTemporaryName);
 }
 
 function moveFocus(delta) {
