@@ -4208,5 +4208,6 @@ html:has(.responsive-screen), body:has(.responsive-screen) {
 /* The viewport includes the outer gutters on touch layouts. */
 .screen-viewport, .screen-viewport.responsive-screen, .screen-viewport:has(.figma-screen:not(.is-hidden)) {background:#e6f5ff !important;}
 
-/* Fit the three ten-character temporary parking rest-area names. */
-.price-card .detail-station.is-long-temporary-name {font-size:16px !important;letter-spacing:-1.6px !important;}
+/* Reduce names of ten or more characters after removing whitespace. */
+.price-card .detail-station.is-long-name {font-size:16px !important;letter-spacing:-1.6px !important;}
+
