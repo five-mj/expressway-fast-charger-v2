@@ -36,6 +36,12 @@ const result=vm.runInContext(`(() => {
   }
   state.routeStations.forEach((s,i)=>{
    const source=route.stops[i];
+   const operators=source.candidateRows.map(row=>EXCEL_STATION_ROWS.get(row))
+    .filter(o=>typeof o.price==='number'&&typeof o.chargerCount==='number'&&o.chargerCount>0&&typeof o.maxOutputKw==='number'&&o.maxOutputKw>=100&&['운영','오픈예정'].includes(o.openingStatus))
+    .sort((a,b)=>a.price-b.price
+     ||(getChargerCountScore(b.chargerCount)+getChargingSpeedScore(b.maxOutputKw))-(getChargerCountScore(a.chargerCount)+getChargingSpeedScore(a.maxOutputKw))
+     ||b.maxOutputKw-a.maxOutputKw||b.chargerCount-a.chargerCount||a.sourceRow-b.sourceRow);
+   if(source.displayRow!==(operators[0]?.sourceRow??null))throw Error('Operator ranking');
    if(source.order!==i+1)throw Error('Filtered stop order');
    if(!source.candidateRows.some(row=>{const o=EXCEL_STATION_ROWS.get(row);return o?.maxOutputKw>=100||o?.chargerCount>0;}))throw Error('Non-fast stop retained');
    if(s.sourceRow!==route.stops[i].sourceRow)throw Error('Order');

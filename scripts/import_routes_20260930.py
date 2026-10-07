@@ -1,6 +1,6 @@
 """Import the 27-city workbook without publishing source/private workbook columns.
 
-Keep the supplied representative operator and decimal fares. Recalculate route
+Compare all eligible operators and preserve decimal fares. Recalculate route
 recommendations using that operator's 100kW+ count, not total/available count.
 """
 import collections
@@ -62,15 +62,15 @@ for _, summary in records('경로별_요약'):
     ranked = []
     for index, (row, r) in enumerate(rows):
         candidates = operators[key(r)]
-        selected = []
-        if r['대표 운영기관']:
-            for op_row, o in candidates:
-                if (o['앱 노출명'] == r['대표 운영기관'] and
-                    o['회원가(원/kWh)'] == r['대표 회원가'] and
-                    o['최대 출력(kW)'] == r['대표 최대출력(kW)'] and
-                    o['개통상태'] == r['대표 개통상태']):
-                    selected.append((op_row, o))
-            assert len(selected) == 1, (origin, destination, row, selected)
+        selected = [(op_row,o) for op_row,o in candidates
+            if all(number(o[k]) for k in ['회원가(원/kWh)','급속(100kW+) 수','최대 출력(kW)'])
+            and o['급속(100kW+) 수'] > 0 and o['최대 출력(kW)'] >= 100
+            and o['개통상태'] in ('운영','오픈예정')]
+        # Location and route order are identical within one stop; the final
+        # source-row tie-break makes otherwise identical operators deterministic.
+        selected.sort(key=lambda pair: (pair[1]['회원가(원/kWh)'],
+            -(count_score(pair[1]['급속(100kW+) 수'])+speed_score(pair[1]['최대 출력(kW)'])),
+            -pair[1]['최대 출력(kW)'], -pair[1]['급속(100kW+) 수'], pair[0]))
         best = selected[0] if selected else None
         if best:
             op_row, o = best
@@ -107,8 +107,8 @@ stats = dict(cities=len(cities), routes=len(routes), selectableRoutes=sum(bool(r
     excludedNoHighway=len(excluded), excludedNoStops=sum(not r['stops'] for r in routes),
     missingPriceRoutes=sum(r['recommendationStatus']=='price-unavailable' for r in routes))
 assert stats['stops'] + len(removed) == 3635
-data = dict(version='20260930-fast-only-20261007',sourceSha256=hashlib.sha256(source.read_bytes()).hexdigest(),
-    recommendationPolicy='supplied-representative / price / stop-order / 100kW+ count / maximum-output',
+data = dict(version='20260930-operator-ranking-20261007',sourceSha256=hashlib.sha256(source.read_bytes()).hexdigest(),
+    recommendationPolicy='all-operators / price / stop-order / 100kW+ count / maximum-output',
     originOptions=cities,routes=routes,stationDetails=details,excludedRoutes=excluded,stats=stats,excludedNonFastStops=removed)
 (root/'data.generated-20260930.js').write_text('window.APP_ROUTE_DATA = '+json.dumps(data,ensure_ascii=False,separators=(',',':'))+';\n',encoding='utf-8')
 (root/'map-city-pins.js').write_text('// All 27 supplied cities; Figma reference: docs/map-pin-coordinates-27.json\nwindow.FIGMA_CITY_PIN_LAYOUT = '+json.dumps(layout,ensure_ascii=False,indent=2)+';\n',encoding='utf-8')
