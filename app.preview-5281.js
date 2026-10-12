@@ -135,7 +135,7 @@ const els = {
 };
 function normalizeWaterKey(value){return String(value||"").replace(/[\s()]/g,"").replace(/휴게소/g,"").replace(/포도/g,"").replace(/방향/g,"");}function findWaterReststopDetail(station){if(!/워터|water/i.test(String(station?.operator_name||station?.operator||station?.displayOperatorCandidate?.operator_name||"")))return null;const stationName=normalizeWaterKey(station?.service_area_name);const direction=normalizeWaterKey(station?.direction);return WATER_RESTSTOP_DATA.find(row=>{const rest=normalizeWaterKey(row.restArea);const full=normalizeWaterKey(row.stationName);const rowDir=normalizeWaterKey(row.direction);const nameMatches=rest.includes(stationName)||stationName.includes(rest)||full.includes(stationName)||stationName.includes(full);const dirMatches=!direction||!rowDir||rowDir.includes(direction)||full.includes(direction);return nameMatches&&dirMatches;})||null;}function maxWaterSpeed(detail){const values=String(detail?.speed||"").split(/[,/ ]+/).map(v=>Number(String(v).replace(/[^0-9.]/g,""))).filter(v=>Number.isFinite(v)&&v>0);return values.length?Math.max(...values):0;}function applyWaterReststopData(){state.stations=state.stations.map(station=>{const detail=findWaterReststopDetail(station);if(!detail)return station;const speed=maxWaterSpeed(detail);const available=Number(String(detail.available||"").replace(/[^0-9.]/g,""));return {...station,waterReststopDetail:detail,public_operator_name:"워터",public_available_charger_count:Number.isFinite(available)&&available>0?available:station.public_available_charger_count,public_total_charger_count:Number.isFinite(available)&&available>0?available:station.public_total_charger_count,total_charger_count:Number.isFinite(available)&&available>0?available:station.total_charger_count,charger_count:Number.isFinite(available)&&available>0?available:station.charger_count,public_max_output_kw:speed||station.public_max_output_kw,public_output_kw:speed||station.public_output_kw};});}
 function boot() {
-  if (els.heroBg) els.heroBg.src = "./assets/new/hero/hero-bg.png?v=20261012-hero-bg";
+  if (els.heroBg) els.heroBg.src = "./assets/new/hero/hero-bg.png?v=20261012-hero-bg-2x";
   if (els.startFlag) els.startFlag.src = "./assets/new/icon-flag-blue.png?v=20260626-1715";
   state.stations = (window.PROTOTYPE_DATA?.stations || []).map((station) => ({
     ...station,
@@ -1871,4 +1871,5 @@ window.__debugOperatorCandidates = function () {
     }))
   }));
 };
+
 
