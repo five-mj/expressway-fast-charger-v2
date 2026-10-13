@@ -4,7 +4,7 @@
   function showStatus(message, persistent = false) {
     clearTimeout(toastTimer);
     status.textContent = message;
-    status.classList.toggle('is-expanded', message !== '링크 복사 성공!' && message !== '다시 시도해주세요.');
+    status.classList.toggle('is-expanded', false);
     if (!status.classList.contains('is-expanded')) {
       status.style.setProperty('width', 'max-content', 'important');
       status.style.setProperty('padding', '7px 18px', 'important');
@@ -65,7 +65,7 @@
             } catch (error) {
               if (error.name !== 'AbortError') showStatus('다시 시도해주세요.');
             }
-          } else showStatus('이 브라우저에서는 공유창을 지원하지 않습니다. 링크 복사를 이용해주세요.');
+          } else showStatus('링크를 복사해주세요.');
           break;
         default:
           await copy(url, '링크 복사 성공!');

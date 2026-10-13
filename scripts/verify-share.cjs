@@ -12,7 +12,7 @@ async function run(kind,native){
 }
 (async()=>{
  const native=await run('kakao',async()=>{});assert.equal(native.payload.title,'서울 → 속초 최저가 급속 충전소');assert.equal(native.copied,undefined);
- assert.match((await run('kakao')).status,/공유창을 지원하지/);
+ assert.equal((await run('kakao')).status,'링크를 복사해주세요.');
  assert.equal((await run('kakao',async()=>{throw {name:'NotAllowedError'}})).status,'다시 시도해주세요.');
  assert.equal((await run('kakao',async()=>{throw {name:'AbortError'}})).status,'');
  const copy=await run('link');assert.equal(copy.status,'링크 복사 성공!');assert.equal(new URL(copy.copied).searchParams.get('destination'),'속초');assert.equal(new URL(copy.copied).searchParams.has('v'),false);
