@@ -1,10 +1,22 @@
 (() => {
   const status = document.getElementById('shareStatus');
   let toastTimer;
+  let activeButton;
   function showStatus(message, persistent = false) {
     clearTimeout(toastTimer);
     status.textContent = message;
     status.classList.toggle('is-expanded', false);
+    activeButton.parentElement.appendChild(status);
+    status.style.marginLeft = '0px';
+    const screen = activeButton.closest('.figma-screen');
+    if (screen) {
+      const bounds = screen.getBoundingClientRect();
+      const scale = bounds.width / screen.offsetWidth;
+      const bubble = status.getBoundingClientRect();
+      const inset = 10 * scale;
+      const shift = Math.max(bounds.left + inset - bubble.left, Math.min(0, bounds.right - inset - bubble.right));
+      status.style.marginLeft = `${shift / scale}px`;
+    }
     status.classList.add('is-visible');
     if (!persistent) toastTimer = setTimeout(() => status.classList.remove('is-visible'), 1000);
   }
@@ -36,6 +48,7 @@
   }
   document.querySelectorAll('[data-share]').forEach(button => {
     button.addEventListener('click', async () => {
+      activeButton = button;
       const url = shareUrl();
       const title = `${state.origin} → ${state.destination} 최저가 급속 충전소`;
       const previewUrl = new URL(`/share/${encodeURIComponent(state.origin)}-${encodeURIComponent(state.destination)}.html`, location.origin).href;
@@ -56,7 +69,7 @@
             } catch (error) {
               if (error.name !== 'AbortError') showStatus('다시 시도해주세요.');
             }
-          } else showStatus('링크를 복사해주세요.');
+          } else showStatus('링크복사 버튼을 눌러주세요.');
           break;
         default:
           await copy(url, '링크 복사 성공!');
