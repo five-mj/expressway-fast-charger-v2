@@ -4199,14 +4199,9 @@ html:has(.responsive-screen), body:has(.responsive-screen) {
 }
 
 /* Keep short copy-status messages on one line. */
-.share-status:not(.is-expanded) {left:50%;right:auto;width:max-content !important;min-width:0;max-width:300px;height:auto;padding:7px 10px !important;box-sizing:content-box !important;white-space:normal;overflow-wrap:anywhere;flex-shrink:0;background:#001e4c;border:2px solid #000;clip-path:polygon(4px 0,calc(100% - 4px) 0,calc(100% - 4px) 2px,100% 2px,100% calc(100% - 2px),calc(100% - 4px) calc(100% - 2px),calc(100% - 4px) 100%,4px 100%,4px calc(100% - 2px),0 calc(100% - 2px),0 2px,4px 2px);transform:translate(-50%,5px);}
+.share-status:not(.is-expanded) {left:50%;right:auto;width:max-content !important;min-width:0;max-width:none;height:auto;padding:7px 18px !important;box-sizing:content-box !important;white-space:nowrap;flex-shrink:0;background:url('./assets/new/share-toast.svg') center/100% 100% no-repeat;border:0;clip-path:none;transform:translate(-50%,5px);}
 .share-status:not(.is-expanded).is-visible {transform:translate(-50%,0);}
-.share-status.is-unsupported:not(.is-expanded) {width:280px !important;max-width:calc(100% - 44px);white-space:pre-line;text-align:center;}
-
-
-
-
-
+.share-status.is-unsupported:not(.is-expanded) {width:280px !important;max-width:calc(100% - 44px);padding:7px 10px !important;white-space:pre-line;text-align:center;overflow-wrap:anywhere;background:#001e4c;border:2px solid #000;clip-path:polygon(4px 0,calc(100% - 4px) 0,calc(100% - 4px) 2px,100% 2px,100% calc(100% - 2px),calc(100% - 4px) calc(100% - 2px),calc(100% - 4px) 100%,4px 100%,4px calc(100% - 2px),0 calc(100% - 2px),0 2px,4px 2px);}
 /* The viewport includes the outer gutters on touch layouts. */
 .screen-viewport, .screen-viewport.responsive-screen, .screen-viewport:has(.figma-screen:not(.is-hidden)) {background:#e6f5ff !important;}
 

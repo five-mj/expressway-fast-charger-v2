@@ -11,7 +11,7 @@
     anchor.appendChild(status);
     status.style.marginLeft = '0px';
     const screen = activeButton.closest('.figma-screen');
-    if (screen) {
+    if (screen && message !== '링크 복사 성공!') {
       const bounds = screen.getBoundingClientRect();
       const scale = bounds.width / screen.offsetWidth;
       const bubble = status.getBoundingClientRect();
