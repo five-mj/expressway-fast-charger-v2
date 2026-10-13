@@ -47,14 +47,15 @@
     button.addEventListener('click', async () => {
       const url = shareUrl();
       const title = `${state.origin} → ${state.destination} 최저가 급속 충전소`;
+      const previewUrl = new URL(`/share/${encodeURIComponent(state.origin)}-${encodeURIComponent(state.destination)}.html`, location.origin).href;
       clearTimeout(toastTimer);
       status.classList.remove('is-visible');
       switch (button.dataset.share) {
         case 'facebook':
-          window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank', 'noopener,noreferrer');
+          window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(previewUrl)}`, '_blank', 'noopener,noreferrer');
           break;
         case 'x':
-          window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`, '_blank', 'noopener,noreferrer');
+          window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(previewUrl)}`, '_blank', 'noopener,noreferrer');
           break;
         case 'kakao':
           // Native sharing needs no Kakao app key. Desktop fallback is explicit.
@@ -62,9 +63,9 @@
             try {
               await navigator.share({title, url});
             } catch (error) {
-              if (error.name !== 'AbortError') await copy(url, '링크를 복사했어요. 카카오톡에 붙여넣어주세요.');
+              if (error.name !== 'AbortError') showStatus('다시 시도해주세요.');
             }
-          } else await copy(url, '링크를 복사했어요. 카카오톡에 붙여넣어주세요.');
+          } else showStatus('이 브라우저에서는 공유창을 지원하지 않습니다. 링크 복사를 이용해주세요.');
           break;
         default:
           await copy(url, '링크 복사 성공!');
