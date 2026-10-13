@@ -4144,7 +4144,7 @@ html:has(.responsive-screen[data-layout="full-width"]) { overflow-y: scroll; }
 .route-share { position:absolute; left:0; top:877px; width:375px; z-index:5; font-family:"NanumSquareNeo",sans-serif; }
 .route-share h2 { display:flex; align-items:center; justify-content:center; gap:10px; height:54px; margin:0; padding:16px 10px; background:#0099ff; color:#fff; font-size:16px; font-weight:900; line-height:1.4; letter-spacing:-.6px; }
 .route-share h2::before,.route-share h2::after {content:""; width:48px; height:2px; background:#fff;}
-.route-share-buttons {display:flex; justify-content:center; gap:20px;}
+.route-share-buttons {position:relative;display:flex; justify-content:center; gap:20px;}
 .route-share-buttons button {display:flex; flex-direction:column; align-items:center; gap:2px; width:50px; flex:0 0 50px; color:#000; font-size:10px; font-weight:900; line-height:1.4; letter-spacing:-.6px;}
 .share-coin {display:block; width:50px; height:48px; position:relative;}
 .share-coin img {display:block; max-width:none;}
@@ -4201,6 +4201,7 @@ html:has(.responsive-screen), body:has(.responsive-screen) {
 /* Keep short copy-status messages on one line. */
 .share-status:not(.is-expanded) {left:50%;right:auto;width:max-content !important;min-width:0;max-width:300px;height:auto;padding:7px 10px !important;box-sizing:content-box !important;white-space:normal;overflow-wrap:anywhere;flex-shrink:0;background:#001e4c;border:2px solid #000;clip-path:polygon(4px 0,calc(100% - 4px) 0,calc(100% - 4px) 2px,100% 2px,100% calc(100% - 2px),calc(100% - 4px) calc(100% - 2px),calc(100% - 4px) 100%,4px 100%,4px calc(100% - 2px),0 calc(100% - 2px),0 2px,4px 2px);transform:translate(-50%,5px);}
 .share-status:not(.is-expanded).is-visible {transform:translate(-50%,0);}
+.share-status.is-unsupported:not(.is-expanded) {width:280px !important;max-width:calc(100% - 44px);white-space:pre-line;text-align:center;}
 
 
 

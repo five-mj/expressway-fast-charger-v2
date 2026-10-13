@@ -2,11 +2,13 @@
   const status = document.getElementById('shareStatus');
   let toastTimer;
   let activeButton;
-  function showStatus(message, persistent = false) {
+  function showStatus(message, persistent = false, unsupported = false) {
     clearTimeout(toastTimer);
     status.textContent = message;
     status.classList.toggle('is-expanded', false);
-    activeButton.parentElement.appendChild(status);
+    status.classList.toggle('is-unsupported', unsupported);
+    const anchor = unsupported ? activeButton.closest('.route-share-buttons') : activeButton.parentElement;
+    anchor.appendChild(status);
     status.style.marginLeft = '0px';
     const screen = activeButton.closest('.figma-screen');
     if (screen) {
@@ -69,7 +71,7 @@
             } catch (error) {
               if (error.name !== 'AbortError') showStatus('다시 시도해주세요.');
             }
-          } else showStatus('링크복사 버튼을 눌러주세요.');
+          } else showStatus('이 브라우저에서는 공유창을 지원하지 않습니다.\n링크 복사를 이용해주세요.', false, true);
           break;
         default:
           await copy(url, '링크 복사 성공!');

@@ -5,14 +5,14 @@ async function run(kind,native){
  const navigator={clipboard:{writeText:async url=>{copied=url}}};
  if(native)navigator.share=async value=>{payload=value;await native()};
  vm.runInNewContext(fs.readFileSync('route-share.js','utf8'),{
- document:{getElementById:()=>status,querySelectorAll:()=>[{dataset:{share:kind},parentElement:{appendChild:node=>{assert.equal(node,status)}},closest:()=>null,addEventListener:(_,fn)=>handler=fn}]},
+ document:{getElementById:()=>status,querySelectorAll:()=>[{dataset:{share:kind},parentElement:{appendChild:node=>{assert.equal(node,status)}},closest:selector=>selector==='.route-share-buttons'?{appendChild:node=>assert.equal(node,status)}:null,addEventListener:(_,fn)=>handler=fn}]},
  navigator,location:{href:'https://vercel-public-5325-20260708.vercel.app/?v=test',origin:'https://vercel-public-5325-20260708.vercel.app',search:''},
  state:{origin:'서울',destination:'속초'},window:{open:url=>opened=url},URL,URLSearchParams,clearTimeout(){},setTimeout(){}});
  await handler();return {opened,payload,copied,status:status.textContent};
 }
 (async()=>{
  const native=await run('kakao',async()=>{});assert.equal(native.payload.title,'서울 → 속초 최저가 급속 충전소');assert.equal(native.copied,undefined);
- assert.equal((await run('kakao')).status,'링크복사 버튼을 눌러주세요.');
+ assert.equal((await run('kakao')).status,'이 브라우저에서는 공유창을 지원하지 않습니다.\n링크 복사를 이용해주세요.');
  assert.equal((await run('kakao',async()=>{throw {name:'NotAllowedError'}})).status,'다시 시도해주세요.');
  assert.equal((await run('kakao',async()=>{throw {name:'AbortError'}})).status,'');
  const copy=await run('link');assert.equal(copy.status,'링크 복사 성공!');assert.equal(new URL(copy.copied).searchParams.get('destination'),'속초');assert.equal(new URL(copy.copied).searchParams.has('v'),false);
