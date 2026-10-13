@@ -4199,7 +4199,8 @@ html:has(.responsive-screen), body:has(.responsive-screen) {
 }
 
 /* Keep short copy-status messages on one line. */
-.share-status:not(.is-expanded) {width:max-content;min-width:0;max-width:none;padding:7px 18px;box-sizing:content-box;white-space:nowrap;flex-shrink:0;}
+.share-status:not(.is-expanded) {left:auto;right:-18px;width:max-content;min-width:0;max-width:300px;height:auto;padding:7px 18px;box-sizing:border-box;white-space:normal;overflow-wrap:anywhere;flex-shrink:0;transform:translateY(5px);}
+.share-status:not(.is-expanded).is-visible {transform:translateY(0);}
 
 
 

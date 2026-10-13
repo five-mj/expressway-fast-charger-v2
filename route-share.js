@@ -5,15 +5,6 @@
     clearTimeout(toastTimer);
     status.textContent = message;
     status.classList.toggle('is-expanded', false);
-    if (!status.classList.contains('is-expanded')) {
-      status.style.setProperty('width', 'max-content', 'important');
-      status.style.setProperty('padding', '7px 18px', 'important');
-      status.style.setProperty('box-sizing', 'content-box', 'important');
-    } else {
-      status.style.removeProperty('width');
-      status.style.removeProperty('padding');
-      status.style.removeProperty('box-sizing');
-    }
     status.classList.add('is-visible');
     if (!persistent) toastTimer = setTimeout(() => status.classList.remove('is-visible'), 1000);
   }
