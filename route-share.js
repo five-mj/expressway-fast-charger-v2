@@ -56,6 +56,7 @@
       const previewUrl = new URL(`/share/${encodeURIComponent(state.origin)}-${encodeURIComponent(state.destination)}.html`, location.origin).href;
       clearTimeout(toastTimer);
       status.classList.remove('is-visible');
+      try {
       switch (button.dataset.share) {
         case 'facebook':
           window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(previewUrl)}`, '_blank', 'noopener,noreferrer');
@@ -75,6 +76,9 @@
           break;
         default:
           await copy(url, '링크 복사 성공!');
+      }
+      } catch (error) {
+        if (error.name !== 'AbortError') showStatus('다시 시도해주세요.');
       }
     });
   });
