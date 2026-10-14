@@ -6,7 +6,7 @@ const root = path.resolve(__dirname, '..');
 const context = {window: {}};
 vm.runInNewContext(fs.readFileSync(path.join(root, 'data.generated-20260930.js'), 'utf8'), context);
 const host = 'https://vercel-public-5325-20260708.vercel.app';
-const image = `${host}/assets/new/og-share-20261012.png`;
+const image = `${host}/assets/new/og-share-20261014.png`;
 const escape = s => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 fs.mkdirSync(path.join(root, 'share'), {recursive: true});
 let count = 0;
