@@ -4209,6 +4209,6 @@ html:has(.responsive-screen), body:has(.responsive-screen) {
 .price-card .detail-station.is-long-name {font-size:16px !important;letter-spacing:-1.6px !important;}
 
 /* Result route selection exception, Figma 2554:2015. */
-.route-empty-notice{position:absolute;left:21px;top:209px;width:333px;min-height:78px;padding:12px 10px;box-sizing:border-box;background:#fffdf8;color:#111;border:3px solid #090b20;border-radius:15px;text-align:center;font-family:"NanumSquareNeo",sans-serif;font-size:13px;font-weight:900;line-height:1.5;letter-spacing:-.6px;display:flex;flex-direction:column;justify-content:center;z-index:12;}
+.route-empty-notice{position:absolute;left:18px;top:209px;width:340px;height:81px;padding:12px 10px 15px;box-sizing:border-box;background:url("./assets/new/box-detail-info-blank.svg") center/100% 100% no-repeat;color:#111;border:0;border-radius:0;text-align:center;font-family:"NanumSquareNeo",sans-serif;font-size:13px;font-weight:900;line-height:1.5;letter-spacing:-.6px;display:flex;flex-direction:column;justify-content:center;z-index:12;}
 .route-empty-notice[hidden],.figma-screen .price-card[hidden]{display:none!important;}
 .figma-screen .flag[hidden],.figma-screen .route-city-label[hidden]{display:none!important;}
