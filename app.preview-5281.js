@@ -420,6 +420,10 @@ function closeHeroMenus() {
 }
 
 function showHero() {
+  if (els.mapScreen && !els.mapScreen.classList.contains("is-hidden")) {
+    heroState.origin = state.origin;
+    heroState.destination = state.destination;
+  }
   refreshHeroControls();
   els.heroScreen?.classList.remove("is-hidden");
   els.mapScreen?.classList.add("is-hidden");
