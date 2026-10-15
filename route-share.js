@@ -25,9 +25,9 @@
   const incoming = new URLSearchParams(location.search);
   const origin = incoming.get('origin');
   const destination = incoming.get('destination');
-  if (origin && destination && getDestinationOptions(origin).includes(destination)) {
+  if (origin && getOriginOptions().includes(origin) && (destination || incoming.get('view') === 'result')) {
     state.origin = origin;
-    state.destination = destination;
+    state.destination = getDestinationOptions(origin).includes(destination) ? destination : '';
     refreshMenus();
     render();
     showMap();
@@ -37,7 +37,8 @@
     url.search = '';
     url.hash = '';
     url.searchParams.set('origin', state.origin);
-    url.searchParams.set('destination', state.destination);
+    if (state.destination) url.searchParams.set('destination', state.destination);
+    else url.searchParams.set('view', 'result');
     return url.href;
   }
   async function copy(url, message) {
@@ -52,8 +53,8 @@
     button.addEventListener('click', async () => {
       activeButton = button;
       const url = shareUrl();
-      const title = `${state.origin} → ${state.destination} 최저가 급속 충전소`;
-      const previewUrl = new URL(`/share/${encodeURIComponent(state.origin)}-${encodeURIComponent(state.destination)}.html`, location.origin).href;
+      const title = state.destination ? `${state.origin} → ${state.destination} 최저가 급속 충전소` : `${state.origin} → 도착지 선택`;
+      const previewUrl = new URL(`/share/${encodeURIComponent(state.origin)}-${encodeURIComponent(state.destination || '도착지선택')}.html`, location.origin).href;
       clearTimeout(toastTimer);
       status.classList.remove('is-visible');
       try {

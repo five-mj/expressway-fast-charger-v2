@@ -516,20 +516,38 @@ function stopHeroCoinMotion() {
   }
 }
 
+function setResultOrigin(value) {
+  state.origin = value;
+  if (!getDestinationOptions(value).includes(state.destination)) state.destination = "";
+}
+
+function syncResultUrl() {
+  const url = new URL(location.href);
+  url.searchParams.set('origin', state.origin);
+  if (state.destination) {
+    url.searchParams.set('destination', state.destination);
+    url.searchParams.delete('view');
+  } else {
+    url.searchParams.delete('destination');
+    url.searchParams.set('view', 'result');
+  }
+  history.replaceState(null, '', url.href);
+}
+
 function refreshMenus() {
   fillMenu(els.originMenu, getOriginOptions(), state.origin, (value) => {
-    state.origin = value;
-    const destinations = getDestinationOptions(value);
-    if (!destinations.includes(state.destination)) state.destination = destinations[0] || "";
+    setResultOrigin(value);
     closeMenus();
     refreshMenus();
     render();
+    syncResultUrl();
   });
   fillMenu(els.destinationMenu, getDestinationOptions(state.origin), state.destination, (value) => {
     state.destination = value;
     closeMenus();
     refreshMenus();
     render();
+    syncResultUrl();
   });
 }
 
@@ -823,18 +841,27 @@ function renderPinTotalBadge() {
 
 function render() {
   els.originValue.textContent = state.origin || "출발지";
-  els.destinationValue.textContent = state.destination || "도착지";
+  els.destinationValue.textContent = state.destination || "도착지 선택";
   els.originTrigger.setAttribute("aria-label", `출발지 ${state.origin || "선택"}`);
   els.destinationTrigger.setAttribute("aria-label", `도착지 ${state.destination || "선택"}`);
 
-  state.highway = findHighway(state.origin, state.destination);
+  const validSelection = getDestinationOptions(state.origin).includes(state.destination);
+  state.highway = validSelection ? findHighway(state.origin, state.destination) : "";
+  const emptyNotice = document.getElementById('routeEmptyNotice');
+  if (emptyNotice) emptyNotice.hidden = !!state.highway;
   if (!state.highway) {
     els.routeLayer.innerHTML = "";
-    els.stationLayer.innerHTML = '<div class="no-route-message">출발지와 도착지를 선택해 주세요.</div>';
+    els.stationLayer.innerHTML = "";
+    state.routeStations = [];
+    state.focusedIndex = -1;
+    window.__debugRouteStations = [];
+    els.prev.disabled = false;
+    els.next.disabled = false;
     if (els.routeBadge) els.routeBadge.hidden = true;
     els.priceCard.hidden = true;
     if (els.brandLabel) els.brandLabel.hidden = true;
-    if (els.pinTotalBadge) els.pinTotalBadge.hidden = true;
+    if (els.pinTotalText) els.pinTotalText.textContent = '0/0';
+    if (els.pinTotalBadge) els.pinTotalBadge.hidden = false;
     setRouteEndsHidden(true);
     return;
   }
