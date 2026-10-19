@@ -59,6 +59,9 @@ const result=vm.runInContext(`(() => {
 assert.deepEqual(JSON.parse(JSON.stringify(result)),{stops:3539,recommended:648,noPrice:14,selectable:662});
 assert.equal(context.window.APP_ROUTE_DATA.excludedNonFastStops.length,96);
 assert(!context.window.APP_ROUTE_DATA.routes.find(r=>r.origin==='서울'&&r.destination==='부산').restAreas.includes('군위영천휴게소'));
-const reference=JSON.parse(fs.readFileSync('docs/map-pin-coordinates-27.json','utf8'));
+const reference=JSON.parse(fs.readFileSync('docs/map-pin-coordinates-29.json','utf8'));
 assert.deepEqual(JSON.parse(JSON.stringify(context.window.FIGMA_CITY_PIN_LAYOUT)),reference);
-console.log('All routes, recommendations, missing fares and 27 map coordinates verified:',result);
+assert.equal(Object.keys(reference.cities).length,29);
+assert.equal(reference.cities.보령.left,62);assert.equal(reference.cities.보령.top,176);
+assert.equal(reference.cities.군산.left,66);assert.equal(reference.cities.군산.top,226);
+console.log('All routes, recommendations, missing fares and 29 map coordinates verified:',result);
