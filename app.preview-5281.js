@@ -1589,16 +1589,9 @@ function moveFocus(delta) {
 
 // 2026-07-01 stable Excel data integration.
 var EXCEL_ROUTE_DATA = window.APP_ROUTE_DATA || { originOptions: [], routes: [], stationDetails: [] };
-var ORIGIN_REGION_ORDER = EXCEL_ROUTE_DATA.originOptions || [];
-var DESTINATION_REGION_ORDER = ORIGIN_REGION_ORDER;
-
-function sortByConfiguredRegionOrder(values, order) {
+function sortRegionsAlphabetically(values) {
   return values.slice().sort(function(a, b) {
-    var ai = order.indexOf(a);
-    var bi = order.indexOf(b);
-    if (ai < 0) ai = 999;
-    if (bi < 0) bi = 999;
-    return ai - bi || String(a).localeCompare(String(b), "ko");
+    return String(a).localeCompare(String(b), "ko");
   });
 }
 
@@ -1633,17 +1626,16 @@ function getExcelRoute(origin, destination) {
 }
 
 function getOriginOptions() {
-  return sortByConfiguredRegionOrder(
-    (EXCEL_ROUTE_DATA.originOptions || []).filter(function(origin) { return getDestinationOptions(origin).length > 0; }),
-    ORIGIN_REGION_ORDER
+  return sortRegionsAlphabetically(
+    (EXCEL_ROUTE_DATA.originOptions || []).filter(function(origin) { return getDestinationOptions(origin).length > 0; })
   );
 }
 
 function getDestinationOptions(origin) {
-  return sortByConfiguredRegionOrder((EXCEL_ROUTE_DATA.routes || [])
+  return sortRegionsAlphabetically((EXCEL_ROUTE_DATA.routes || [])
     .filter(function(route) { return route.origin === origin && Array.isArray(route.restAreas) && route.restAreas.length > 0; })
     .map(function(route) { return route.destination; })
-    .filter(function(value, index, array) { return value && array.indexOf(value) === index; }), DESTINATION_REGION_ORDER);
+    .filter(function(value, index, array) { return value && array.indexOf(value) === index; }));
 }
 
 function findHighway(origin, destination) {
