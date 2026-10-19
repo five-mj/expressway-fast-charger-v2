@@ -4,7 +4,7 @@ for(const file of ['data.generated-20260930.js','map-city-pins.js','app.preview-
  vm.runInContext(fs.readFileSync(file,'utf8').replace(/^boot\(\);/m,''),context);
 const result=vm.runInContext(`(() => {
  let stops=0,recommended=0,noPrice=0,selectable=0;
- if(getOriginOptions().length!==27)throw Error('Cities');
+ if(getOriginOptions().length!==29)throw Error('Cities');
  for(const route of EXCEL_ROUTE_DATA.routes){
   state.origin=route.origin;state.destination=route.destination;state.highway=route.highway;
   computeRouteStations();
