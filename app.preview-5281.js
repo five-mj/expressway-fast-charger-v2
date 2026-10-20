@@ -1627,14 +1627,14 @@ function getExcelRoute(origin, destination) {
 
 function getOriginOptions() {
   return sortRegionsAlphabetically(
-    [...new Set([...(EXCEL_ROUTE_DATA.originOptions || []), '보령', '군산'])]
+    [...new Set([...(EXCEL_ROUTE_DATA.originOptions || []), '보령'])]
   );
 }
 
 function getDestinationOptions(origin) {
-  const registered = [...new Set([...(EXCEL_ROUTE_DATA.originOptions || []), '보령', '군산'])];
+  const registered = [...new Set([...(EXCEL_ROUTE_DATA.originOptions || []), '보령'])];
   if (!registered.includes(origin)) return [];
-  const pendingCities = ['보령', '군산'];
+  const pendingCities = ['보령'];
   const candidates = (EXCEL_ROUTE_DATA.routes || [])
     .filter(function(route) { return route.origin === origin && Array.isArray(route.restAreas) && route.restAreas.length > 0; })
     .map(function(route) { return route.destination; });

@@ -1,4 +1,4 @@
-// 29 supplied map positions; Figma reference: docs/map-pin-coordinates-29.json
+// 28 supplied map positions; Figma reference: docs/map-pin-coordinates-28.json
 window.FIGMA_CITY_PIN_LAYOUT = {
   "source": "https://www.figma.com/design/2VL2VjPC4MJkNxvIDuPCjM/MJ?node-id=2365-1004",
   "map": {
@@ -181,12 +181,6 @@ window.FIGMA_CITY_PIN_LAYOUT = {
       "top": 176,
       "x": 0.203176292,
       "y": 0.484883721
-    },
-    "군산": {
-      "left": 66,
-      "top": 226,
-      "x": 0.215334347,
-      "y": 0.601162791
     }
   }
 };

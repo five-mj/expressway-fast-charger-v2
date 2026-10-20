@@ -11,9 +11,9 @@ const escape = s => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt
 fs.mkdirSync(path.join(root, 'share'), {recursive: true});
 let count = 0;
 const routes = context.window.APP_ROUTE_DATA.routes.filter(r => r.stops.length);
-const cities = [...new Set([...routes.map(r=>r.origin),'보령','군산'])];
+const cities = [...new Set([...routes.map(r=>r.origin),'보령'])];
 const pending = cities.map(origin=>({origin,destination:''}));
-const pendingPairs=cities.flatMap(origin=>cities.filter(destination=>origin!==destination&&(['보령','군산'].includes(origin)||['보령','군산'].includes(destination))).map(destination=>({origin,destination})));
+const pendingPairs=cities.flatMap(origin=>cities.filter(destination=>origin!==destination&&(['보령'].includes(origin)||['보령'].includes(destination))).map(destination=>({origin,destination})));
 for (const route of [...routes,...pending,...pendingPairs]) {
   const title = route.destination ? `${route.origin} → ${route.destination} 최저가 급속 충전소` : `${route.origin} → 도착지 선택`;
   const destination = route.destination || '도착지선택';
