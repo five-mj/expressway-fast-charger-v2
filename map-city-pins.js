@@ -1,4 +1,4 @@
-// 28 supplied map positions; Figma reference: docs/map-pin-coordinates-28.json
+// All 28 supplied cities; Figma reference: docs/map-pin-coordinates-28.json
 window.FIGMA_CITY_PIN_LAYOUT = {
   "source": "https://www.figma.com/design/2VL2VjPC4MJkNxvIDuPCjM/MJ?node-id=2365-1004",
   "map": {

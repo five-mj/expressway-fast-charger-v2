@@ -1,0 +1,70 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const context=vm.createContext({window:{addEventListener(){}},document:{querySelector:()=>null},console});
+for(const file of ['data.generated-20261021.js','map-city-pins.js','app.preview-5281.js'])
+ vm.runInContext(fs.readFileSync(file,'utf8').replace(/^boot\(\);/m,''),context);
+const result=vm.runInContext(`(() => {
+ let stops=0,recommended=0,noPrice=0,selectable=0;
+ if(getOriginOptions().length!==28)throw Error('Cities');
+ for(const route of EXCEL_ROUTE_DATA.routes){
+  state.origin=route.origin;state.destination=route.destination;state.highway=route.highway;
+  computeRouteStations();
+  if(state.routeStations.length!==route.stops.length)throw Error('Count');
+  if(getDestinationOptions(route.origin).includes(route.destination)!==!!route.stops.length)throw Error('Dropdown filter');
+  const points=makeFixedRoutePointsFinal(route);
+  if(!points || points.flat().some(n=>!Number.isFinite(n)))throw Error('Pin coordinates');
+  if(!route.stops.length)continue;
+  selectable++;stops+=route.stops.length;
+  const actual=getRecommendedStation();
+  const ranked=state.routeStations.map((s,i)=>({s,i,price:s.price_per_kwh,
+    count:getStationTotalCount(s),power:getStationChargingSpeed(s)}))
+    .filter(x=>typeof x.price==='number')
+    .map(x=>({...x,score:getRouteDistanceScore(x.i,route.stops.length)+getChargerCountScore(x.count)+getChargingSpeedScore(x.power)}))
+    .sort((a,b)=>a.price-b.price||b.score-a.score||b.power-a.power||b.count-a.count||a.i-b.i);
+  if(ranked.length){
+   recommended++;
+   if(actual!==ranked[0].s || state.routeStations[state.focusedIndex]!==actual)throw Error('Recommendation '+route.origin+route.destination);
+   if(!isLowestPriceStation(actual))throw Error('Price');
+  }else{
+   noPrice++;
+   const scored=state.routeStations.map((s,i)=>({s,i,data:s.displayOperatorCandidate?.source_data}))
+     .filter(x=>typeof x.data?.chargerCount==='number'&&x.data.chargerCount>0&&typeof x.data?.maxOutputKw==='number'&&x.data.maxOutputKw>=100&&['운영','오픈예정'].includes(x.data.openingStatus))
+     .map(x=>({...x,count:x.data.chargerCount,power:x.data.maxOutputKw,score:getRouteDistanceScore(x.i,route.stops.length)+getChargerCountScore(x.data.chargerCount)+getChargingSpeedScore(x.data.maxOutputKw)}))
+     .sort((a,b)=>b.score-a.score||b.power-a.power||b.count-a.count||a.i-b.i);
+   if(actual!==(scored[0]?.s||null))throw Error('Score-only recommendation');
+   if(actual&&isLowestPriceStation(actual))throw Error('Unknown fare labelled lowest');
+   if(state.focusedIndex!==(actual?state.routeStations.indexOf(actual):-1))throw Error('Initial selection');
+  }
+  state.routeStations.forEach((s,i)=>{
+   const source=route.stops[i];
+   const operators=source.candidateRows.map(row=>EXCEL_STATION_ROWS.get(row))
+    .filter(o=>typeof o.price==='number'&&typeof o.chargerCount==='number'&&o.chargerCount>0&&typeof o.maxOutputKw==='number'&&o.maxOutputKw>=100&&['운영','오픈예정'].includes(o.openingStatus))
+    .sort((a,b)=>a.price-b.price
+     ||(getChargerCountScore(b.chargerCount)+getChargingSpeedScore(b.maxOutputKw))-(getChargerCountScore(a.chargerCount)+getChargingSpeedScore(a.maxOutputKw))
+     ||b.maxOutputKw-a.maxOutputKw||b.chargerCount-a.chargerCount||a.sourceRow-b.sourceRow);
+   if(source.displayRow!==(operators[0]?.sourceRow??null))throw Error('Operator ranking');
+   if(source.order!==i+1)throw Error('Filtered stop order');
+   if(!source.candidateRows.some(row=>{const o=EXCEL_STATION_ROWS.get(row);return o?.maxOutputKw>=100||o?.chargerCount>0;}))throw Error('Non-fast stop retained');
+   if(s.sourceRow!==route.stops[i].sourceRow)throw Error('Order');
+   if(s.price_per_kwh===0)throw Error('Missing price becomes zero');
+   if(s.displayOperatorCandidate && s.direction!==s.displayOperatorCandidate.direction)throw Error('Direction');
+  });
+ }
+ for(const origin of getOriginOptions()) {
+  const expected=EXCEL_ROUTE_DATA.routes.filter(r=>r.origin===origin&&r.stops.length).map(r=>r.destination).sort((a,b)=>a.localeCompare(b,'ko'));
+  if(JSON.stringify(getDestinationOptions(origin))!==JSON.stringify(expected))throw Error('Destination data mismatch '+origin);
+ }
+ for(const [origin,destination] of [['보령','서울'],['서울','보령'],['보령','부산'],['부산','보령']]){
+  state.origin=origin;state.destination=destination;computeRouteStations();
+  if(!state.routeStations.length||!getRecommendedStation())throw Error('Boryeong route missing');
+ }
+ return {stops,recommended,noPrice,selectable};
+})()`,context);
+assert.deepEqual(JSON.parse(JSON.stringify(result)),{stops:3811,recommended:710,noPrice:0,selectable:710});
+assert.equal(context.window.APP_ROUTE_DATA.excludedNonFastStops.length,97);
+assert(!context.window.APP_ROUTE_DATA.routes.find(r=>r.origin==='서울'&&r.destination==='부산').restAreas.includes('군위영천휴게소'));
+const reference=JSON.parse(fs.readFileSync('docs/map-pin-coordinates-28.json','utf8'));
+assert.deepEqual(JSON.parse(JSON.stringify(context.window.FIGMA_CITY_PIN_LAYOUT)),reference);
+assert.equal(Object.keys(reference.cities).length,28);
+assert.equal(reference.cities.보령.left,62);assert.equal(reference.cities.보령.top,176);
+assert.equal(reference.cities.군산,undefined);
+console.log('All routes, recommendations, missing fares and 28 map coordinates verified:',result);

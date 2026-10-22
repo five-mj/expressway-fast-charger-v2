@@ -1627,20 +1627,17 @@ function getExcelRoute(origin, destination) {
 
 function getOriginOptions() {
   return sortRegionsAlphabetically(
-    [...new Set([...(EXCEL_ROUTE_DATA.originOptions || []), '보령'])]
+    [...new Set(EXCEL_ROUTE_DATA.originOptions || [])]
   );
 }
 
 function getDestinationOptions(origin) {
-  const registered = [...new Set([...(EXCEL_ROUTE_DATA.originOptions || []), '보령'])];
+  const registered = [...new Set(EXCEL_ROUTE_DATA.originOptions || [])];
   if (!registered.includes(origin)) return [];
-  const pendingCities = ['보령'];
   const candidates = (EXCEL_ROUTE_DATA.routes || [])
     .filter(function(route) { return route.origin === origin && Array.isArray(route.restAreas) && route.restAreas.length > 0; })
     .map(function(route) { return route.destination; });
-  // The two newly registered cities are visible before their route data arrives.
-  const pending = pendingCities.includes(origin) ? registered : pendingCities;
-  return sortRegionsAlphabetically([...new Set([...candidates, ...pending])].filter(value=>value && value !== origin));
+  return sortRegionsAlphabetically([...new Set(candidates)].filter(value=>value && value !== origin));
 }
 
 function findHighway(origin, destination) {

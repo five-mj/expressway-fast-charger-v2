@@ -1,7 +1,7 @@
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
 const context=vm.createContext({window:{addEventListener(){}},document:{querySelector:()=>null},console,URL,
  location:{href:'https://example.com/?origin=속초&destination=서울'},history:{replaceState(_s,_t,url){context.savedUrl=url}}});
-for(const file of ['data.generated-20260930.js','map-city-pins.js','app.preview-5281.js'])
+for(const file of ['data.generated-20261021.js','map-city-pins.js','app.preview-5281.js'])
  vm.runInContext(fs.readFileSync(file,'utf8').replace(/^boot\(\);/m,''),context);
 const result=vm.runInContext(`(()=>{
  let kept=0,reset=0;

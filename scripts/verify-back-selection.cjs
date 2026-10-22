@@ -1,6 +1,6 @@
 const fs=require('node:fs'),vm=require('node:vm');
 const context=vm.createContext({window:{addEventListener(){}},document:{querySelector:()=>null},console});
-for(const file of ['data.generated-20260930.js','map-city-pins.js','app.preview-5281.js'])
+for(const file of ['data.generated-20261021.js','map-city-pins.js','app.preview-5281.js'])
  vm.runInContext(fs.readFileSync(file,'utf8').replace(/^boot\(\);/m,''),context);
 vm.runInContext(`(()=>{
  let mapHidden=true;
@@ -19,5 +19,5 @@ vm.runInContext(`(()=>{
   if(heroState.origin!==origin||heroState.destination!=='')throw Error('Pending back state');
  }
  refreshHeroControls=refresh;
- console.log('Initial placeholders, all 662 route back selections and 27 pending destination states verified');
+ console.log('Initial placeholders, all current route back selections and destination states verified');
 })()`,context);

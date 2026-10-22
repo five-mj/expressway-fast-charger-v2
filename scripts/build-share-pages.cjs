@@ -4,7 +4,7 @@ const vm = require('node:vm');
 const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const context = {window: {}};
-vm.runInNewContext(fs.readFileSync(path.join(root, 'data.generated-20260930.js'), 'utf8'), context);
+vm.runInNewContext(fs.readFileSync(path.join(root, 'data.generated-20261021.js'), 'utf8'), context);
 const host = 'https://vercel-public-5325-20260708.vercel.app';
 const image = `${host}/assets/new/og-share-20261014.png`;
 const escape = s => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -13,8 +13,8 @@ let count = 0;
 const routes = context.window.APP_ROUTE_DATA.routes.filter(r => r.stops.length);
 const cities = [...new Set([...routes.map(r=>r.origin),'보령'])];
 const pending = cities.map(origin=>({origin,destination:''}));
-const pendingPairs=cities.flatMap(origin=>cities.filter(destination=>origin!==destination&&(['보령'].includes(origin)||['보령'].includes(destination))).map(destination=>({origin,destination})));
-for (const route of [...routes,...pending,...pendingPairs]) {
+
+for (const route of [...routes,...pending]) {
   const title = route.destination ? `${route.origin} → ${route.destination} 최저가 급속 충전소` : `${route.origin} → 도착지 선택`;
   const destination = route.destination || '도착지선택';
   const name = `${route.origin}-${destination}.html`;
