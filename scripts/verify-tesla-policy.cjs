@@ -23,6 +23,7 @@ const result=vm.runInContext(`(()=>{
  renderDetailLabels(tesla,'recommended');
  const unique=document.querySelector('#detailLabels').innerHTML;
  if(!unique.includes('테슬라 전용')||unique.includes('>추천<'))throw Error('Exclusive labels');
+ if(unique.indexOf('테슬라 전용')>unique.indexOf('최저가'))throw Error('Tesla label must precede lowest label');
  other.price_per_kwh=339;
  other.charging_speed_kw=250;
  if(isTeslaExclusiveLowest(tesla))throw Error('Tie must use common card');

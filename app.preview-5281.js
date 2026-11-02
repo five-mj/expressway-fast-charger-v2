@@ -1545,6 +1545,7 @@ function renderDetailLabels(station, type) {
     labels.push(usesTeslaCardStyle(station)
       ? { kind: "tesla", alt: "테슬라 전용" }
       : { kind: "recommended", alt: "추천" });
+    if (usesTeslaCardStyle(station)) labels.reverse();
   } else if (type === "lowPrice") {
     labels.push({ kind: "tied", alt: "공동 최저가" });
   }
