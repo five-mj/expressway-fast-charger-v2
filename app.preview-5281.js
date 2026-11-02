@@ -1057,6 +1057,15 @@ function renderBrandLabel(points, stationPoints) {
   }
 
   const station = focused.station;
+  const compatible = hasMagicDock(station);
+  box.classList.toggle("has-magic-dock", compatible);
+  BRAND_LABEL_SIZE.height = compatible ? 119 : 97;
+  const compatibility = document.querySelector('#detailCompatibility');
+  if (compatibility) compatibility.hidden = !compatible;
+  const detailBackground = box.querySelector('.selected-detail-box-bg');
+  if (detailBackground) detailBackground.src = compatible
+    ? './assets/new/selected-box-detail-info-css.svg'
+    : './assets/new/selected-box-detail-info-blank.svg';
   if (els.detailOperator) els.detailOperator.textContent = detailFallback(getStationDisplayOperator(station));
   if (els.detailSpeed) els.detailSpeed.textContent = formatSelectedDetailSpeed(station);
   if (els.detailCount) els.detailCount.textContent = formatDetailCount(station);
@@ -1472,13 +1481,18 @@ function getDetailCardType(station) {
 // The Tesla-specific card applies only to a unique route-lowest winner.
 // Tied-price winners and ordinary Tesla cards retain the common presentation.
 function isTeslaExclusiveLowest(station) {
-  return getStationDisplayOperator(station) === "테슬라"
+  return isTeslaStation(station)
     && isRecommendedStation(station)
     && getLowestPriceStations().length === 1;
 }
 
 function isTeslaStation(station) {
-  return getStationDisplayOperator(station) === "테슬라";
+  return ['테슬라', '수퍼차저'].includes(getStationDisplayOperator(station));
+}
+
+function hasMagicDock(station) {
+  const candidate = station?.displayOperatorCandidate || station;
+  return isTeslaStation(station) && candidate?.source_data?.magicDock === true;
 }
 
 function usesTeslaCardStyle(station) {

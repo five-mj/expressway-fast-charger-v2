@@ -4239,3 +4239,10 @@ html:has(.responsive-screen), body:has(.responsive-screen) {
 .price-card.is-tesla .service-info {left:172px!important;top:3px!important;width:160px!important;height:72px!important;}
 .price-card.is-tesla .service-info-text.info-service-name {align-items:center!important;}
 .price-card.is-tesla .detail-route-line {justify-content:center!important;}
+
+/* Figma 2812:5636: Magic Dock compatibility adds one row. */
+.selected-detail-box.has-magic-dock {width:129px!important;height:119px!important;}
+.selected-detail-box.has-magic-dock .selected-detail-box-bg {width:129px!important;height:119px!important;}
+.selected-detail-box.has-magic-dock .selected-detail-content {height:97px!important;}
+.selected-detail-compatibility {position:absolute;left:0;top:80px;width:101px;height:16px;color:#000;font-family:"NanumSquareNeo",sans-serif;font-size:12px;font-weight:800;line-height:1.2;letter-spacing:-.6px;white-space:nowrap;}
+.selected-detail-compatibility[hidden] {display:none!important;}
