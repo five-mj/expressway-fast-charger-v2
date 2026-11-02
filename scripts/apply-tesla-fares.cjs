@@ -58,6 +58,6 @@ for(const route of data.routes) {
 }
 data.version='20261021-tesla-magicdock-20261102';
 data.stats.operators=data.stationDetails.length;
-data.teslaFarePolicy={price:339,unit:'KRW/kWh',audience:'테슬라 차주 전용',source:'사용자 지정 2026-11-02',eligibility:'사용자 검증 매직독 휴게소·방향 목록에 포함된 테슬라만 노출·비교',allowedSites:[...magicDockSites],pendingSites:[{name:'시흥하늘휴게소',direction:'판교방향',reason:'설비 데이터 추가 대기; 기존 채비 정보 유지'}],excludedSites:[{name:'신탄진휴게소',direction:'서울방향',reason:'테슬라 충전소 없음'},{name:'행담도휴게소',reason:'충전소가 휴게소와 떨어져 있음'},{name:'진영휴게소',direction:'부산방향',reason:'매직독 없음'}],referenceOnly:[{name:'고양휴게소',direction:'판교·문산',reason:'경로 데이터 미포함'}],exclusiveCard:'단독 최저가 추천 시에만 최저가 + 테슬라 전용; 공동 최저가 및 일반 노출은 공통 정책'};
+data.teslaFarePolicy={price:339,unit:'KRW/kWh',audience:'테슬라 차주 전용',source:'사용자 지정 2026-11-02',eligibility:'사용자 검증 매직독 휴게소·방향 목록에 포함된 테슬라만 노출·비교',allowedSites:[...magicDockSites],pendingSites:[{name:'시흥하늘휴게소',direction:'판교방향',reason:'설비 데이터 추가 대기; 기존 채비 정보 유지'}],excludedSites:[{name:'신탄진휴게소',direction:'서울방향',reason:'테슬라 충전소 없음'},{name:'행담도휴게소',reason:'충전소가 휴게소와 떨어져 있음'},{name:'진영휴게소',direction:'부산방향',reason:'매직독 없음'}],referenceOnly:[{name:'고양휴게소',direction:'판교·문산',reason:'경로 데이터 미포함'}],exclusiveCard:'테슬라 최저가 추천은 분홍색 최저가 + 테슬라 전용; 일반 및 공동 최저가 비추천은 파란색 테슬라 전용 표시'};
 fs.writeFileSync(file,'window.APP_ROUTE_DATA = '+JSON.stringify(data)+';\n');
 console.log({updated,excludedRows:excludedRows.size,changedOperators,changedRecommendations});

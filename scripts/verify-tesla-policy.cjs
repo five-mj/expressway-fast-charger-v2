@@ -27,11 +27,13 @@ const result=vm.runInContext(`(()=>{
  if(isTeslaExclusiveLowest(tesla))throw Error('Tie must use common card');
  renderDetailLabels(tesla,'recommended');
  const tied=document.querySelector('#detailLabels').innerHTML;
- if(tied.includes('테슬라 전용')||!tied.includes('>추천<'))throw Error('Common winner labels');
+ if(!tied.includes('테슬라 전용')||tied.includes('>추천<'))throw Error('Tesla tied winner labels');
  renderDetailLabels(tesla,'lowPrice');
  if(!document.querySelector('#detailLabels').innerHTML.includes('공동 최저가'))throw Error('Tied label');
  renderDetailLabels(tesla,'default');
- if(!document.querySelector('#detailLabels').hidden)throw Error('Ordinary label');
+ if(document.querySelector('#detailLabels').hidden||!document.querySelector('#detailLabels').innerHTML.includes('테슬라 전용'))throw Error('Ordinary Tesla label');
+ renderDetailLabels(other,'default');
+ if(!document.querySelector('#detailLabels').hidden)throw Error('Ordinary non-Tesla label');
  return result;
 })()`,context);
 assert.equal(result.teslaRows,122);assert.equal(result.exclusiveRoutes.length,38);

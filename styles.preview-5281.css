@@ -4120,7 +4120,7 @@ html:has(.responsive-screen[data-layout="full-width"]) { overflow-y: scroll; }
 .detail-text-label.label-tied { width: 58px; }
 .detail-text-label.label-tesla {
   width: 58px;
-  background: #e82127;
+  background: #2477db;
   clip-path: polygon(3px 0,55px 0,55px 1px,56px 1px,56px 2px,57px 2px,57px 3px,58px 3px,58px 15px,57px 15px,57px 16px,56px 16px,56px 17px,55px 17px,55px 18px,3px 18px,3px 17px,2px 17px,2px 16px,1px 16px,1px 15px,0 15px,0 3px,1px 3px,1px 2px,2px 2px,2px 1px,3px 1px);
 }
 .detail-text-label > img { position: absolute; left: 0; top: 0; }
@@ -4225,3 +4225,21 @@ html:has(.responsive-screen), body:has(.responsive-screen) {
 .price-card.is-tesla-exclusive .service-info {left:172px!important;top:3px!important;width:160px!important;height:72px!important;}
 .price-card.is-tesla-exclusive .service-info-text.info-service-name {align-items:center!important;}
 .price-card.is-tesla-exclusive .detail-route-line {justify-content:center!important;}
+
+/* Figma 2809:5030 and 2811:5372: Tesla-owner tariff remains visible in all states. */
+.price-card.is-tesla.is-recommended .label-tesla {background:#ec3f78;}
+.price-card.is-tesla .price-info {left:8px!important;top:3px!important;width:160px!important;height:72px!important;gap:2px!important;justify-content:center!important;}
+.price-card.is-tesla .price-stack {flex:0 0 87px!important;width:87px!important;min-width:87px!important;max-width:87px!important;height:48px!important;gap:4px!important;align-items:flex-start!important;}
+.price-card.is-tesla.is-recommended .price-stack {flex-basis:98px!important;width:98px!important;min-width:98px!important;max-width:98px!important;}
+.price-card.is-tesla .price-card-labels {display:flex!important;width:max-content!important;max-width:none!important;gap:2px!important;}
+.price-card.is-tesla .detail-price {height:26px!important;color:#2477db!important;}
+.price-card.is-tesla .detail-price-number {font-size:26px!important;}
+.price-card.is-tesla .detail-price-unit {font-size:16px!important;}
+.price-card.is-tesla.is-recommended .detail-price {color:#ec3f78!important;}
+.price-card.is-tesla .service-info {left:172px!important;top:3px!important;width:160px!important;height:72px!important;}
+.price-card.is-tesla .service-info-text.info-service-name {align-items:center!important;}
+.price-card.is-tesla .detail-route-line {justify-content:center!important;}
+/* A non-selected tied lowest card retains both informative labels without overflow. */
+.price-card.is-tesla.is-low-price .price-stack {flex-basis:118px!important;width:118px!important;min-width:118px!important;max-width:118px!important;}
+.price-card.is-tesla.is-low-price .price-card-charger {flex-basis:38px!important;width:38px!important;height:38px!important;}
+.price-card.is-tesla.is-low-price .price-card-charger img {width:38px!important;height:38px!important;}
