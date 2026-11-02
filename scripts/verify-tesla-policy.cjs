@@ -6,7 +6,9 @@ for(const file of ['data.generated-20261021.js','map-city-pins.js','app.preview-
 const result=vm.runInContext(`(()=>{
  const result={teslaRows:0,exclusiveRoutes:[],tiedRoutes:[]};
  for(const row of EXCEL_ROUTE_DATA.stationDetails)if(row.operatorDisplay==='테슬라'){
-  if(row.price!==339)throw Error('Tesla fare');result.teslaRows++;
+  if(row.price!==339||!row.magicDock)throw Error('Tesla fare or Magic Dock');
+  if(['신탄진휴게소','진영휴게소','행담도휴게소','고양휴게소'].includes(row.serviceAreaName))throw Error('Excluded Tesla site');
+  result.teslaRows++;
  }
  for(const route of EXCEL_ROUTE_DATA.routes){
   state.origin=route.origin;state.destination=route.destination;computeRouteStations();
@@ -32,5 +34,10 @@ const result=vm.runInContext(`(()=>{
  if(!document.querySelector('#detailLabels').hidden)throw Error('Ordinary label');
  return result;
 })()`,context);
-assert(result.teslaRows>0);assert(result.exclusiveRoutes.length>0);
+assert.equal(result.teslaRows,122);assert.equal(result.exclusiveRoutes.length,38);
+const data=context.window.APP_ROUTE_DATA, rows=new Map(data.stationDetails.map(o=>[o.sourceRow,o]));
+for(const route of data.routes)for(const stop of route.stops){
+ for(const id of stop.candidateRows)assert(rows.has(id),'Dangling operator reference');
+ if(stop.name==='시흥하늘휴게소'&&stop.direction==='판교방향')assert.equal(rows.get(stop.displayRow).operatorDisplay,'채비');
+}
 console.log(JSON.stringify(result));
