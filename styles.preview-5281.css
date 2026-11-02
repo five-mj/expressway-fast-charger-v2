@@ -4239,7 +4239,3 @@ html:has(.responsive-screen), body:has(.responsive-screen) {
 .price-card.is-tesla .service-info {left:172px!important;top:3px!important;width:160px!important;height:72px!important;}
 .price-card.is-tesla .service-info-text.info-service-name {align-items:center!important;}
 .price-card.is-tesla .detail-route-line {justify-content:center!important;}
-/* A non-selected tied lowest card retains both informative labels without overflow. */
-.price-card.is-tesla.is-low-price .price-stack {flex-basis:118px!important;width:118px!important;min-width:118px!important;max-width:118px!important;}
-.price-card.is-tesla.is-low-price .price-card-charger {flex-basis:38px!important;width:38px!important;height:38px!important;}
-.price-card.is-tesla.is-low-price .price-card-charger img {width:38px!important;height:38px!important;}

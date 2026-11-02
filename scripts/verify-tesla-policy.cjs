@@ -27,9 +27,13 @@ const result=vm.runInContext(`(()=>{
  if(isTeslaExclusiveLowest(tesla))throw Error('Tie must use common card');
  renderDetailLabels(tesla,'recommended');
  const tied=document.querySelector('#detailLabels').innerHTML;
- if(!tied.includes('테슬라 전용')||tied.includes('>추천<'))throw Error('Tesla tied winner labels');
+ if(tied.includes('테슬라 전용')||!tied.includes('>추천<'))throw Error('Common tied winner labels');
+ if(usesTeslaCardStyle(tesla))throw Error('Tied Tesla style must be common');
  renderDetailLabels(tesla,'lowPrice');
  if(!document.querySelector('#detailLabels').innerHTML.includes('공동 최저가'))throw Error('Tied label');
+ if(document.querySelector('#detailLabels').innerHTML.includes('테슬라 전용'))throw Error('Tied Tesla label must be absent');
+ other.price_per_kwh=294;
+ if(!usesTeslaCardStyle(tesla))throw Error('Ordinary Tesla style must remain');
  renderDetailLabels(tesla,'default');
  if(document.querySelector('#detailLabels').hidden||!document.querySelector('#detailLabels').innerHTML.includes('테슬라 전용'))throw Error('Ordinary Tesla label');
  renderDetailLabels(other,'default');

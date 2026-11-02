@@ -1481,6 +1481,11 @@ function isTeslaStation(station) {
   return getStationDisplayOperator(station) === "테슬라";
 }
 
+function usesTeslaCardStyle(station) {
+  return isTeslaStation(station)
+    && !(isLowestPriceStation(station) && getLowestPriceStations().length > 1);
+}
+
 function getDetailCardAsset(type) {
   return ASSETS.cardCommon || ASSETS.cardDefault;
 }
@@ -1537,13 +1542,13 @@ function renderDetailLabels(station, type) {
   const labels = [];
   if (type === "recommended") {
     if (station.price_per_kwh != null) labels.push({ kind: "low", alt: "최저가" });
-    labels.push(isTeslaStation(station)
+    labels.push(usesTeslaCardStyle(station)
       ? { kind: "tesla", alt: "테슬라 전용" }
       : { kind: "recommended", alt: "추천" });
   } else if (type === "lowPrice") {
     labels.push({ kind: "tied", alt: "공동 최저가" });
   }
-  if (isTeslaStation(station) && type !== "recommended") {
+  if (usesTeslaCardStyle(station) && type !== "recommended") {
     labels.push({ kind: "tesla", alt: "테슬라 전용" });
   }
   container.innerHTML = labels.map((label) => `<span class="detail-text-label label-${label.kind}">${label.kind === 'tesla' ? '' : `<img src="./assets/new/label-bg-${label.kind}.svg" alt="">`}<span>${label.alt}</span></span>`).join("");
@@ -1553,7 +1558,7 @@ function renderDetailLabels(station, type) {
 function applyDetailCardType(station) {
   const type = getDetailCardType(station);
   els.priceCard.classList.toggle("is-tesla-exclusive", isTeslaExclusiveLowest(station));
-  els.priceCard.classList.toggle("is-tesla", isTeslaStation(station));
+  els.priceCard.classList.toggle("is-tesla", usesTeslaCardStyle(station));
   els.priceCard.dataset.cardType = type;
   els.priceCard.classList.toggle("is-recommended", type === "recommended");
   els.priceCard.classList.toggle("is-low-price", type === "lowPrice");
