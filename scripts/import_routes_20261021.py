@@ -113,3 +113,5 @@ data = dict(version='20261021-operator-ranking',sourceSha256=hashlib.sha256(sour
 (root/'data.generated-20261021.js').write_text('window.APP_ROUTE_DATA = '+json.dumps(data,ensure_ascii=False,separators=(',',':'))+';\n',encoding='utf-8')
 (root/'map-city-pins.js').write_text('// All 28 supplied cities; Figma reference: docs/map-pin-coordinates-28.json\nwindow.FIGMA_CITY_PIN_LAYOUT = '+json.dumps(layout,ensure_ascii=False,indent=2)+';\n',encoding='utf-8')
 print(json.dumps(dict(stats=stats,removedStops=len(removed),changedRecommendations=len(changes),changesFromWorkbook=changes),ensure_ascii=False))
+import subprocess
+subprocess.run(['node', str(root/'scripts/apply-tesla-fares.cjs')], check=True, cwd=root)

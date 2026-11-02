@@ -4118,6 +4118,11 @@ html:has(.responsive-screen[data-layout="full-width"]) { overflow-y: scroll; }
 .detail-text-label.label-low { width: 38px; }
 .detail-text-label.label-recommended { width: 29px; }
 .detail-text-label.label-tied { width: 58px; }
+.detail-text-label.label-tesla {
+  width: 58px;
+  background: #e82127;
+  clip-path: polygon(3px 0,55px 0,55px 1px,56px 1px,56px 2px,57px 2px,57px 3px,58px 3px,58px 15px,57px 15px,57px 16px,56px 16px,56px 17px,55px 17px,55px 18px,3px 18px,3px 17px,2px 17px,2px 16px,1px 16px,1px 15px,0 15px,0 3px,1px 3px,1px 2px,2px 2px,2px 1px,3px 1px);
+}
 .detail-text-label > img { position: absolute; left: 0; top: 0; }
 .detail-text-label > span {
   position: relative;
@@ -4212,3 +4217,11 @@ html:has(.responsive-screen), body:has(.responsive-screen) {
 .route-empty-notice{position:absolute;left:18px;top:209px;width:340px;height:81px;padding:12px 10px 15px;box-sizing:border-box;background:url("./assets/new/box-detail-info-blank.svg") center/100% 100% no-repeat;color:#111;border:0;border-radius:0;text-align:center;font-family:"NanumSquareNeo",sans-serif;font-size:13px;font-weight:900;line-height:1.5;letter-spacing:-.6px;display:flex;flex-direction:column;justify-content:center;z-index:12;}
 .route-empty-notice[hidden],.figma-screen .price-card[hidden]{display:none!important;}
 .figma-screen .flag[hidden],.figma-screen .route-city-label[hidden]{display:none!important;}
+
+/* Figma 2809:5030: wider Tesla-only label, same 340 x 81 pixel frame. */
+.price-card.is-tesla-exclusive .price-info {left:8px!important;top:3px!important;width:160px!important;height:72px!important;gap:2px!important;justify-content:center!important;}
+.price-card.is-tesla-exclusive .price-stack {flex:0 0 98px!important;width:98px!important;min-width:98px!important;max-width:98px!important;gap:4px!important;}
+.price-card.is-tesla-exclusive .price-card-labels {width:98px!important;max-width:98px!important;gap:2px!important;}
+.price-card.is-tesla-exclusive .service-info {left:172px!important;top:3px!important;width:160px!important;height:72px!important;}
+.price-card.is-tesla-exclusive .service-info-text.info-service-name {align-items:center!important;}
+.price-card.is-tesla-exclusive .detail-route-line {justify-content:center!important;}

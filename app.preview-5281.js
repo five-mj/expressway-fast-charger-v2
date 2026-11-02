@@ -1469,6 +1469,14 @@ function getDetailCardType(station) {
   return "default";
 }
 
+// The Tesla-specific card applies only to a unique route-lowest winner.
+// Tied-price winners and ordinary Tesla cards retain the common presentation.
+function isTeslaExclusiveLowest(station) {
+  return getStationDisplayOperator(station) === "테슬라"
+    && isRecommendedStation(station)
+    && getLowestPriceStations().length === 1;
+}
+
 function getDetailCardAsset(type) {
   return ASSETS.cardCommon || ASSETS.cardDefault;
 }
@@ -1525,16 +1533,19 @@ function renderDetailLabels(station, type) {
   const labels = [];
   if (type === "recommended") {
     if (station.price_per_kwh != null) labels.push({ kind: "low", alt: "최저가" });
-    labels.push({ kind: "recommended", alt: "추천" });
+    labels.push(isTeslaExclusiveLowest(station)
+      ? { kind: "tesla", alt: "테슬라 전용" }
+      : { kind: "recommended", alt: "추천" });
   } else if (type === "lowPrice") {
     labels.push({ kind: "tied", alt: "공동 최저가" });
   }
-  container.innerHTML = labels.map((label) => `<span class="detail-text-label label-${label.kind}"><img src="./assets/new/label-bg-${label.kind}.svg" alt=""><span>${label.alt}</span></span>`).join("");
+  container.innerHTML = labels.map((label) => `<span class="detail-text-label label-${label.kind}">${label.kind === 'tesla' ? '' : `<img src="./assets/new/label-bg-${label.kind}.svg" alt="">`}<span>${label.alt}</span></span>`).join("");
   container.hidden = labels.length === 0;
 }
 
 function applyDetailCardType(station) {
   const type = getDetailCardType(station);
+  els.priceCard.classList.toggle("is-tesla-exclusive", isTeslaExclusiveLowest(station));
   els.priceCard.dataset.cardType = type;
   els.priceCard.classList.toggle("is-recommended", type === "recommended");
   els.priceCard.classList.toggle("is-low-price", type === "lowPrice");
