@@ -1483,7 +1483,7 @@ function isTeslaStation(station) {
 
 function usesTeslaCardStyle(station) {
   return isTeslaStation(station)
-    && !(isLowestPriceStation(station) && getLowestPriceStations().length > 1);
+    && getDetailCardType(station) !== "lowPrice";
 }
 
 function getDetailCardAsset(type) {
